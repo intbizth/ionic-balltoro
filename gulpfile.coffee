@@ -28,8 +28,9 @@ paths =
     scripts: [
         './src/coffee/app.coffee'
         './src/coffee/run.coffee'
+        './src/coffee/toro.coffee'
         './src/coffee/config.coffee'
-        './src/coffee/routes.coffee'
+        './src/coffee/routing.coffee'
         './src/coffee/**/*.coffee'
     ]
     views: [
@@ -52,13 +53,14 @@ gulp.task 'coffee', (done) ->
     gulp.src(paths.scripts)
         .pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
         .pipe($.ngClassify(appName: appName))
-        .pipe($.coffee(bare: true).on('error', $logger))
+        .pipe($.coffee(bare: no).on('error', $logger))
         .pipe($.jshint(".jshintrc"))
         .pipe($.jshint.reporter('jshint-stylish'))
         .pipe($.concat('app.js'))
         .pipe($.insert.prepend("'use strict';\n"))
         .pipe(gulp.dest('./www/js'))
         .pipe($.size(showFiles: true))
+        # TODO: jsmin
     #.on('end', done)
 
 gulp.task 'jade', (done) ->

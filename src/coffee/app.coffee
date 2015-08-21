@@ -3,3 +3,6 @@ class App extends App then constructor: ->
         'ionic'
         'templates'
     ]
+
+# TODO:
+# - https://github.com/angular-translate/angular-translate
