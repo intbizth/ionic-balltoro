@@ -7,6 +7,13 @@ class Routing extends Config
                 templateUrl: 'templates/menu.html'
                 controller: 'mainController'
 
+            ).state('app.matches',
+                url: '/matches'
+                views:
+                    menuContent:
+                        controller: 'matchController'
+                        templateUrl: 'templates/matches.html'
+
             ).state('app.search',
                 url: '/search'
                 views:
@@ -23,16 +30,16 @@ class Routing extends Config
                 url: '/playlists'
                 views:
                     menuContent:
-                        templateUrl: 'templates/playlists.html'
                         controller: 'playlistsController'
+                        templateUrl: 'templates/playlists.html'
 
             ).state 'app.single',
                 url: '/playlists/:playlistId'
                 views:
                     menuContent:
-                        templateUrl: 'templates/playlist.html'
                         controller: 'playlistController'
+                        templateUrl: 'templates/playlist.html'
 
           # if none of the above states are matched, use this as the fallback
-          $urlRouterProvider.otherwise '/app/playlists'
+          $urlRouterProvider.otherwise '/app/matches'
           return

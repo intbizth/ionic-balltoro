@@ -1,6 +1,6 @@
 class Playlists extends Controller
-    constructor: ->
-        @playlists = [
+    constructor: ($scope) ->
+        $scope.playlists = [
             {
                 title: 'Reggae'
                 id: 1

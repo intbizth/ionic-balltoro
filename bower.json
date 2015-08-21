@@ -3,5 +3,10 @@
   "private": "true",
   "devDependencies": {
     "ionic": "driftyco/ionic-bower#1.1.0"
+  },
+  "dependencies": {
+    "js-data-angular": "~3.0.0",
+    "js-data": "~2.3.0",
+    "pluralize": "~1.1.4"
   }
 }

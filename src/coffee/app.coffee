@@ -2,6 +2,7 @@ class App extends App then constructor: ->
     return [
         'ionic'
         'templates'
+        'js-data'
     ]
 
 # TODO:

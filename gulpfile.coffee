@@ -1,8 +1,5 @@
 "use strict"
 
-# Application name
-appName = 'balltoro'
-
 # command line helper
 args = require('yargs')
     .usage('Command line tool to build application. Usage: $0 <command>')
@@ -14,12 +11,19 @@ args = require('yargs')
     .example('$0 watch', 'Watches and builds everything')
     .argv
 
+# Application name
+appName = 'balltoro'
+environment = args.env || 'dev'
+
 $ = require('gulp-load-plugins')(lazy: false)
 sh = require 'shelljs'
 $run = require 'run-sequence'
 gulp = require 'gulp'
 bower = require 'bower'
+replace = require 'gulp-replace-task'
 $logger = $.util.log
+
+$logger 'Environment: ' + ($.util.colors.yellow environment)
 
 paths =
     styles: [
@@ -27,8 +31,8 @@ paths =
     ]
     scripts: [
         './src/coffee/app.coffee'
-        './src/coffee/run.coffee'
         './src/coffee/toro.coffee'
+        './src/coffee/run.coffee'
         './src/coffee/config.coffee'
         './src/coffee/routing.coffee'
         './src/coffee/**/*.coffee'
@@ -58,6 +62,10 @@ gulp.task 'coffee', (done) ->
         .pipe($.jshint.reporter('jshint-stylish'))
         .pipe($.concat('app.js'))
         .pipe($.insert.prepend("'use strict';\n"))
+        .pipe(replace({patterns: [
+            match: 'environment'
+            replacement: environment
+        ]}))
         .pipe(gulp.dest('./www/js'))
         .pipe($.size(showFiles: true))
         # TODO: jsmin
