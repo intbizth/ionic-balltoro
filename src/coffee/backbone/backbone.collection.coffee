@@ -35,9 +35,9 @@ class NgBackboneCollection extends Factory then constructor: (NgBackbone, NgBack
             return
 
         $setStatus: (key, value, options) ->
-            return @ if angular.isUndefined(key)
+            return @ if _.isUndefined(key)
 
-            if angular.isObject(key)
+            if _.isObject(key)
                 attrs = key
                 options = value
             else (attrs = {})[key] = value

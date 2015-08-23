@@ -22,13 +22,13 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
             enumerable: true
             configurable: true
             get: =>
-                if angular.isDefined(@attributes[key])
+                if !_.isUndefined(@attributes[key])
                     return @$attributes[key]
                 else
                     return @[key]
 
             set: (newValue) =>
-                if angular.isDefined(@attributes[key])
+                if !_.isUndefined(@attributes[key])
                     @attributes[key] = newValue
                 else @[key] = newValue
                 return
@@ -68,15 +68,15 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
                 syncing: false
 
         $setBinding: (key, val, options) ->
-            return @ if angular.isUndefined(key)
+            return @ if _.isUndefined(key)
 
-            if angular.isObject(key)
+            if _.isObject(key)
                 attrs = key
                 options = val
             else (attrs = {})[key] = val
 
             options = options or {}
-            @$attributes = {} if angular.isUndefined(@$attributes)
+            @$attributes = {} if _.isUndefined(@$attributes)
             unset = options.unset
 
             for attr of attrs
@@ -88,9 +88,9 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
             return @
 
         $setStatus: (key, value, options) ->
-            return @ if angular.isUndefined(key)
+            return @ if _.isUndefined(key)
 
-            if angular.isObject(key)
+            if _.isObject(key)
                 attrs = key
                 options = value
             else (attrs = {})[key] = value
@@ -103,4 +103,4 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
             return
 
         $removeBinding: (attr, options) ->
-            @$setBinding attr, undefined, angular.extend({}, options, unset: true)
+            @$setBinding attr, undefined, _.extend({}, options, unset: true)

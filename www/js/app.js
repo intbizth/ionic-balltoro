@@ -175,7 +175,7 @@
   var NgBackbone;
 
   NgBackbone = (function() {
-    function NgBackbone($http) {
+    function NgBackbone($http, _) {
       var ajax, methodMap, processResponse, sync;
       methodMap = {
         create: 'POST',
@@ -185,7 +185,7 @@
         read: 'GET'
       };
       processResponse = function(response) {
-        if (angular.isDefined(response.data._embedded)) {
+        if (!_.isUndefined(response.data._embedded)) {
           response.data = response.data._embedded.items;
         }
         return response.data;
@@ -195,30 +195,30 @@
       };
       sync = function(method, model, options) {
         var httpMethod, params, xhr;
-        if (angular.isUndefined(options)) {
+        if (_.isUndefined(options)) {
           options = {};
         }
         httpMethod = options.method || methodMap[method];
         params = {
           method: httpMethod
         };
-        if (!options.url && angular.isDefined(model.url)) {
+        if (!options.url && !_.isUndefined(model.url)) {
           params.url = model.url;
         }
-        if (angular.isUndefined(options.data) && model && (httpMethod === 'POST' || httpMethod === 'PUT' || httpMethod === 'PATCH')) {
+        if (_.isUndefined(options.data) && model && (httpMethod === 'POST' || httpMethod === 'PUT' || httpMethod === 'PATCH')) {
           params.data = angular.toJson(options.attrs || model.toJSON(options));
         }
-        if (httpMethod === 'GET' && angular.isDefined(options.data)) {
+        if (httpMethod === 'GET' && !_.isUndefined(options.data)) {
           params.params = options.data;
         }
-        xhr = ajax(angular.extend(params, options));
+        xhr = ajax(_.extend(params, options));
         xhr.then(function(data, status, headers, config) {
           options.xhr = {
             status: status,
             headers: headers,
             config: config
           };
-          if (angular.isDefined(options.success) && angular.isFunction(options.success)) {
+          if (!_.isUndefined(options.success) && _.isFunction(options.success)) {
             options.success(processResponse(data));
           }
         });
@@ -228,14 +228,14 @@
             headers: headers,
             config: config
           };
-          if (angular.isDefined(options.error) && angular.isFunction(options.error)) {
+          if (!_.isUndefined(options.error) && _.isFunction(options.error)) {
             options.error(data);
           }
         });
-        model.trigger('request', model, xhr, angular.extend(params, options));
+        model.trigger('request', model, xhr, _.extend(params, options));
         return xhr;
       };
-      return angular.extend(Backbone, {
+      return _.extend(Backbone, {
         sync: sync,
         ajax: ajax
       });
@@ -245,7 +245,7 @@
 
   })();
 
-  angular.module('balltoro').factory('NgBackbone', ['$http', NgBackbone]);
+  angular.module('balltoro').factory('NgBackbone', ['$http', '_', NgBackbone]);
 
 }).call(this);
 
@@ -291,10 +291,10 @@
         },
         $setStatus: function(key, value, options) {
           var attr, attrs;
-          if (angular.isUndefined(key)) {
+          if (_.isUndefined(key)) {
             return this;
           }
-          if (angular.isObject(key)) {
+          if (_.isObject(key)) {
             attrs = key;
             options = value;
           } else {
@@ -363,7 +363,7 @@
           configurable: true,
           get: (function(_this) {
             return function() {
-              if (angular.isDefined(_this.attributes[key])) {
+              if (!_.isUndefined(_this.attributes[key])) {
                 return _this.$attributes[key];
               } else {
                 return _this[key];
@@ -372,7 +372,7 @@
           })(this),
           set: (function(_this) {
             return function(newValue) {
-              if (angular.isDefined(_this.attributes[key])) {
+              if (!_.isUndefined(_this.attributes[key])) {
                 _this.attributes[key] = newValue;
               } else {
                 _this[key] = newValue;
@@ -416,17 +416,17 @@
         },
         $setBinding: function(key, val, options) {
           var attr, attrs, unset;
-          if (angular.isUndefined(key)) {
+          if (_.isUndefined(key)) {
             return this;
           }
-          if (angular.isObject(key)) {
+          if (_.isObject(key)) {
             attrs = key;
             options = val;
           } else {
             (attrs = {})[key] = val;
           }
           options = options || {};
-          if (angular.isUndefined(this.$attributes)) {
+          if (_.isUndefined(this.$attributes)) {
             this.$attributes = {};
           }
           unset = options.unset;
@@ -442,10 +442,10 @@
         },
         $setStatus: function(key, value, options) {
           var attr, attrs;
-          if (angular.isUndefined(key)) {
+          if (_.isUndefined(key)) {
             return this;
           }
-          if (angular.isObject(key)) {
+          if (_.isObject(key)) {
             attrs = key;
             options = value;
           } else {
@@ -459,7 +459,7 @@
           }
         },
         $removeBinding: function(attr, options) {
-          return this.$setBinding(attr, void 0, angular.extend({}, options, {
+          return this.$setBinding(attr, void 0, _.extend({}, options, {
             unset: true
           }));
         }
@@ -471,95 +471,6 @@
   })();
 
   angular.module('balltoro').factory('NgBackboneModel', ['$rootScope', 'NgBackbone', NgBackboneModel]);
-
-}).call(this);
-
-(function() {
-  var LogLine;
-
-  LogLine = (function() {
-    function LogLine() {
-      var appName, brandName, defaultLen, defaultSymbol;
-      defaultLen = 32;
-      defaultSymbol = '.';
-      appName = 'TORO';
-      brandName = 'INTBIZTH';
-      return {
-        appName: function(appName) {
-          appName = appName;
-          return this;
-        },
-        brandName: function(brandName) {
-          brandName = brandName;
-          return this;
-        },
-        len: function(len) {
-          defaultLen = len;
-          return this;
-        },
-        symbol: function(symbol) {
-          defaultSymbol = symbol;
-          return this;
-        },
-        platform: function() {
-          return this.print([ionic.Platform.platform().toUpperCase()], defaultLen, defaultSymbol, defaultSymbol);
-        },
-        brand: function() {
-          return this.print(brandName + ' - MOBILE', defaultLen, defaultSymbol);
-        },
-        app: function() {
-          return this.print(appName + ' APP STARTED', defaultLen, defaultSymbol);
-        },
-        rockNroll: function() {
-          return this.print('Rock \'n Roll!! READY.', defaultLen, defaultSymbol);
-        },
-        footer: function() {
-          return this.print(defaultSymbol, defaultLen, defaultSymbol, defaultSymbol);
-        },
-        startup: function() {
-          this.platform();
-          this.brand();
-          return this.app();
-        },
-        ready: function() {
-          this.rockNroll();
-          return this.footer();
-        },
-
-        /**
-         * Print log text.
-         *
-         * @param {string|array} text Display text, an array given will add padding aroun text.
-         * @param {int} len Block width.
-         * @param {string} symbol The symbol text.
-         * @param {string} spacing Spacing for print text.
-         */
-        print: function(text, len, symbol, spacing) {
-          var odd, str1, str2;
-          if (typeof text === 'object') {
-            text = ' ' + text[0] + ' ';
-          }
-          if (!symbol) {
-            symbol = '+';
-          }
-          if (!spacing) {
-            spacing = ' ';
-          }
-          odd = text.length % 2 ? len : len - 1;
-          str1 = str2 = Array(Math.ceil((odd - text.length) / 2)).join(spacing);
-          if (odd === len) {
-            str2 = str2.substr(1);
-          }
-          return console.log(symbol + str1 + text + str2 + symbol);
-        }
-      };
-    }
-
-    return LogLine;
-
-  })();
-
-  angular.module('balltoro').factory('LogLine', [LogLine]);
 
 }).call(this);
 
@@ -693,82 +604,107 @@
 }).call(this);
 
 (function() {
-  var Club, Clubs;
+  var LogLine;
 
-  Clubs = (function() {
-    function Clubs(NgBackboneCollection, Club) {
-      return NgBackboneCollection.extend({
-        model: Club
-      });
-    }
-
-    return Clubs;
-
-  })();
-
-  Club = (function() {
-    function Club(NgBackboneModel) {
-      return NgBackboneModel.extend({
-        defaults: {
-          _links: null
+  LogLine = (function() {
+    function LogLine() {
+      var appName, brandName, defaultLen, defaultSymbol;
+      defaultLen = 32;
+      defaultSymbol = '.';
+      appName = 'TORO';
+      brandName = 'INTBIZTH';
+      return {
+        appName: function(appName) {
+          appName = appName;
+          return this;
         },
-        getLogo: function(size) {
-          var logo;
-          logo = angular.isUndefined(size) || angular.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
-          if (logo != null) {
-            return logo.href;
-          } else {
-            return null;
+        brandName: function(brandName) {
+          brandName = brandName;
+          return this;
+        },
+        len: function(len) {
+          defaultLen = len;
+          return this;
+        },
+        symbol: function(symbol) {
+          defaultSymbol = symbol;
+          return this;
+        },
+        platform: function() {
+          return this.print([ionic.Platform.platform().toUpperCase()], defaultLen, defaultSymbol, defaultSymbol);
+        },
+        brand: function() {
+          return this.print(brandName + ' - MOBILE', defaultLen, defaultSymbol);
+        },
+        app: function() {
+          return this.print(appName + ' APP STARTED', defaultLen, defaultSymbol);
+        },
+        rockNroll: function() {
+          return this.print('Rock \'n Roll!! READY.', defaultLen, defaultSymbol);
+        },
+        footer: function() {
+          return this.print(defaultSymbol, defaultLen, defaultSymbol, defaultSymbol);
+        },
+        startup: function() {
+          this.platform();
+          this.brand();
+          return this.app();
+        },
+        ready: function() {
+          this.rockNroll();
+          return this.footer();
+        },
+
+        /**
+         * Print log text.
+         *
+         * @param {string|array} text Display text, an array given will add padding aroun text.
+         * @param {int} len Block width.
+         * @param {string} symbol The symbol text.
+         * @param {string} spacing Spacing for print text.
+         */
+        print: function(text, len, symbol, spacing) {
+          var odd, str1, str2;
+          if (typeof text === 'object') {
+            text = ' ' + text[0] + ' ';
           }
+          if (!symbol) {
+            symbol = '+';
+          }
+          if (!spacing) {
+            spacing = ' ';
+          }
+          odd = text.length % 2 ? len : len - 1;
+          str1 = str2 = Array(Math.ceil((odd - text.length) / 2)).join(spacing);
+          if (odd === len) {
+            str2 = str2.substr(1);
+          }
+          return console.log(symbol + str1 + text + str2 + symbol);
         }
-      });
+      };
     }
 
-    return Club;
+    return LogLine;
 
   })();
 
-  angular.module('balltoro').factory('Clubs', ['NgBackboneCollection', 'Club', Clubs]).factory('Club', ['NgBackboneModel', Club]);
+  angular.module('balltoro').factory('LogLine', [LogLine]);
 
 }).call(this);
 
 (function() {
-  var Match, Matches;
+  var _;
 
-  Matches = (function() {
-    function Matches(NgBackboneCollection, Match) {
-      return NgBackboneCollection.extend({
-        model: Match,
-        url: '/api/matches/'
-      });
+  _ = (function() {
+    function _() {
+      return window._;
     }
 
-    return Matches;
+    return _;
 
   })();
 
-  Match = (function() {
-    function Match(NgBackboneModel, Club, Clubs) {
-      return NgBackboneModel.extend({
-        relations: [
-          {
-            type: 'HasOne',
-            key: 'home_club',
-            relatedModel: Club
-          }, {
-            type: 'HasOne',
-            key: 'away_club',
-            relatedModel: Club
-          }
-        ]
-      });
-    }
-
-    return Match;
-
-  })();
-
-  angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
+  angular.module('balltoro').factory('_', [_]);
 
 }).call(this);
 
@@ -817,5 +753,81 @@
   })();
 
   angular.module('balltoro').provider('toroAuthProvider', [ToroAuth]);
+
+}).call(this);
+
+(function() {
+  var Club, Clubs;
+
+  Clubs = (function() {
+    function Clubs(NgBackboneCollection, Club) {
+      return NgBackboneCollection.extend({
+        model: Club
+      });
+    }
+
+    return Clubs;
+
+  })();
+
+  Club = (function() {
+    function Club(NgBackboneModel, _) {
+      return NgBackboneModel.extend({
+        defaults: {
+          _links: null
+        },
+        getLogo: function(size) {
+          var logo;
+          logo = _.isUndefined(size) || _.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
+          return _.result(logo, 'href');
+        }
+      });
+    }
+
+    return Club;
+
+  })();
+
+  angular.module('balltoro').factory('Clubs', ['NgBackboneCollection', 'Club', Clubs]).factory('Club', ['NgBackboneModel', '_', Club]);
+
+}).call(this);
+
+(function() {
+  var Match, Matches;
+
+  Matches = (function() {
+    function Matches(NgBackboneCollection, Match) {
+      return NgBackboneCollection.extend({
+        model: Match,
+        url: '/api/matches/'
+      });
+    }
+
+    return Matches;
+
+  })();
+
+  Match = (function() {
+    function Match(NgBackboneModel, Club, Clubs) {
+      return NgBackboneModel.extend({
+        relations: [
+          {
+            type: 'HasOne',
+            key: 'home_club',
+            relatedModel: Club
+          }, {
+            type: 'HasOne',
+            key: 'away_club',
+            relatedModel: Club
+          }
+        ]
+      });
+    }
+
+    return Match;
+
+  })();
+
+  angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
 
 }).call(this);
