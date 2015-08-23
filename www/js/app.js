@@ -4,7 +4,7 @@
 
   App = (function() {
     function App() {
-      return ['ionic', 'templates', 'js-data', 'ngCordovaOauth'];
+      return ['ionic', 'templates', 'ngCordovaOauth'];
     }
 
     return App;
@@ -474,6 +474,92 @@
 
 }).call(this);
 
+(function() {
+  var Club, Clubs;
+
+  Clubs = (function() {
+    function Clubs(NgBackboneCollection, Club) {
+      return NgBackboneCollection.extend({
+        model: Club
+      });
+    }
+
+    return Clubs;
+
+  })();
+
+  Club = (function() {
+    function Club(NgBackboneModel) {
+      return NgBackboneModel.extend({
+        defaults: {
+          _links: null
+        },
+        getLogo: function(size) {
+          var logo;
+          if (angular.isUndefined(size)) {
+            logo = this._links.logo;
+          }
+          if (angular.isUndefined(this._links['logo_' + size])) {
+            logo = this._links.logo;
+          }
+          logo = this._links['logo_' + size];
+          if (logo != null) {
+            return logo.href;
+          } else {
+            return null;
+          }
+        }
+      });
+    }
+
+    return Club;
+
+  })();
+
+  angular.module('balltoro').factory('Clubs', ['NgBackboneCollection', 'Club', Clubs]).factory('Club', ['NgBackboneModel', Club]);
+
+}).call(this);
+
+(function() {
+  var Match, Matches;
+
+  Matches = (function() {
+    function Matches(NgBackboneCollection, Match) {
+      return NgBackboneCollection.extend({
+        model: Match,
+        url: '/api/matches/'
+      });
+    }
+
+    return Matches;
+
+  })();
+
+  Match = (function() {
+    function Match(NgBackboneModel, Club, Clubs) {
+      return NgBackboneModel.extend({
+        relations: [
+          {
+            type: 'HasOne',
+            key: 'home_club',
+            relatedModel: Club
+          }, {
+            type: 'HasOne',
+            key: 'away_club',
+            relatedModel: Club
+          }
+        ]
+      });
+    }
+
+    return Match;
+
+  })();
+
+  angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
+
+}).call(this);
+
 
 /**
  * NOTE:
@@ -600,92 +686,6 @@
   })();
 
   angular.module('balltoro').controller('playlistsController', ['$scope', Playlists]);
-
-}).call(this);
-
-(function() {
-  var Club, Clubs;
-
-  Clubs = (function() {
-    function Clubs(NgBackboneCollection, Club) {
-      return NgBackboneCollection.extend({
-        model: Club
-      });
-    }
-
-    return Clubs;
-
-  })();
-
-  Club = (function() {
-    function Club(NgBackboneModel) {
-      return NgBackboneModel.extend({
-        defaults: {
-          _links: null
-        },
-        getLogo: function(size) {
-          var logo;
-          if (angular.isUndefined(size)) {
-            logo = this._links.logo;
-          }
-          if (angular.isUndefined(this._links['logo_' + size])) {
-            logo = this._links.logo;
-          }
-          logo = this._links['logo_' + size];
-          if (logo != null) {
-            return logo.href;
-          } else {
-            return null;
-          }
-        }
-      });
-    }
-
-    return Club;
-
-  })();
-
-  angular.module('balltoro').factory('Clubs', ['NgBackboneCollection', 'Club', Clubs]).factory('Club', ['NgBackboneModel', Club]);
-
-}).call(this);
-
-(function() {
-  var Match, Matches;
-
-  Matches = (function() {
-    function Matches(NgBackboneCollection, Match) {
-      return NgBackboneCollection.extend({
-        model: Match,
-        url: '/api/matches/'
-      });
-    }
-
-    return Matches;
-
-  })();
-
-  Match = (function() {
-    function Match(NgBackboneModel, Club, Clubs) {
-      return NgBackboneModel.extend({
-        relations: [
-          {
-            type: 'HasOne',
-            key: 'home_club',
-            relatedModel: Club
-          }, {
-            type: 'HasOne',
-            key: 'away_club',
-            relatedModel: Club
-          }
-        ]
-      });
-    }
-
-    return Match;
-
-  })();
-
-  angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
 
 }).call(this);
 
