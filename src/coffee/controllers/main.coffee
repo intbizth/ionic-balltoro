@@ -44,7 +44,7 @@ class Main extends Controller
 
             @oauth.github(
                 '2aee92f1bde492399bf4',
-                '7f8515bf6f25eda295a96c9e25317eef5a686878',
+                'x',
                 ['email'],
                 redirect_uri: 'http://d3c2cde1.ngrok.io'
             ).then (result) ->

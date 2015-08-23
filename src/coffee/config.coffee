@@ -6,18 +6,8 @@ class Config extends Config
     ###
     constructor: (
         TORO,
-        $ionicConfigProvider,
-        DSProvider,
-        DSHttpAdapterProvider
+        $ionicConfigProvider
     ) ->
         config = $ionicConfigProvider
-        angular.extend DSProvider.defaults, {
-        }
-
-        angular.extend DSHttpAdapterProvider.defaults, {
-            basePath: TORO.ENVIRONMENT['@@environment'].api.baseUrl
-            forceTrailingSlash: yes
-        }
-
         # TODO:
         # $locationProvider.html5Mode yes

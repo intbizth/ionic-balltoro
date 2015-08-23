@@ -91,21 +91,16 @@
      * @param {object} $urlRouterProvider
      * @param {object} $ionicConfigProvider See http://ionicframework.com/docs/api/provider/$ionicConfigProvider/
      */
-    function Config(TORO, $ionicConfigProvider, DSProvider, DSHttpAdapterProvider) {
+    function Config(TORO, $ionicConfigProvider) {
       var config;
       config = $ionicConfigProvider;
-      angular.extend(DSProvider.defaults, {});
-      angular.extend(DSHttpAdapterProvider.defaults, {
-        basePath: TORO.ENVIRONMENT['dev'].api.baseUrl,
-        forceTrailingSlash: true
-      });
     }
 
     return Config;
 
   })();
 
-  angular.module('balltoro').config(['TORO', '$ionicConfigProvider', 'DSProvider', 'DSHttpAdapterProvider', Config]);
+  angular.module('balltoro').config(['TORO', '$ionicConfigProvider', Config]);
 
 }).call(this);
 
@@ -518,7 +513,7 @@
       $scope.doLogin = (function(_this) {
         return function() {
           console.log('Doing login', $scope.loginData);
-          return _this.oauth.github('2aee92f1bde492399bf4', '7f8515bf6f25eda295a96c9e25317eef5a686878', ['email'], {
+          return _this.oauth.github('2aee92f1bde492399bf4', 'x', ['email'], {
             redirect_uri: 'http://d3c2cde1.ngrok.io'
           }).then(function(result) {
             return console.info(angular.toJson(result));
@@ -605,6 +600,92 @@
   })();
 
   angular.module('balltoro').controller('playlistsController', ['$scope', Playlists]);
+
+}).call(this);
+
+(function() {
+  var Club, Clubs;
+
+  Clubs = (function() {
+    function Clubs(NgBackboneCollection, Club) {
+      return NgBackboneCollection.extend({
+        model: Club
+      });
+    }
+
+    return Clubs;
+
+  })();
+
+  Club = (function() {
+    function Club(NgBackboneModel) {
+      return NgBackboneModel.extend({
+        defaults: {
+          _links: null
+        },
+        getLogo: function(size) {
+          var logo;
+          if (angular.isUndefined(size)) {
+            logo = this._links.logo;
+          }
+          if (angular.isUndefined(this._links['logo_' + size])) {
+            logo = this._links.logo;
+          }
+          logo = this._links['logo_' + size];
+          if (logo != null) {
+            return logo.href;
+          } else {
+            return null;
+          }
+        }
+      });
+    }
+
+    return Club;
+
+  })();
+
+  angular.module('balltoro').factory('Clubs', ['NgBackboneCollection', 'Club', Clubs]).factory('Club', ['NgBackboneModel', Club]);
+
+}).call(this);
+
+(function() {
+  var Match, Matches;
+
+  Matches = (function() {
+    function Matches(NgBackboneCollection, Match) {
+      return NgBackboneCollection.extend({
+        model: Match,
+        url: '/api/matches/'
+      });
+    }
+
+    return Matches;
+
+  })();
+
+  Match = (function() {
+    function Match(NgBackboneModel, Club, Clubs) {
+      return NgBackboneModel.extend({
+        relations: [
+          {
+            type: 'HasOne',
+            key: 'home_club',
+            relatedModel: Club
+          }, {
+            type: 'HasOne',
+            key: 'away_club',
+            relatedModel: Club
+          }
+        ]
+      });
+    }
+
+    return Match;
+
+  })();
+
+  angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
 
 }).call(this);
 
@@ -698,92 +779,6 @@
 }).call(this);
 
 (function() {
-  var Club, Clubs;
-
-  Clubs = (function() {
-    function Clubs(NgBackboneCollection, Club) {
-      return NgBackboneCollection.extend({
-        model: Club
-      });
-    }
-
-    return Clubs;
-
-  })();
-
-  Club = (function() {
-    function Club(NgBackboneModel) {
-      return NgBackboneModel.extend({
-        defaults: {
-          _links: null
-        },
-        getLogo: function(size) {
-          var logo;
-          if (angular.isUndefined(size)) {
-            logo = this._links.logo;
-          }
-          if (angular.isUndefined(this._links['logo_' + size])) {
-            logo = this._links.logo;
-          }
-          logo = this._links['logo_' + size];
-          if (logo != null) {
-            return logo.href;
-          } else {
-            return null;
-          }
-        }
-      });
-    }
-
-    return Club;
-
-  })();
-
-  angular.module('balltoro').factory('Clubs', ['NgBackboneCollection', 'Club', Clubs]).factory('Club', ['NgBackboneModel', Club]);
-
-}).call(this);
-
-(function() {
-  var Match, Matches;
-
-  Matches = (function() {
-    function Matches(NgBackboneCollection, Match) {
-      return NgBackboneCollection.extend({
-        model: Match,
-        url: '/api/matches/'
-      });
-    }
-
-    return Matches;
-
-  })();
-
-  Match = (function() {
-    function Match(NgBackboneModel, Club, Clubs) {
-      return NgBackboneModel.extend({
-        relations: [
-          {
-            type: 'HasOne',
-            key: 'home_club',
-            relatedModel: Club
-          }, {
-            type: 'HasOne',
-            key: 'away_club',
-            relatedModel: Club
-          }
-        ]
-      });
-    }
-
-    return Match;
-
-  })();
-
-  angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
-
-}).call(this);
-
-(function() {
   var Auth;
 
   Auth = (function() {
@@ -828,93 +823,5 @@
   })();
 
   angular.module('balltoro').provider('toroAuthProvider', [ToroAuth]);
-
-}).call(this);
-
-(function() {
-  var Store;
-
-  Store = (function() {
-    function Store() {
-      var doRefresh;
-      doRefresh = function(DS) {
-        return console.log(DS);
-      };
-      this.apiBasePath = '/api/';
-      this["default"] = {
-        loadingIndicator: null,
-        refreshMode: 'infinite',
-        deserialize: function(model, response) {
-          if (typeof response.data._embedded === 'object') {
-            return response.data._embedded.items;
-          } else {
-            return response.data;
-          }
-        },
-        load: function(args) {
-          var $scope, loading, options, params, promise, resourceName;
-          args = args || {};
-          $scope = args.scope || null;
-          params = args.params || {};
-          options = args.options || {};
-          resourceName = pluralize(this.name);
-          loading = {
-            enable: args.indicator !== false,
-            indicator: this.loadingIndicator,
-            start: function() {
-              if (this.enable) {
-                return this.indicator.show({
-                  template: 'Loading...'
-                });
-              }
-            },
-            stop: function() {
-              if (this.enable) {
-                return this.indicator.hide();
-              }
-            }
-          };
-          if ($scope) {
-            $scope.refresh = function() {
-              return doRefresh(this);
-            };
-          }
-          loading.start();
-          promise = this.findAll(params, options);
-          promise.then(function(data) {
-            loading.stop();
-            if ($scope) {
-              $scope[resourceName] = data;
-            }
-          });
-          promise["catch"](function() {
-            loading.stop();
-            if ($scope) {
-              $scope[resourceName] = null;
-            }
-          });
-          return promise;
-        }
-      };
-      this.$get = function(DS, $ionicLoading) {
-        this["default"].loadingIndicator = $ionicLoading;
-        this.define = function(config) {
-          if (typeof config === 'string') {
-            config = {
-              name: config
-            };
-          }
-          this["default"].endpoint = this.apiBasePath + pluralize(config.name);
-          return DS.defineResource(angular.extend(this["default"], config));
-        };
-        return this;
-      };
-    }
-
-    return Store;
-
-  })();
-
-  angular.module('balltoro').provider('storeProvider', [Store]);
 
 }).call(this);
