@@ -475,88 +475,91 @@
 }).call(this);
 
 (function() {
-  var Club, Clubs;
+  var LogLine;
 
-  Clubs = (function() {
-    function Clubs(NgBackboneCollection, Club) {
-      return NgBackboneCollection.extend({
-        model: Club
-      });
-    }
-
-    return Clubs;
-
-  })();
-
-  Club = (function() {
-    function Club(NgBackboneModel) {
-      return NgBackboneModel.extend({
-        defaults: {
-          _links: null
+  LogLine = (function() {
+    function LogLine() {
+      var appName, brandName, defaultLen, defaultSymbol;
+      defaultLen = 32;
+      defaultSymbol = '.';
+      appName = 'TORO';
+      brandName = 'INTBIZTH';
+      return {
+        appName: function(appName) {
+          appName = appName;
+          return this;
         },
-        getLogo: function(size) {
-          var logo;
-          if (angular.isUndefined(size)) {
-            logo = this._links.logo;
+        brandName: function(brandName) {
+          brandName = brandName;
+          return this;
+        },
+        len: function(len) {
+          defaultLen = len;
+          return this;
+        },
+        symbol: function(symbol) {
+          defaultSymbol = symbol;
+          return this;
+        },
+        platform: function() {
+          return this.print([ionic.Platform.platform().toUpperCase()], defaultLen, defaultSymbol, defaultSymbol);
+        },
+        brand: function() {
+          return this.print(brandName + ' - MOBILE', defaultLen, defaultSymbol);
+        },
+        app: function() {
+          return this.print(appName + ' APP STARTED', defaultLen, defaultSymbol);
+        },
+        rockNroll: function() {
+          return this.print('Rock \'n Roll!! READY.', defaultLen, defaultSymbol);
+        },
+        footer: function() {
+          return this.print(defaultSymbol, defaultLen, defaultSymbol, defaultSymbol);
+        },
+        startup: function() {
+          this.platform();
+          this.brand();
+          return this.app();
+        },
+        ready: function() {
+          this.rockNroll();
+          return this.footer();
+        },
+
+        /**
+         * Print log text.
+         *
+         * @param {string|array} text Display text, an array given will add padding aroun text.
+         * @param {int} len Block width.
+         * @param {string} symbol The symbol text.
+         * @param {string} spacing Spacing for print text.
+         */
+        print: function(text, len, symbol, spacing) {
+          var odd, str1, str2;
+          if (typeof text === 'object') {
+            text = ' ' + text[0] + ' ';
           }
-          if (angular.isUndefined(this._links['logo_' + size])) {
-            logo = this._links.logo;
+          if (!symbol) {
+            symbol = '+';
           }
-          logo = this._links['logo_' + size];
-          if (logo != null) {
-            return logo.href;
-          } else {
-            return null;
+          if (!spacing) {
+            spacing = ' ';
           }
+          odd = text.length % 2 ? len : len - 1;
+          str1 = str2 = Array(Math.ceil((odd - text.length) / 2)).join(spacing);
+          if (odd === len) {
+            str2 = str2.substr(1);
+          }
+          return console.log(symbol + str1 + text + str2 + symbol);
         }
-      });
+      };
     }
 
-    return Club;
+    return LogLine;
 
   })();
 
-  angular.module('balltoro').factory('Clubs', ['NgBackboneCollection', 'Club', Clubs]).factory('Club', ['NgBackboneModel', Club]);
-
-}).call(this);
-
-(function() {
-  var Match, Matches;
-
-  Matches = (function() {
-    function Matches(NgBackboneCollection, Match) {
-      return NgBackboneCollection.extend({
-        model: Match,
-        url: '/api/matches/'
-      });
-    }
-
-    return Matches;
-
-  })();
-
-  Match = (function() {
-    function Match(NgBackboneModel, Club, Clubs) {
-      return NgBackboneModel.extend({
-        relations: [
-          {
-            type: 'HasOne',
-            key: 'home_club',
-            relatedModel: Club
-          }, {
-            type: 'HasOne',
-            key: 'away_club',
-            relatedModel: Club
-          }
-        ]
-      });
-    }
-
-    return Match;
-
-  })();
-
-  angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
+  angular.module('balltoro').factory('LogLine', [LogLine]);
 
 }).call(this);
 
@@ -690,91 +693,82 @@
 }).call(this);
 
 (function() {
-  var LogLine;
+  var Club, Clubs;
 
-  LogLine = (function() {
-    function LogLine() {
-      var appName, brandName, defaultLen, defaultSymbol;
-      defaultLen = 32;
-      defaultSymbol = '.';
-      appName = 'TORO';
-      brandName = 'INTBIZTH';
-      return {
-        appName: function(appName) {
-          appName = appName;
-          return this;
-        },
-        brandName: function(brandName) {
-          brandName = brandName;
-          return this;
-        },
-        len: function(len) {
-          defaultLen = len;
-          return this;
-        },
-        symbol: function(symbol) {
-          defaultSymbol = symbol;
-          return this;
-        },
-        platform: function() {
-          return this.print([ionic.Platform.platform().toUpperCase()], defaultLen, defaultSymbol, defaultSymbol);
-        },
-        brand: function() {
-          return this.print(brandName + ' - MOBILE', defaultLen, defaultSymbol);
-        },
-        app: function() {
-          return this.print(appName + ' APP STARTED', defaultLen, defaultSymbol);
-        },
-        rockNroll: function() {
-          return this.print('Rock \'n Roll!! READY.', defaultLen, defaultSymbol);
-        },
-        footer: function() {
-          return this.print(defaultSymbol, defaultLen, defaultSymbol, defaultSymbol);
-        },
-        startup: function() {
-          this.platform();
-          this.brand();
-          return this.app();
-        },
-        ready: function() {
-          this.rockNroll();
-          return this.footer();
-        },
-
-        /**
-         * Print log text.
-         *
-         * @param {string|array} text Display text, an array given will add padding aroun text.
-         * @param {int} len Block width.
-         * @param {string} symbol The symbol text.
-         * @param {string} spacing Spacing for print text.
-         */
-        print: function(text, len, symbol, spacing) {
-          var odd, str1, str2;
-          if (typeof text === 'object') {
-            text = ' ' + text[0] + ' ';
-          }
-          if (!symbol) {
-            symbol = '+';
-          }
-          if (!spacing) {
-            spacing = ' ';
-          }
-          odd = text.length % 2 ? len : len - 1;
-          str1 = str2 = Array(Math.ceil((odd - text.length) / 2)).join(spacing);
-          if (odd === len) {
-            str2 = str2.substr(1);
-          }
-          return console.log(symbol + str1 + text + str2 + symbol);
-        }
-      };
+  Clubs = (function() {
+    function Clubs(NgBackboneCollection, Club) {
+      return NgBackboneCollection.extend({
+        model: Club
+      });
     }
 
-    return LogLine;
+    return Clubs;
 
   })();
 
-  angular.module('balltoro').factory('LogLine', [LogLine]);
+  Club = (function() {
+    function Club(NgBackboneModel) {
+      return NgBackboneModel.extend({
+        defaults: {
+          _links: null
+        },
+        getLogo: function(size) {
+          var logo;
+          logo = angular.isUndefined(size) || angular.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
+          if (logo != null) {
+            return logo.href;
+          } else {
+            return null;
+          }
+        }
+      });
+    }
+
+    return Club;
+
+  })();
+
+  angular.module('balltoro').factory('Clubs', ['NgBackboneCollection', 'Club', Clubs]).factory('Club', ['NgBackboneModel', Club]);
+
+}).call(this);
+
+(function() {
+  var Match, Matches;
+
+  Matches = (function() {
+    function Matches(NgBackboneCollection, Match) {
+      return NgBackboneCollection.extend({
+        model: Match,
+        url: '/api/matches/'
+      });
+    }
+
+    return Matches;
+
+  })();
+
+  Match = (function() {
+    function Match(NgBackboneModel, Club, Clubs) {
+      return NgBackboneModel.extend({
+        relations: [
+          {
+            type: 'HasOne',
+            key: 'home_club',
+            relatedModel: Club
+          }, {
+            type: 'HasOne',
+            key: 'away_club',
+            relatedModel: Club
+          }
+        ]
+      });
+    }
+
+    return Match;
+
+  })();
+
+  angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
 
 }).call(this);
 

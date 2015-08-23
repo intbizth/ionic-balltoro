@@ -8,12 +8,8 @@ class Club extends Factory then constructor: (NgBackboneModel) ->
             _links: null
 
         getLogo: (size) ->
-            if angular.isUndefined(size)
-                logo = @._links.logo
-
-            if angular.isUndefined(@._links['logo_' + size])
-                logo = @._links.logo
-
-            logo = @._links['logo_' + size]
+            logo = if angular.isUndefined(size) or angular.isUndefined(@._links['logo_' + size])
+                @._links.logo
+            else @._links['logo_' + size]
 
             return if logo? then logo.href else null
