@@ -8,10 +8,11 @@
 #     });
 ###
 class Main extends Controller
-    constructor: ($scope, $ionicModal, $timeout) ->
+    constructor: ($scope, $ionicModal, $timeout, $cordovaOauth) ->
         @scope = $scope
         @modal = $ionicModal
         @timeout = $timeout
+        @oauth = $cordovaOauth
 
         # Define login with in root scope to access on any childs.
         @setupLogin @scope
@@ -38,11 +39,22 @@ class Main extends Controller
             $scope.modal.show()
 
         # Perform the login action when the user submits the login form
-        $scope.doLogin = ->
+        $scope.doLogin = =>
             console.log 'Doing login', $scope.loginData
+
+            @oauth.github(
+                '2aee92f1bde492399bf4',
+                '7f8515bf6f25eda295a96c9e25317eef5a686878',
+                ['email'],
+                redirect_uri: 'http://d3c2cde1.ngrok.io'
+            ).then (result) ->
+                console.info angular.toJson result
+            , (error) ->
+                console.log angular.toJson error
+
             # Simulate a login delay. Remove this and replace with your login
             # code if using a login system
-            @timeout ->
-                $scope.closeLogin()
-            , 1000
+            #@timeout ->
+            #    $scope.closeLogin()
+            #, 1000
         return

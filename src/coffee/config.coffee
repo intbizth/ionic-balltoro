@@ -6,16 +6,11 @@ class Config extends Config
     ###
     constructor: (
         TORO,
-        $stateProvider,
-        $urlRouterProvider,
         $ionicConfigProvider,
         DSProvider,
         DSHttpAdapterProvider
     ) ->
-        state = $stateProvider
-        routor = $urlRouterProvider
         config = $ionicConfigProvider
-
         angular.extend DSProvider.defaults, {
         }
 

@@ -10,5 +10,11 @@ $ sudo npm install
 #### RUN
 
 ```shell
-$ ionic serve --lab -c -b
+$ ionic serve -l -c -b
+```
+
+#### Rock 'n Roll
+
+```shell
+$ ionic run ios -l -c -s
 ```

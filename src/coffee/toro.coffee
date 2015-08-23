@@ -14,5 +14,6 @@ class TORO extends Constant then constructor: ->
                     baseUrl: 'http://api.balltoro.com'
             sim:
                 api:
-                    baseUrl: 'http://127.0.0.1:8000'
+                    #baseUrl: 'http://127.0.0.1:8000'
+                    baseUrl: 'http://demo.balltoro.com'
     }

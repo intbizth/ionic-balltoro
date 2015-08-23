@@ -3,6 +3,11 @@ ion-content
         pulling-text="Pull to refresh..."
         on-refresh="refresh()"
     )
-    ion-item(collection-repeat='r in matches')
+
+    ion-item(collection-repeat="r in matches")
         div
-            | {{r.home_club.name}} VS {{r.away_club.name}}
+            img(ng-src="{{r.home_club.getLogo('70x70')}}" style="height:20px")
+            | {{r.home_club.name}}
+            | VS
+            img(ng-src="{{r.away_club.getLogo('70x70')}}" style="height:20px")
+            | {{r.away_club.name}}
