@@ -1,5 +1,5 @@
 class Run extends Run
-    constructor: ($rootScope, $ionicPlatform, $location, LogLine) ->
+    constructor: ($rootScope, $ionicPlatform, $location, $cordovaKeyboard, $cordovaToast, LogLine) ->
         LogLine.len(32).startup()
 
         $ionicPlatform.ready ->
@@ -7,9 +7,9 @@ class Run extends Run
 
             # Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
             # for form inputs)
-            if window.cordova && window.cordova.plugins.Keyboard
-                cordova.plugins.Keyboard.hideKeyboardAccessoryBar yes
-                cordova.plugins.Keyboard.disableScroll yes
+            if window.cordova # native mode
+                $cordovaKeyboard.hideAccessoryBar yes
+                $cordovaKeyboard.disableScroll yes
 
             if window.StatusBar
                 # org.apache.cordova.statusbar required

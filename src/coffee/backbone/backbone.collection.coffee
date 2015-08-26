@@ -1,4 +1,11 @@
-class NgBackboneCollection extends Factory then constructor: (TORO, NgBackbone, NgBackboneModel, _) ->
+class NgBackboneCollection extends Factory then constructor: (
+    TORO,
+    NgBackbone,
+    NgBackboneModel,
+    $rootScope,
+    $ionicLoading,
+    _
+) ->
     PROXY = TORO.ENVIRONMENT["@@proxyPass"].api.proxy
     BASE_URL = TORO.ENVIRONMENT["@@proxyPass"].api.baseUrl
 
@@ -14,10 +21,16 @@ class NgBackboneCollection extends Factory then constructor: (TORO, NgBackbone, 
         mode: 'infinite'
         state:
             pageSize: 10
+            total: 0
         queryParams:
             pageSize: 'limit'
-            #totalRecords: 'total' # no need on server api.
+            totalRecords: 'total'
             totalPages: 'pages'
+
+        parseState: (resp, queryParams, state, options) ->
+            @state.total = resp.data.total
+            @state.totalPages = resp.data.pages
+            return @state
 
         parseLinks: (resp, options) ->
             _links = _.result resp.data, '_links'
@@ -33,11 +46,15 @@ class NgBackboneCollection extends Factory then constructor: (TORO, NgBackbone, 
                     next: next.href.replace PROXY, BASE_URL
                     prev: previous.href.replace PROXY, BASE_URL
                 }
-            else return NgBackbone.PageableCollection::parseLinks.apply @ arguments
+            else return NgBackbone.PageableCollection::parseLinks.apply @, arguments
+
+        # has more page
+        hasMorePage: -> @state.total > 0 and @state.total > @state.totalRecords
 
         parseRecords: (resp) ->
             data = _.result resp.data, '_embedded'
-            resp.data = data.items if data
+            #@state.totalRecords = parseInt resp.data.total
+            return data.items if data
 
             return resp.data
 
@@ -61,6 +78,9 @@ class NgBackboneCollection extends Factory then constructor: (TORO, NgBackbone, 
 
             # For clearing status when destroy model on collection
             @on 'destroy', @$resetStatus
+
+            @on 'sync', =>
+                $rootScope.$broadcast 'scroll.infiniteScrollComplete' if @mode == 'infinite'
 
             Object.defineProperty @, '$collection',
                 enumerable: no
@@ -95,3 +115,26 @@ class NgBackboneCollection extends Factory then constructor: (TORO, NgBackbone, 
 
         # get collection
         getCollection: -> @$collection
+
+        ###
+        # Shortcut to fetch collection.
+        #
+        # @param {object} options The `options` can be `$scope` for short-hand or
+        #                 {
+        #                   scope: $scope
+        #                 }
+        ###
+        load: (options) ->
+            # need scope
+            $scope = options.scope || options
+            $scope[options.viewParam || 'store'] = @
+
+            @on 'sync', (model) ->
+                $scope.collection = model.$collection
+                $ionicLoading.hide()
+
+            # start loading first page.
+            $ionicLoading.show()
+            @getFirstPage()
+            return @
+

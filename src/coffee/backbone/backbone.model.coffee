@@ -1,7 +1,7 @@
 class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone) ->
 
     # Usage: model.$attributes.someKey
-    defineProperty = (key) ->
+    propertyAccessor = (key) ->
         Object.defineProperty @$attributes, key,
             enumerable: true
             configurable: true
@@ -12,7 +12,7 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
         return
 
     # Usage: model.someKey
-    definePropertyQuickAccessor = (key) ->
+    propertyQuickAccessor = (key) ->
         Object.defineProperty @, key,
             enumerable: true
             configurable: true
@@ -78,8 +78,8 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
                 if unset and @$attributes.hasOwnProperty(attr)
                     delete @$attributes[attr]
                 else if !unset and !@$attributes[attr]
-                    defineProperty.call @, attr
-                    definePropertyQuickAccessor.call @, attr
+                    propertyAccessor.call @, attr
+                    propertyQuickAccessor.call @, attr
             return @
 
         $setStatus: (key, value, options) ->

@@ -1,6 +1,7 @@
 class App extends App then constructor: ->
     return [
         'ionic'
+        'ngCordova'
         'templates'
         'ngCordovaOauth'
     ]

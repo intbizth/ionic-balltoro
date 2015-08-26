@@ -4,7 +4,7 @@
 
   App = (function() {
     function App() {
-      return ['ionic', 'templates', 'ngCordovaOauth'];
+      return ['ionic', 'ngCordova', 'templates', 'ngCordovaOauth'];
     }
 
     return App;
@@ -62,13 +62,13 @@
   var Run;
 
   Run = (function() {
-    function Run($rootScope, $ionicPlatform, $location, LogLine) {
+    function Run($rootScope, $ionicPlatform, $location, $cordovaKeyboard, $cordovaToast, LogLine) {
       LogLine.len(32).startup();
       $ionicPlatform.ready(function() {
         LogLine.ready();
-        if (window.cordova && window.cordova.plugins.Keyboard) {
-          cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
-          cordova.plugins.Keyboard.disableScroll(true);
+        if (window.cordova) {
+          $cordovaKeyboard.hideAccessoryBar(true);
+          $cordovaKeyboard.disableScroll(true);
         }
         if (window.StatusBar) {
           return StatusBar.styleDefault();
@@ -80,7 +80,7 @@
 
   })();
 
-  angular.module('balltoro').run(['$rootScope', '$ionicPlatform', '$location', 'LogLine', Run]);
+  angular.module('balltoro').run(['$rootScope', '$ionicPlatform', '$location', '$cordovaKeyboard', '$cordovaToast', 'LogLine', Run]);
 
 }).call(this);
 
@@ -244,7 +244,7 @@
   var NgBackboneCollection;
 
   NgBackboneCollection = (function() {
-    function NgBackboneCollection(TORO, NgBackbone, NgBackboneModel, _) {
+    function NgBackboneCollection(TORO, NgBackbone, NgBackboneModel, $rootScope, $ionicLoading, _) {
       var BASE_URL, PROXY;
       PROXY = TORO.ENVIRONMENT["dev"].api.proxy;
       BASE_URL = TORO.ENVIRONMENT["dev"].api.baseUrl;
@@ -252,11 +252,18 @@
         model: NgBackboneModel,
         mode: 'infinite',
         state: {
-          pageSize: 10
+          pageSize: 10,
+          total: 0
         },
         queryParams: {
           pageSize: 'limit',
+          totalRecords: 'total',
           totalPages: 'pages'
+        },
+        parseState: function(resp, queryParams, state, options) {
+          this.state.total = resp.data.total;
+          this.state.totalPages = resp.data.pages;
+          return this.state;
         },
         parseLinks: function(resp, options) {
           var defs, first, next, previous, _links;
@@ -274,14 +281,17 @@
               prev: previous.href.replace(PROXY, BASE_URL)
             };
           } else {
-            return NgBackbone.PageableCollection.prototype.parseLinks.apply(this(arguments));
+            return NgBackbone.PageableCollection.prototype.parseLinks.apply(this, arguments);
           }
+        },
+        hasMorePage: function() {
+          return this.state.total > 0 && this.state.total > this.state.totalRecords;
         },
         parseRecords: function(resp) {
           var data;
           data = _.result(resp.data, '_embedded');
           if (data) {
-            resp.data = data.items;
+            return data.items;
           }
           return resp.data;
         },
@@ -302,6 +312,13 @@
           });
           this.on('sync error', this.$resetStatus);
           this.on('destroy', this.$resetStatus);
+          this.on('sync', (function(_this) {
+            return function() {
+              if (_this.mode === 'infinite') {
+                return $rootScope.$broadcast('scroll.infiniteScrollComplete');
+              }
+            };
+          })(this));
           Object.defineProperty(this, '$collection', {
             enumerable: false,
             get: (function(_this) {
@@ -343,6 +360,27 @@
         },
         getCollection: function() {
           return this.$collection;
+        },
+
+        /*
+         * Shortcut to fetch collection.
+         *
+         * @param {object} options The `options` can be `$scope` for short-hand or
+         *                 {
+         *                   scope: $scope
+         *                 }
+         */
+        load: function(options) {
+          var $scope;
+          $scope = options.scope || options;
+          $scope[options.viewParam || 'store'] = this;
+          this.on('sync', function(model) {
+            $scope.collection = model.$collection;
+            return $ionicLoading.hide();
+          });
+          $ionicLoading.show();
+          this.getFirstPage();
+          return this;
         }
       });
     }
@@ -351,7 +389,7 @@
 
   })();
 
-  angular.module('balltoro').factory('NgBackboneCollection', ['TORO', 'NgBackbone', 'NgBackboneModel', '_', NgBackboneCollection]);
+  angular.module('balltoro').factory('NgBackboneCollection', ['TORO', 'NgBackbone', 'NgBackboneModel', '$rootScope', '$ionicLoading', '_', NgBackboneCollection]);
 
 }).call(this);
 
@@ -360,8 +398,8 @@
 
   NgBackboneModel = (function() {
     function NgBackboneModel($rootScope, NgBackbone) {
-      var defineProperty, definePropertyQuickAccessor;
-      defineProperty = function(key) {
+      var propertyAccessor, propertyQuickAccessor;
+      propertyAccessor = function(key) {
         Object.defineProperty(this.$attributes, key, {
           enumerable: true,
           configurable: true,
@@ -377,7 +415,7 @@
           })(this)
         });
       };
-      definePropertyQuickAccessor = function(key) {
+      propertyQuickAccessor = function(key) {
         Object.defineProperty(this, key, {
           enumerable: true,
           configurable: true,
@@ -454,8 +492,8 @@
             if (unset && this.$attributes.hasOwnProperty(attr)) {
               delete this.$attributes[attr];
             } else if (!unset && !this.$attributes[attr]) {
-              defineProperty.call(this, attr);
-              definePropertyQuickAccessor.call(this, attr);
+              propertyAccessor.call(this, attr);
+              propertyQuickAccessor.call(this, attr);
             }
           }
           return this;
@@ -556,25 +594,15 @@
   var Match;
 
   Match = (function() {
-    function Match($scope, Matches, $log, $ionicLoading) {
-      var matches, promise;
-      matches = new Matches();
-      promise = matches.fetch({
-        success: function(data) {
-          return $scope.matches = data.$collection;
-        }
-      });
-      $scope.refresh = function() {
-        console.log(matches);
-        return matches.getNextPage();
-      };
+    function Match($scope, Matches) {
+      new Matches().load($scope);
     }
 
     return Match;
 
   })();
 
-  angular.module('balltoro').controller('matchController', ['$scope', 'Matches', '$log', '$ionicLoading', Match]);
+  angular.module('balltoro').controller('matchController', ['$scope', 'Matches', Match]);
 
 }).call(this);
 
@@ -625,6 +653,82 @@
   })();
 
   angular.module('balltoro').controller('playlistsController', ['$scope', Playlists]);
+
+}).call(this);
+
+(function() {
+  var Club, Clubs;
+
+  Clubs = (function() {
+    function Clubs(NgBackboneCollection, Club) {
+      return NgBackboneCollection.extend({
+        model: Club
+      });
+    }
+
+    return Clubs;
+
+  })();
+
+  Club = (function() {
+    function Club(NgBackboneModel, _) {
+      return NgBackboneModel.extend({
+        defaults: {
+          _links: null
+        },
+        getLogo: function(size) {
+          var logo;
+          logo = _.isUndefined(size) || _.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
+          return _.result(logo, 'href');
+        }
+      });
+    }
+
+    return Club;
+
+  })();
+
+  angular.module('balltoro').factory('Clubs', ['NgBackboneCollection', 'Club', Clubs]).factory('Club', ['NgBackboneModel', '_', Club]);
+
+}).call(this);
+
+(function() {
+  var Match, Matches;
+
+  Matches = (function() {
+    function Matches(NgBackboneCollection, Match) {
+      return NgBackboneCollection.extend({
+        model: Match,
+        url: '/api/matches/'
+      });
+    }
+
+    return Matches;
+
+  })();
+
+  Match = (function() {
+    function Match(NgBackboneModel, Club, Clubs) {
+      return NgBackboneModel.extend({
+        relations: [
+          {
+            type: 'HasOne',
+            key: 'home_club',
+            relatedModel: Club
+          }, {
+            type: 'HasOne',
+            key: 'away_club',
+            relatedModel: Club
+          }
+        ]
+      });
+    }
+
+    return Match;
+
+  })();
+
+  angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
 
 }).call(this);
 
@@ -730,82 +834,6 @@
   })();
 
   angular.module('balltoro').factory('_', [_]);
-
-}).call(this);
-
-(function() {
-  var Club, Clubs;
-
-  Clubs = (function() {
-    function Clubs(NgBackboneCollection, Club) {
-      return NgBackboneCollection.extend({
-        model: Club
-      });
-    }
-
-    return Clubs;
-
-  })();
-
-  Club = (function() {
-    function Club(NgBackboneModel, _) {
-      return NgBackboneModel.extend({
-        defaults: {
-          _links: null
-        },
-        getLogo: function(size) {
-          var logo;
-          logo = _.isUndefined(size) || _.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
-          return _.result(logo, 'href');
-        }
-      });
-    }
-
-    return Club;
-
-  })();
-
-  angular.module('balltoro').factory('Clubs', ['NgBackboneCollection', 'Club', Clubs]).factory('Club', ['NgBackboneModel', '_', Club]);
-
-}).call(this);
-
-(function() {
-  var Match, Matches;
-
-  Matches = (function() {
-    function Matches(NgBackboneCollection, Match) {
-      return NgBackboneCollection.extend({
-        model: Match,
-        url: '/api/matches/'
-      });
-    }
-
-    return Matches;
-
-  })();
-
-  Match = (function() {
-    function Match(NgBackboneModel, Club, Clubs) {
-      return NgBackboneModel.extend({
-        relations: [
-          {
-            type: 'HasOne',
-            key: 'home_club',
-            relatedModel: Club
-          }, {
-            type: 'HasOne',
-            key: 'away_club',
-            relatedModel: Club
-          }
-        ]
-      });
-    }
-
-    return Match;
-
-  })();
-
-  angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
 
 }).call(this);
 
