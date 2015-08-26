@@ -260,41 +260,6 @@
           totalRecords: 'total',
           totalPages: 'pages'
         },
-        parseState: function(resp, queryParams, state, options) {
-          this.state.total = resp.data.total;
-          this.state.totalPages = resp.data.pages;
-          return this.state;
-        },
-        parseLinks: function(resp, options) {
-          var defs, first, next, previous, _links;
-          _links = _.result(resp.data, '_links');
-          if (_links) {
-            defs = {
-              href: ''
-            };
-            first = _.result(_links, 'first', defs);
-            next = _.result(_links, 'next', defs);
-            previous = _.result(_links, 'previous', defs);
-            return {
-              first: first.href.replace(PROXY, BASE_URL),
-              next: next.href.replace(PROXY, BASE_URL),
-              prev: previous.href.replace(PROXY, BASE_URL)
-            };
-          } else {
-            return NgBackbone.PageableCollection.prototype.parseLinks.apply(this, arguments);
-          }
-        },
-        hasMorePage: function() {
-          return this.state.total > 0 && this.state.total > this.state.totalRecords;
-        },
-        parseRecords: function(resp) {
-          var data;
-          data = _.result(resp.data, '_embedded');
-          if (data) {
-            return data.items;
-          }
-          return resp.data;
-        },
         constructor: function() {
           this.$status = {
             deleting: false,
@@ -331,6 +296,41 @@
             })(this)
           });
           NgBackbone.PageableCollection.prototype.constructor.apply(this, arguments);
+        },
+        parseState: function(resp, queryParams, state, options) {
+          this.state.total = resp.data.total;
+          this.state.totalPages = resp.data.pages;
+          return this.state;
+        },
+        parseLinks: function(resp, options) {
+          var defs, first, next, previous, _links;
+          _links = _.result(resp.data, '_links');
+          if (_links) {
+            defs = {
+              href: ''
+            };
+            first = _.result(_links, 'first', defs);
+            next = _.result(_links, 'next', defs);
+            previous = _.result(_links, 'previous', defs);
+            return {
+              first: first.href.replace(PROXY, BASE_URL),
+              next: next.href.replace(PROXY, BASE_URL),
+              prev: previous.href.replace(PROXY, BASE_URL)
+            };
+          } else {
+            return NgBackbone.PageableCollection.prototype.parseLinks.apply(this, arguments);
+          }
+        },
+        hasMorePage: function() {
+          return this.state.total > 0 && this.state.total > this.state.totalRecords;
+        },
+        parseRecords: function(resp) {
+          var data;
+          data = _.result(resp.data, '_embedded');
+          if (data) {
+            return data.items;
+          }
+          return resp.data;
         },
         $setStatus: function(key, value, options) {
           var attr, attrs;
@@ -657,78 +657,50 @@
 }).call(this);
 
 (function() {
-  var Club, Clubs;
+  var Auth;
 
-  Clubs = (function() {
-    function Clubs(NgBackboneCollection, Club) {
-      return NgBackboneCollection.extend({
-        model: Club
-      });
+  Auth = (function() {
+    function Auth() {
+      this.$get = function() {};
     }
 
-    return Clubs;
+    return Auth;
 
   })();
 
-  Club = (function() {
-    function Club(NgBackboneModel, _) {
-      return NgBackboneModel.extend({
-        defaults: {
-          _links: null
-        },
-        getLogo: function(size) {
-          var logo;
-          logo = _.isUndefined(size) || _.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
-          return _.result(logo, 'href');
-        }
-      });
-    }
-
-    return Club;
-
-  })();
-
-  angular.module('balltoro').factory('Clubs', ['NgBackboneCollection', 'Club', Clubs]).factory('Club', ['NgBackboneModel', '_', Club]);
+  angular.module('balltoro').provider('authProvider', [Auth]);
 
 }).call(this);
 
 (function() {
-  var Match, Matches;
+  var FacebookAuth;
 
-  Matches = (function() {
-    function Matches(NgBackboneCollection, Match) {
-      return NgBackboneCollection.extend({
-        model: Match,
-        url: '/api/matches/'
-      });
+  FacebookAuth = (function() {
+    function FacebookAuth() {
+      this.$get = function() {};
     }
 
-    return Matches;
+    return FacebookAuth;
 
   })();
 
-  Match = (function() {
-    function Match(NgBackboneModel, Club, Clubs) {
-      return NgBackboneModel.extend({
-        relations: [
-          {
-            type: 'HasOne',
-            key: 'home_club',
-            relatedModel: Club
-          }, {
-            type: 'HasOne',
-            key: 'away_club',
-            relatedModel: Club
-          }
-        ]
-      });
+  angular.module('balltoro').provider('facebookAuthProvider', [FacebookAuth]);
+
+}).call(this);
+
+(function() {
+  var ToroAuth;
+
+  ToroAuth = (function() {
+    function ToroAuth() {
+      this.$get = function() {};
     }
 
-    return Match;
+    return ToroAuth;
 
   })();
 
-  angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
+  angular.module('balltoro').provider('toroAuthProvider', [ToroAuth]);
 
 }).call(this);
 
@@ -838,49 +810,77 @@
 }).call(this);
 
 (function() {
-  var Auth;
+  var Club, Clubs;
 
-  Auth = (function() {
-    function Auth() {
-      this.$get = function() {};
+  Clubs = (function() {
+    function Clubs(NgBackboneCollection, Club) {
+      return NgBackboneCollection.extend({
+        model: Club
+      });
     }
 
-    return Auth;
+    return Clubs;
 
   })();
 
-  angular.module('balltoro').provider('authProvider', [Auth]);
+  Club = (function() {
+    function Club(NgBackboneModel, _) {
+      return NgBackboneModel.extend({
+        defaults: {
+          _links: null
+        },
+        getLogo: function(size) {
+          var logo;
+          logo = _.isUndefined(size) || _.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
+          return _.result(logo, 'href');
+        }
+      });
+    }
+
+    return Club;
+
+  })();
+
+  angular.module('balltoro').factory('Clubs', ['NgBackboneCollection', 'Club', Clubs]).factory('Club', ['NgBackboneModel', '_', Club]);
 
 }).call(this);
 
 (function() {
-  var FacebookAuth;
+  var Match, Matches;
 
-  FacebookAuth = (function() {
-    function FacebookAuth() {
-      this.$get = function() {};
+  Matches = (function() {
+    function Matches(NgBackboneCollection, Match) {
+      return NgBackboneCollection.extend({
+        model: Match,
+        url: '/api/matches/'
+      });
     }
 
-    return FacebookAuth;
+    return Matches;
 
   })();
 
-  angular.module('balltoro').provider('facebookAuthProvider', [FacebookAuth]);
-
-}).call(this);
-
-(function() {
-  var ToroAuth;
-
-  ToroAuth = (function() {
-    function ToroAuth() {
-      this.$get = function() {};
+  Match = (function() {
+    function Match(NgBackboneModel, Club, Clubs) {
+      return NgBackboneModel.extend({
+        relations: [
+          {
+            type: 'HasOne',
+            key: 'home_club',
+            relatedModel: Club
+          }, {
+            type: 'HasOne',
+            key: 'away_club',
+            relatedModel: Club
+          }
+        ]
+      });
     }
 
-    return ToroAuth;
+    return Match;
 
   })();
 
-  angular.module('balltoro').provider('toroAuthProvider', [ToroAuth]);
+  angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
 
 }).call(this);

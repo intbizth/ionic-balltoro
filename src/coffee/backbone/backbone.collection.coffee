@@ -19,44 +19,15 @@ class NgBackboneCollection extends Factory then constructor: (
         # configurations of:
         #     https://github.com/backbone-paginator/backbone.paginator
         mode: 'infinite'
+
         state:
             pageSize: 10
             total: 0
+
         queryParams:
             pageSize: 'limit'
             totalRecords: 'total'
             totalPages: 'pages'
-
-        parseState: (resp, queryParams, state, options) ->
-            @state.total = resp.data.total
-            @state.totalPages = resp.data.pages
-            return @state
-
-        parseLinks: (resp, options) ->
-            _links = _.result resp.data, '_links'
-
-            if _links
-                defs = href: ''
-                first = _.result _links, 'first', defs
-                next = _.result _links, 'next', defs
-                previous = _.result _links, 'previous', defs
-
-                return {
-                    first: first.href.replace PROXY, BASE_URL
-                    next: next.href.replace PROXY, BASE_URL
-                    prev: previous.href.replace PROXY, BASE_URL
-                }
-            else return NgBackbone.PageableCollection::parseLinks.apply @, arguments
-
-        # has more page
-        hasMorePage: -> @state.total > 0 and @state.total > @state.totalRecords
-
-        parseRecords: (resp) ->
-            data = _.result resp.data, '_embedded'
-            #@state.totalRecords = parseInt resp.data.total
-            return data.items if data
-
-            return resp.data
 
         constructor: ->
             # Initialize status object
@@ -90,6 +61,36 @@ class NgBackboneCollection extends Factory then constructor: (
 
             NgBackbone.PageableCollection::constructor.apply @, arguments
             return
+
+        parseState: (resp, queryParams, state, options) ->
+            @state.total = resp.data.total
+            @state.totalPages = resp.data.pages
+            return @state
+
+        parseLinks: (resp, options) ->
+            _links = _.result resp.data, '_links'
+
+            if _links
+                defs = href: ''
+                first = _.result _links, 'first', defs
+                next = _.result _links, 'next', defs
+                previous = _.result _links, 'previous', defs
+
+                return {
+                    first: first.href.replace PROXY, BASE_URL
+                    next: next.href.replace PROXY, BASE_URL
+                    prev: previous.href.replace PROXY, BASE_URL
+                }
+            else return NgBackbone.PageableCollection::parseLinks.apply @, arguments
+
+        # has more page
+        hasMorePage: -> @state.total > 0 and @state.total > @state.totalRecords
+
+        parseRecords: (resp) ->
+            data = _.result resp.data, '_embedded'
+
+            return data.items if data
+            return resp.data
 
         $setStatus: (key, value, options) ->
             return @ if _.isUndefined(key)
