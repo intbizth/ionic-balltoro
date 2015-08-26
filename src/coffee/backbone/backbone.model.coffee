@@ -1,8 +1,3 @@
-###*
-    @modifiedBy liverbool <nukboon@gmail.com>
-    @origin     https://github.com/adrianlee44/ng-backbone
-###
-
 class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone) ->
 
     # Usage: model.$attributes.someKey
@@ -51,7 +46,7 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
                 return
 
             @on 'sync error', @$resetStatus
-            return NgBackbone.RelationalModel.apply @, arguments
+            return NgBackbone.RelationalModel::constructor.apply @, arguments
 
         set: (key, val, options) ->
             output = NgBackbone.RelationalModel::set.apply @, arguments

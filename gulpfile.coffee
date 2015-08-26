@@ -14,6 +14,13 @@ args = require('yargs')
 # Application name
 appName = 'balltoro'
 environment = args.env || 'dev'
+replacements = [{
+    match: 'environment'
+    replacement: environment
+}, {
+    match: 'proxyPass'
+    replacement: environment
+}]
 
 $ = require('gulp-load-plugins')(lazy: false)
 sh = require 'shelljs'
@@ -62,10 +69,7 @@ gulp.task 'coffee', (done) ->
         .pipe($.jshint.reporter('jshint-stylish'))
         .pipe($.concat('app.js'))
         .pipe($.insert.prepend("'use strict';\n"))
-        .pipe(replace({patterns: [
-            match: 'environment'
-            replacement: environment
-        ]}))
+        .pipe(replace({patterns: replacements}))
         .pipe(gulp.dest('./www/js'))
         .pipe($.size(showFiles: true))
         # TODO: jsmin

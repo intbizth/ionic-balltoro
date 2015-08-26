@@ -1,8 +1,3 @@
-###*
-    @modifiedBy liverbool <nukboon@gmail.com>
-    @origin     https://github.com/adrianlee44/ng-backbone
-###
-
 class NgBackbone extends Factory then constructor: ($http, _) ->
     methodMap =
         create: 'POST'
@@ -10,11 +5,6 @@ class NgBackbone extends Factory then constructor: ($http, _) ->
         patch: 'PATCH'
         delete: 'DELETE'
         read: 'GET'
-
-    processResponse = (response) ->
-        if !_.isUndefined response.data._embedded
-            response.data = response.data._embedded.items
-        return response.data
 
     ajax = -> $http.apply $http, arguments
     sync = (method, model, options) ->
@@ -43,7 +33,7 @@ class NgBackbone extends Factory then constructor: ($http, _) ->
                 config: config
 
             if !_.isUndefined(options.success) and _.isFunction(options.success)
-                options.success processResponse data
+                options.success data
             return
 
         xhr.catch (data, status, headers, config) ->

@@ -30,17 +30,20 @@
         ENVIRONMENT: {
           dev: {
             api: {
-              baseUrl: ''
+              baseUrl: '',
+              proxy: 'http://127.0.0.1:8000'
             }
           },
           prod: {
             api: {
-              baseUrl: 'http://api.balltoro.com'
+              baseUrl: 'http://api.balltoro.com',
+              proxy: ''
             }
           },
           sim: {
             api: {
-              baseUrl: 'http://demo.balltoro.com'
+              baseUrl: 'http://demo.balltoro.com',
+              proxy: ''
             }
           }
         }
@@ -165,30 +168,18 @@
 
 }).call(this);
 
-
-/**
-    @modifiedBy liverbool <nukboon@gmail.com>
-    @origin     https://github.com/adrianlee44/ng-backbone
- */
-
 (function() {
   var NgBackbone;
 
   NgBackbone = (function() {
     function NgBackbone($http, _) {
-      var ajax, methodMap, processResponse, sync;
+      var ajax, methodMap, sync;
       methodMap = {
         create: 'POST',
         update: 'PUT',
         patch: 'PATCH',
         "delete": 'DELETE',
         read: 'GET'
-      };
-      processResponse = function(response) {
-        if (!_.isUndefined(response.data._embedded)) {
-          response.data = response.data._embedded.items;
-        }
-        return response.data;
       };
       ajax = function() {
         return $http.apply($http, arguments);
@@ -219,7 +210,7 @@
             config: config
           };
           if (!_.isUndefined(options.success) && _.isFunction(options.success)) {
-            options.success(processResponse(data));
+            options.success(data);
           }
         });
         xhr["catch"](function(data, status, headers, config) {
@@ -249,19 +240,51 @@
 
 }).call(this);
 
-
-/**
-    @modifiedBy liverbool <nukboon@gmail.com>
-    @origin     https://github.com/adrianlee44/ng-backbone
- */
-
 (function() {
   var NgBackboneCollection;
 
   NgBackboneCollection = (function() {
-    function NgBackboneCollection(NgBackbone, NgBackboneModel) {
-      return NgBackbone.Collection.extend({
+    function NgBackboneCollection(TORO, NgBackbone, NgBackboneModel, _) {
+      var BASE_URL, PROXY;
+      PROXY = TORO.ENVIRONMENT["dev"].api.proxy;
+      BASE_URL = TORO.ENVIRONMENT["dev"].api.baseUrl;
+      return NgBackbone.PageableCollection.extend({
         model: NgBackboneModel,
+        mode: 'infinite',
+        state: {
+          pageSize: 10
+        },
+        queryParams: {
+          pageSize: 'limit',
+          totalPages: 'pages'
+        },
+        parseLinks: function(resp, options) {
+          var defs, first, next, previous, _links;
+          _links = _.result(resp.data, '_links');
+          if (_links) {
+            defs = {
+              href: ''
+            };
+            first = _.result(_links, 'first', defs);
+            next = _.result(_links, 'next', defs);
+            previous = _.result(_links, 'previous', defs);
+            return {
+              first: first.href.replace(PROXY, BASE_URL),
+              next: next.href.replace(PROXY, BASE_URL),
+              prev: previous.href.replace(PROXY, BASE_URL)
+            };
+          } else {
+            return NgBackbone.PageableCollection.prototype.parseLinks.apply(this(arguments));
+          }
+        },
+        parseRecords: function(resp) {
+          var data;
+          data = _.result(resp.data, '_embedded');
+          if (data) {
+            resp.data = data.items;
+          }
+          return resp.data;
+        },
         constructor: function() {
           this.$status = {
             deleting: false,
@@ -283,11 +306,14 @@
             enumerable: false,
             get: (function(_this) {
               return function() {
+                if (_this.mode === 'infinite') {
+                  return _this.fullCollection.models;
+                }
                 return _this.models;
               };
             })(this)
           });
-          NgBackbone.Collection.apply(this, arguments);
+          NgBackbone.PageableCollection.prototype.constructor.apply(this, arguments);
         },
         $setStatus: function(key, value, options) {
           var attr, attrs;
@@ -325,15 +351,9 @@
 
   })();
 
-  angular.module('balltoro').factory('NgBackboneCollection', ['NgBackbone', 'NgBackboneModel', NgBackboneCollection]);
+  angular.module('balltoro').factory('NgBackboneCollection', ['TORO', 'NgBackbone', 'NgBackboneModel', '_', NgBackboneCollection]);
 
 }).call(this);
-
-
-/**
-    @modifiedBy liverbool <nukboon@gmail.com>
-    @origin     https://github.com/adrianlee44/ng-backbone
- */
 
 (function() {
   var NgBackboneModel;
@@ -398,7 +418,7 @@
             });
           });
           this.on('sync error', this.$resetStatus);
-          return NgBackbone.RelationalModel.apply(this, arguments);
+          return NgBackbone.RelationalModel.prototype.constructor.apply(this, arguments);
         },
         set: function(key, val, options) {
           var output;
@@ -537,12 +557,17 @@
 
   Match = (function() {
     function Match($scope, Matches, $log, $ionicLoading) {
-      var promise;
-      promise = new Matches().fetch({
+      var matches, promise;
+      matches = new Matches();
+      promise = matches.fetch({
         success: function(data) {
           return $scope.matches = data.$collection;
         }
       });
+      $scope.refresh = function() {
+        console.log(matches);
+        return matches.getNextPage();
+      };
     }
 
     return Match;
@@ -709,54 +734,6 @@
 }).call(this);
 
 (function() {
-  var Auth;
-
-  Auth = (function() {
-    function Auth() {
-      this.$get = function() {};
-    }
-
-    return Auth;
-
-  })();
-
-  angular.module('balltoro').provider('authProvider', [Auth]);
-
-}).call(this);
-
-(function() {
-  var FacebookAuth;
-
-  FacebookAuth = (function() {
-    function FacebookAuth() {
-      this.$get = function() {};
-    }
-
-    return FacebookAuth;
-
-  })();
-
-  angular.module('balltoro').provider('facebookAuthProvider', [FacebookAuth]);
-
-}).call(this);
-
-(function() {
-  var ToroAuth;
-
-  ToroAuth = (function() {
-    function ToroAuth() {
-      this.$get = function() {};
-    }
-
-    return ToroAuth;
-
-  })();
-
-  angular.module('balltoro').provider('toroAuthProvider', [ToroAuth]);
-
-}).call(this);
-
-(function() {
   var Club, Clubs;
 
   Clubs = (function() {
@@ -829,5 +806,53 @@
   })();
 
   angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
+
+}).call(this);
+
+(function() {
+  var Auth;
+
+  Auth = (function() {
+    function Auth() {
+      this.$get = function() {};
+    }
+
+    return Auth;
+
+  })();
+
+  angular.module('balltoro').provider('authProvider', [Auth]);
+
+}).call(this);
+
+(function() {
+  var FacebookAuth;
+
+  FacebookAuth = (function() {
+    function FacebookAuth() {
+      this.$get = function() {};
+    }
+
+    return FacebookAuth;
+
+  })();
+
+  angular.module('balltoro').provider('facebookAuthProvider', [FacebookAuth]);
+
+}).call(this);
+
+(function() {
+  var ToroAuth;
+
+  ToroAuth = (function() {
+    function ToroAuth() {
+      this.$get = function() {};
+    }
+
+    return ToroAuth;
+
+  })();
+
+  angular.module('balltoro').provider('toroAuthProvider', [ToroAuth]);
 
 }).call(this);

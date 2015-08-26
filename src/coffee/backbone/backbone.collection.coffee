@@ -1,11 +1,46 @@
-###*
-    @modifiedBy liverbool <nukboon@gmail.com>
-    @origin     https://github.com/adrianlee44/ng-backbone
-###
+class NgBackboneCollection extends Factory then constructor: (TORO, NgBackbone, NgBackboneModel, _) ->
+    PROXY = TORO.ENVIRONMENT["@@proxyPass"].api.proxy
+    BASE_URL = TORO.ENVIRONMENT["@@proxyPass"].api.baseUrl
 
-class NgBackboneCollection extends Factory then constructor: (NgBackbone, NgBackboneModel) ->
-    return NgBackbone.Collection.extend
+    # TODO:
+    # - subscribe `reset` to make `ordering` of fullCollection to
+    #   `append` or `prepend` eg. in `pull-refuesh` it make sense to be `prepend`
+
+    return NgBackbone.PageableCollection.extend
         model: NgBackboneModel
+
+        # configurations of:
+        #     https://github.com/backbone-paginator/backbone.paginator
+        mode: 'infinite'
+        state:
+            pageSize: 10
+        queryParams:
+            pageSize: 'limit'
+            #totalRecords: 'total' # no need on server api.
+            totalPages: 'pages'
+
+        parseLinks: (resp, options) ->
+            _links = _.result resp.data, '_links'
+
+            if _links
+                defs = href: ''
+                first = _.result _links, 'first', defs
+                next = _.result _links, 'next', defs
+                previous = _.result _links, 'previous', defs
+
+                return {
+                    first: first.href.replace PROXY, BASE_URL
+                    next: next.href.replace PROXY, BASE_URL
+                    prev: previous.href.replace PROXY, BASE_URL
+                }
+            else return NgBackbone.PageableCollection::parseLinks.apply @ arguments
+
+        parseRecords: (resp) ->
+            data = _.result resp.data, '_embedded'
+            resp.data = data.items if data
+
+            return resp.data
+
         constructor: ->
             # Initialize status object
             @$status =
@@ -29,9 +64,11 @@ class NgBackboneCollection extends Factory then constructor: (NgBackbone, NgBack
 
             Object.defineProperty @, '$collection',
                 enumerable: no
-                get: => @models
+                get: =>
+                    return @fullCollection.models if @mode == 'infinite'
+                    return @models
 
-            NgBackbone.Collection.apply @, arguments
+            NgBackbone.PageableCollection::constructor.apply @, arguments
             return
 
         $setStatus: (key, value, options) ->
