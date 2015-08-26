@@ -17,8 +17,7 @@ class NgBackboneCollection extends Factory then constructor: (
     return NgBackbone.PageableCollection.extend
         model: NgBackboneModel
 
-        # configurations of:
-        #     https://github.com/backbone-paginator/backbone.paginator
+        # see more https://github.com/backbone-paginator/backbone.paginator
         mode: 'infinite'
 
         state:
@@ -51,7 +50,7 @@ class NgBackboneCollection extends Factory then constructor: (
             # For clearing status when destroy model on collection
             @on 'destroy', @$resetStatus
 
-            @on 'sync', =>
+            @on 'sync', ->
                 $rootScope.$broadcast 'scroll.infiniteScrollComplete' if @mode == 'infinite'
 
             Object.defineProperty @, '$collection',
@@ -124,16 +123,17 @@ class NgBackboneCollection extends Factory then constructor: (
         # @param {object} options The `options` can be `$scope` for short-hand or
         #    {
         #        scope: $scope
-        #        viewParam: 'store' # the name to be used in view.
+        #        storeKey: 'store' # the name to be used in view.
+        #        collectionKey: 'collection' # the name to be used in view.
         #    }
         ###
         load: (options) ->
             # need scope
             $scope = options.scope || options
-            $scope[options.viewParam || 'store'] = @
+            $scope[options.storeKey || 'store'] = @
 
             @on 'sync', (model) ->
-                $scope.collection = model.$collection
+                $scope[options.collectionKey || 'collection'] = model.$collection
                 $ionicLoading.hide()
 
             # start loading first page.

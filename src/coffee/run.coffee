@@ -1,7 +1,16 @@
 class Run extends Run
-    constructor: ($rootScope, $ionicPlatform, $location, $cordovaKeyboard, $cordovaToast, LogLine) ->
-        LogLine.len(32).startup()
+    constructor: (
+        $rootScope,
+        $ionicPlatform,
+        $location,
+        $cordovaKeyboard,
+        $cordovaToast,
+        LogLine
+    ) ->
+        # default spinner icon
+        $rootScope.$spinnerIcon = 'ripple'
 
+        LogLine.len(32).startup()
         $ionicPlatform.ready ->
             LogLine.ready()
 

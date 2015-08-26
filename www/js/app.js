@@ -63,6 +63,7 @@
 
   Run = (function() {
     function Run($rootScope, $ionicPlatform, $location, $cordovaKeyboard, $cordovaToast, LogLine) {
+      $rootScope.$spinnerIcon = 'ripple';
       LogLine.len(32).startup();
       $ionicPlatform.ready(function() {
         LogLine.ready();
@@ -94,16 +95,15 @@
      * @param {object} $urlRouterProvider
      * @param {object} $ionicConfigProvider See http://ionicframework.com/docs/api/provider/$ionicConfigProvider/
      */
-    function Config(TORO, $ionicConfigProvider) {
-      var config;
-      config = $ionicConfigProvider;
+    function Config(TORO, $ionicConfigProvider, $ionicLoadingConfig) {
+      $ionicLoadingConfig.template = '<ion-spinner icon="lines"></ion-spinner>';
     }
 
     return Config;
 
   })();
 
-  angular.module('balltoro').config(['TORO', '$ionicConfigProvider', Config]);
+  angular.module('balltoro').config(['TORO', '$ionicConfigProvider', '$ionicLoadingConfig', Config]);
 
 }).call(this);
 
@@ -165,6 +165,130 @@
   })();
 
   angular.module('balltoro').config(['$stateProvider', '$urlRouterProvider', Routing]);
+
+}).call(this);
+
+
+/**
+ * NOTE:
+ *   With the new view caching in Ionic, Controllers are only called
+ *   when they are recreated or on app start, instead of every page change.
+ *   To listen for when this page is active (for example, to refresh data),
+ *   listen for the $ionicView.enter event:
+ *     $scope.$on('$ionicView.enter', function(e) {
+ *     });
+ */
+
+(function() {
+  var Main;
+
+  Main = (function() {
+    function Main($scope, $ionicModal, $timeout, $cordovaOauth) {
+      this.scope = $scope;
+      this.modal = $ionicModal;
+      this.timeout = $timeout;
+      this.oauth = $cordovaOauth;
+      this.setupLogin(this.scope);
+    }
+
+    Main.prototype.setupLogin = function($scope) {
+      $scope.loginData = {};
+      this.modal.fromTemplateUrl('templates/login.html', {
+        scope: $scope
+      }).then(function(modal) {
+        $scope.modal = modal;
+      });
+      $scope.closeLogin = function() {
+        return $scope.modal.hide();
+      };
+      $scope.login = function() {
+        return $scope.modal.show();
+      };
+      $scope.doLogin = (function(_this) {
+        return function() {
+          console.log('Doing login', $scope.loginData);
+          return _this.oauth.github('2aee92f1bde492399bf4', 'x', ['email'], {
+            redirect_uri: 'http://d3c2cde1.ngrok.io'
+          }).then(function(result) {
+            return console.info(angular.toJson(result));
+          }, function(error) {
+            return console.log(angular.toJson(error));
+          });
+        };
+      })(this);
+    };
+
+    return Main;
+
+  })();
+
+  angular.module('balltoro').controller('mainController', ['$scope', '$ionicModal', '$timeout', '$cordovaOauth', Main]);
+
+}).call(this);
+
+(function() {
+  var Match;
+
+  Match = (function() {
+    function Match($scope, Matches) {
+      new Matches().load($scope);
+    }
+
+    return Match;
+
+  })();
+
+  angular.module('balltoro').controller('matchController', ['$scope', 'Matches', Match]);
+
+}).call(this);
+
+(function() {
+  var Playlist;
+
+  Playlist = (function() {
+    function Playlist() {}
+
+    return Playlist;
+
+  })();
+
+  angular.module('balltoro').controller('playlistController', [Playlist]);
+
+}).call(this);
+
+(function() {
+  var Playlists;
+
+  Playlists = (function() {
+    function Playlists($scope) {
+      $scope.playlists = [
+        {
+          title: 'Reggae',
+          id: 1
+        }, {
+          title: 'Chill',
+          id: 2
+        }, {
+          title: 'Dubstep',
+          id: 3
+        }, {
+          title: 'Indie',
+          id: 4
+        }, {
+          title: 'Rap',
+          id: 5
+        }, {
+          title: 'Cowbell',
+          id: 6
+        }
+      ];
+    }
+
+    return Playlists;
+
+  })();
+
+  angular.module('balltoro').controller('playlistsController', ['$scope', Playlists]);
 
 }).call(this);
 
@@ -277,13 +401,11 @@
           });
           this.on('sync error', this.$resetStatus);
           this.on('destroy', this.$resetStatus);
-          this.on('sync', (function(_this) {
-            return function() {
-              if (_this.mode === 'infinite') {
-                return $rootScope.$broadcast('scroll.infiniteScrollComplete');
-              }
-            };
-          })(this));
+          this.on('sync', function() {
+            if (this.mode === 'infinite') {
+              return $rootScope.$broadcast('scroll.infiniteScrollComplete');
+            }
+          });
           Object.defineProperty(this, '$collection', {
             enumerable: false,
             get: (function(_this) {
@@ -368,15 +490,16 @@
          * @param {object} options The `options` can be `$scope` for short-hand or
          *    {
          *        scope: $scope
-         *        viewParam: 'store' # the name to be used in view.
+         *        storeKey: 'store' # the name to be used in view.
+         *        collectionKey: 'collection' # the name to be used in view.
          *    }
          */
         load: function(options) {
           var $scope;
           $scope = options.scope || options;
-          $scope[options.viewParam || 'store'] = this;
+          $scope[options.storeKey || 'store'] = this;
           this.on('sync', function(model) {
-            $scope.collection = model.$collection;
+            $scope[options.collectionKey || 'collection'] = model.$collection;
             return $ionicLoading.hide();
           });
           $ionicLoading.show();
@@ -533,130 +656,6 @@
 
 }).call(this);
 
-
-/**
- * NOTE:
- *   With the new view caching in Ionic, Controllers are only called
- *   when they are recreated or on app start, instead of every page change.
- *   To listen for when this page is active (for example, to refresh data),
- *   listen for the $ionicView.enter event:
- *     $scope.$on('$ionicView.enter', function(e) {
- *     });
- */
-
-(function() {
-  var Main;
-
-  Main = (function() {
-    function Main($scope, $ionicModal, $timeout, $cordovaOauth) {
-      this.scope = $scope;
-      this.modal = $ionicModal;
-      this.timeout = $timeout;
-      this.oauth = $cordovaOauth;
-      this.setupLogin(this.scope);
-    }
-
-    Main.prototype.setupLogin = function($scope) {
-      $scope.loginData = {};
-      this.modal.fromTemplateUrl('templates/login.html', {
-        scope: $scope
-      }).then(function(modal) {
-        $scope.modal = modal;
-      });
-      $scope.closeLogin = function() {
-        return $scope.modal.hide();
-      };
-      $scope.login = function() {
-        return $scope.modal.show();
-      };
-      $scope.doLogin = (function(_this) {
-        return function() {
-          console.log('Doing login', $scope.loginData);
-          return _this.oauth.github('2aee92f1bde492399bf4', 'x', ['email'], {
-            redirect_uri: 'http://d3c2cde1.ngrok.io'
-          }).then(function(result) {
-            return console.info(angular.toJson(result));
-          }, function(error) {
-            return console.log(angular.toJson(error));
-          });
-        };
-      })(this);
-    };
-
-    return Main;
-
-  })();
-
-  angular.module('balltoro').controller('mainController', ['$scope', '$ionicModal', '$timeout', '$cordovaOauth', Main]);
-
-}).call(this);
-
-(function() {
-  var Match;
-
-  Match = (function() {
-    function Match($scope, Matches) {
-      new Matches().load($scope);
-    }
-
-    return Match;
-
-  })();
-
-  angular.module('balltoro').controller('matchController', ['$scope', 'Matches', Match]);
-
-}).call(this);
-
-(function() {
-  var Playlist;
-
-  Playlist = (function() {
-    function Playlist() {}
-
-    return Playlist;
-
-  })();
-
-  angular.module('balltoro').controller('playlistController', [Playlist]);
-
-}).call(this);
-
-(function() {
-  var Playlists;
-
-  Playlists = (function() {
-    function Playlists($scope) {
-      $scope.playlists = [
-        {
-          title: 'Reggae',
-          id: 1
-        }, {
-          title: 'Chill',
-          id: 2
-        }, {
-          title: 'Dubstep',
-          id: 3
-        }, {
-          title: 'Indie',
-          id: 4
-        }, {
-          title: 'Rap',
-          id: 5
-        }, {
-          title: 'Cowbell',
-          id: 6
-        }
-      ];
-    }
-
-    return Playlists;
-
-  })();
-
-  angular.module('balltoro').controller('playlistsController', ['$scope', Playlists]);
-
-}).call(this);
-
 (function() {
   var LogLine;
 
@@ -763,6 +762,54 @@
 }).call(this);
 
 (function() {
+  var Auth;
+
+  Auth = (function() {
+    function Auth() {
+      this.$get = function() {};
+    }
+
+    return Auth;
+
+  })();
+
+  angular.module('balltoro').provider('authProvider', [Auth]);
+
+}).call(this);
+
+(function() {
+  var FacebookAuth;
+
+  FacebookAuth = (function() {
+    function FacebookAuth() {
+      this.$get = function() {};
+    }
+
+    return FacebookAuth;
+
+  })();
+
+  angular.module('balltoro').provider('facebookAuthProvider', [FacebookAuth]);
+
+}).call(this);
+
+(function() {
+  var ToroAuth;
+
+  ToroAuth = (function() {
+    function ToroAuth() {
+      this.$get = function() {};
+    }
+
+    return ToroAuth;
+
+  })();
+
+  angular.module('balltoro').provider('toroAuthProvider', [ToroAuth]);
+
+}).call(this);
+
+(function() {
   var Club, Clubs;
 
   Clubs = (function() {
@@ -835,53 +882,5 @@
   })();
 
   angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
-
-}).call(this);
-
-(function() {
-  var Auth;
-
-  Auth = (function() {
-    function Auth() {
-      this.$get = function() {};
-    }
-
-    return Auth;
-
-  })();
-
-  angular.module('balltoro').provider('authProvider', [Auth]);
-
-}).call(this);
-
-(function() {
-  var FacebookAuth;
-
-  FacebookAuth = (function() {
-    function FacebookAuth() {
-      this.$get = function() {};
-    }
-
-    return FacebookAuth;
-
-  })();
-
-  angular.module('balltoro').provider('facebookAuthProvider', [FacebookAuth]);
-
-}).call(this);
-
-(function() {
-  var ToroAuth;
-
-  ToroAuth = (function() {
-    function ToroAuth() {
-      this.$get = function() {};
-    }
-
-    return ToroAuth;
-
-  })();
-
-  angular.module('balltoro').provider('toroAuthProvider', [ToroAuth]);
 
 }).call(this);

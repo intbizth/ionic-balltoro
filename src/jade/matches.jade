@@ -5,7 +5,7 @@ ion-view(view-title='Matches')
             on-refresh="refresh()"
         //)
 
-        ion-item(collection-repeat="r in collection")
+        ion-item(collection-repeat="r in store.$collection")
             div
                 img(ng-src="{{r.home_club.getLogo('70x70')}}" style="height:20px")
                 | {{r.home_club.name}}
@@ -16,4 +16,6 @@ ion-view(view-title='Matches')
         ion-infinite-scroll(
             ng-if="store.hasMorePage()"
             on-infinite="store.getNextPage()"
+            distance="5%"
+            spinner="{{$spinnerIcon}}"
         )
