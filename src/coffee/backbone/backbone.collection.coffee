@@ -6,6 +6,7 @@ class NgBackboneCollection extends Factory then constructor: (
     $ionicLoading,
     _
 ) ->
+    # TODO: to move up `backbone` into abstract layer inject me as dependency!! or override in sub-class
     PROXY = TORO.ENVIRONMENT["@@proxyPass"].api.proxy
     BASE_URL = TORO.ENVIRONMENT["@@proxyPass"].api.baseUrl
 
@@ -121,9 +122,10 @@ class NgBackboneCollection extends Factory then constructor: (
         # Shortcut to fetch collection.
         #
         # @param {object} options The `options` can be `$scope` for short-hand or
-        #                 {
-        #                   scope: $scope
-        #                 }
+        #    {
+        #        scope: $scope
+        #        viewParam: 'store' # the name to be used in view.
+        #    }
         ###
         load: (options) ->
             # need scope
@@ -138,4 +140,3 @@ class NgBackboneCollection extends Factory then constructor: (
             $ionicLoading.show()
             @getFirstPage()
             return @
-

@@ -366,9 +366,10 @@
          * Shortcut to fetch collection.
          *
          * @param {object} options The `options` can be `$scope` for short-hand or
-         *                 {
-         *                   scope: $scope
-         *                 }
+         *    {
+         *        scope: $scope
+         *        viewParam: 'store' # the name to be used in view.
+         *    }
          */
         load: function(options) {
           var $scope;
@@ -657,54 +658,6 @@
 }).call(this);
 
 (function() {
-  var Auth;
-
-  Auth = (function() {
-    function Auth() {
-      this.$get = function() {};
-    }
-
-    return Auth;
-
-  })();
-
-  angular.module('balltoro').provider('authProvider', [Auth]);
-
-}).call(this);
-
-(function() {
-  var FacebookAuth;
-
-  FacebookAuth = (function() {
-    function FacebookAuth() {
-      this.$get = function() {};
-    }
-
-    return FacebookAuth;
-
-  })();
-
-  angular.module('balltoro').provider('facebookAuthProvider', [FacebookAuth]);
-
-}).call(this);
-
-(function() {
-  var ToroAuth;
-
-  ToroAuth = (function() {
-    function ToroAuth() {
-      this.$get = function() {};
-    }
-
-    return ToroAuth;
-
-  })();
-
-  angular.module('balltoro').provider('toroAuthProvider', [ToroAuth]);
-
-}).call(this);
-
-(function() {
   var LogLine;
 
   LogLine = (function() {
@@ -882,5 +835,53 @@
   })();
 
   angular.module('balltoro').factory('Matches', ['NgBackboneCollection', 'Match', Matches]).factory('Match', ['NgBackboneModel', 'Club', 'Clubs', Match]);
+
+}).call(this);
+
+(function() {
+  var Auth;
+
+  Auth = (function() {
+    function Auth() {
+      this.$get = function() {};
+    }
+
+    return Auth;
+
+  })();
+
+  angular.module('balltoro').provider('authProvider', [Auth]);
+
+}).call(this);
+
+(function() {
+  var FacebookAuth;
+
+  FacebookAuth = (function() {
+    function FacebookAuth() {
+      this.$get = function() {};
+    }
+
+    return FacebookAuth;
+
+  })();
+
+  angular.module('balltoro').provider('facebookAuthProvider', [FacebookAuth]);
+
+}).call(this);
+
+(function() {
+  var ToroAuth;
+
+  ToroAuth = (function() {
+    function ToroAuth() {
+      this.$get = function() {};
+    }
+
+    return ToroAuth;
+
+  })();
+
+  angular.module('balltoro').provider('toroAuthProvider', [ToroAuth]);
 
 }).call(this);
