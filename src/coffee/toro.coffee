@@ -9,7 +9,8 @@ class TORO extends Constant then constructor: ->
             dev:
                 api:
                     baseUrl: ''
-                    proxy: 'http://127.0.0.1:8000'
+                    proxy: 'http://127.0.0.1:8001'
+                    #proxy: 'http://demo.balltoro.com'
             prod:
                 api:
                     baseUrl: 'http://api.balltoro.com'

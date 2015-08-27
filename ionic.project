@@ -1,5 +1,5 @@
 {
-  "name": "balltoro",
+  "name": "balltoro-mobile",
   "app_id": "",
   "gulpStartupTasks": [
     "sass",
@@ -14,7 +14,7 @@
   "proxies": [
     {
       "path": "/api",
-      "proxyUrl": "http://127.0.0.1:8000/api"
+      "proxyUrl": "http://127.0.0.1:8001/api"
     }
   ]
 }

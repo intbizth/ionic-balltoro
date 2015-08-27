@@ -28,6 +28,7 @@ $run = require 'run-sequence'
 gulp = require 'gulp'
 bower = require 'bower'
 replace = require 'gulp-replace-task'
+fixmyjs = require 'gulp-fixmyjs'
 $logger = $.util.log
 
 $logger 'Environment: ' + ($.util.colors.yellow environment)
@@ -70,6 +71,9 @@ gulp.task 'coffee', (done) ->
         .pipe($.concat('app.js'))
         .pipe($.insert.prepend("'use strict';\n"))
         .pipe(replace({patterns: replacements}))
+        .pipe(fixmyjs({
+            # JSHint settings here
+        }))
         .pipe(gulp.dest('./www/js'))
         .pipe($.size(showFiles: true))
         # TODO: jsmin
