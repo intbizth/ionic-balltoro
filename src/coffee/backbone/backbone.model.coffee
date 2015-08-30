@@ -38,12 +38,12 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
                 syncing: false
 
             @on 'request', (model, xhr, options) ->
+                method = options.method.toUpperCase()
                 @setStatus
-                    deleting: options.method == 'DELETE'
-                    loading: options.method == 'GET'
-                    saving: options.method == 'POST' or options.method == 'PUT'
+                    deleting: method == 'DELETE'
+                    loading: method == 'GET'
+                    saving: method == 'POST' or method == 'PUT'
                     syncing: true
-                return
 
             @on 'sync error', @resetStatus
             return NgBackbone.RelationalModel.apply @, arguments
