@@ -38,31 +38,46 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
                 syncing: false
 
             @on 'request', (model, xhr, options) ->
-                @$setStatus
+                @setStatus
                     deleting: options.method == 'DELETE'
                     loading: options.method == 'GET'
                     saving: options.method == 'POST' or options.method == 'PUT'
                     syncing: true
                 return
 
-            @on 'sync error', @$resetStatus
+            @on 'sync error', @resetStatus
             return NgBackbone.RelationalModel.apply @, arguments
 
         set: (key, val, options) ->
             output = NgBackbone.RelationalModel::set.apply @, arguments
 
             # Do not set binding if attributes are invalid
-            @$setBinding key, val, options
+            @setBinding key, val, options
             return output
 
-        $resetStatus: ->
-            @$setStatus
+        setStatus: (key, value, options) ->
+            return @ if _.isUndefined(key)
+
+            if _.isObject(key)
+                attrs = key
+                options = value
+            else (attrs = {})[key] = value
+
+            options = options or {}
+
+            for attr of @$status
+                if attrs.hasOwnProperty(attr) and _.isBoolean(attrs[attr])
+                    @$status[attr] = attrs[attr]
+            return
+
+        resetStatus: ->
+            @setStatus
                 deleting: false
                 loading: false
                 saving: false
                 syncing: false
 
-        $setBinding: (key, val, options) ->
+        setBinding: (key, val, options) ->
             return @ if _.isUndefined(key)
 
             if _.isObject(key)
@@ -82,20 +97,5 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
                     propertyQuickAccessor.call @, attr
             return @
 
-        $setStatus: (key, value, options) ->
-            return @ if _.isUndefined(key)
-
-            if _.isObject(key)
-                attrs = key
-                options = value
-            else (attrs = {})[key] = value
-
-            options = options or {}
-
-            for attr of @$status
-                if attrs.hasOwnProperty(attr) and _.isBoolean(attrs[attr])
-                    @$status[attr] = attrs[attr]
-            return
-
-        $removeBinding: (attr, options) ->
-            @$setBinding attr, undefined, _.extend({}, options, unset: true)
+        removeBinding: (attr, options) ->
+            @setBinding attr, undefined, _.extend({}, options, unset: true)
