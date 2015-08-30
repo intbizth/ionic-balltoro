@@ -8,16 +8,17 @@ class TORO extends Constant then constructor: ->
         ENVIRONMENT:
             dev:
                 api:
-                    baseUrl: ''
-                    proxy: 'http://127.0.0.1:8001'
-                    #proxy: 'http://demo.balltoro.com'
+                    baseUrl: 'http://demo.balltoro.com/api/'
+                    proxy: ''
             prod:
                 api:
-                    baseUrl: 'http://api.balltoro.com'
+                    baseUrl: 'http://api.balltoro.com/api/'
                     proxy: ''
             sim:
                 api:
                     #baseUrl: 'http://127.0.0.1:8000'
-                    baseUrl: 'http://demo.balltoro.com'
+                    baseUrl: 'http://demo.balltoro.com/api/'
                     proxy: ''
+        # Api path
+        API: (path) -> @ENVIRONMENT['@@environment'].api.baseUrl + path
     }

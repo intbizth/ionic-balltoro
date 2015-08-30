@@ -28,8 +28,8 @@
                 ENVIRONMENT: {
                     dev: {
                         api: {
-                            baseUrl: '',
-                            proxy: 'http://127.0.0.1:8001'
+                            baseUrl: 'http://demo.balltoro.com',
+                            proxy: ''
                         }
                     },
                     prod: {
@@ -44,6 +44,9 @@
                             proxy: ''
                         }
                     }
+                },
+                API: function (path) {
+                    return this.ENVIRONMENT.dev.api.baseUrl + path;
                 }
             };
         }
@@ -271,7 +274,7 @@
                             };
                         }(this)
                     });
-                    NgBackbone.PageableCollection.prototype.constructor.apply(this, arguments);
+                    NgBackbone.PageableCollection.apply(this, arguments);
                 },
                 parseState: function (resp, queryParams, state, options) {
                     this.state.total = resp.data.total;
@@ -287,9 +290,9 @@
                         next = _.result(_links, 'next', defs);
                         previous = _.result(_links, 'previous', defs);
                         return {
-                            first: first.href.replace(PROXY, BASE_URL),
-                            next: next.href.replace(PROXY, BASE_URL),
-                            prev: previous.href.replace(PROXY, BASE_URL)
+                            first: first.href,
+                            next: next.href,
+                            prev: previous
                         };
                     } else {
                         return NgBackbone.PageableCollection.prototype.parseLinks.apply(this, arguments);
@@ -433,7 +436,7 @@
                         });
                     });
                     this.on('sync error', this.$resetStatus);
-                    return NgBackbone.RelationalModel.prototype.constructor.apply(this, arguments);
+                    return NgBackbone.RelationalModel.apply(this, arguments);
                 },
                 set: function (key, val, options) {
                     var output;
@@ -713,8 +716,11 @@
 (function () {
     var Club, Clubs;
     Clubs = function () {
-        function Clubs(NgBackboneCollection, Club) {
-            return NgBackboneCollection.extend({ model: Club });
+        function Clubs(TORO, NgBackboneCollection, Club) {
+            return NgBackboneCollection.extend({
+                model: Club,
+                url: TORO.API('/api/clubs/')
+            });
         }
         return Clubs;
     }();
@@ -732,6 +738,7 @@
         return Club;
     }();
     angular.module('balltoro').factory('Clubs', [
+        'TORO',
         'NgBackboneCollection',
         'Club',
         Clubs
@@ -744,10 +751,10 @@
 (function () {
     var Match, Matches;
     Matches = function () {
-        function Matches(NgBackboneCollection, Match) {
+        function Matches(TORO, NgBackboneCollection, Match) {
             return NgBackboneCollection.extend({
                 model: Match,
-                url: '/api/matches/'
+                url: TORO.API('/api/matches/')
             });
         }
         return Matches;
@@ -772,6 +779,7 @@
         return Match;
     }();
     angular.module('balltoro').factory('Matches', [
+        'TORO',
         'NgBackboneCollection',
         'Match',
         Matches

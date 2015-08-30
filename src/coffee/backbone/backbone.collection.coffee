@@ -59,7 +59,7 @@ class NgBackboneCollection extends Factory then constructor: (
                     return @fullCollection.models if @mode == 'infinite'
                     return @models
 
-            NgBackbone.PageableCollection::constructor.apply @, arguments
+            NgBackbone.PageableCollection.apply @, arguments
             return
 
         parseState: (resp, queryParams, state, options) ->
@@ -77,9 +77,9 @@ class NgBackboneCollection extends Factory then constructor: (
                 previous = _.result _links, 'previous', defs
 
                 return {
-                    first: first.href.replace PROXY, BASE_URL
-                    next: next.href.replace PROXY, BASE_URL
-                    prev: previous.href.replace PROXY, BASE_URL
+                    first: first.href#.replace PROXY, BASE_URL
+                    next: next.href#.replace PROXY, BASE_URL
+                    prev: previous#.href.replace PROXY, BASE_URL
                 }
             else return NgBackbone.PageableCollection::parseLinks.apply @, arguments
 

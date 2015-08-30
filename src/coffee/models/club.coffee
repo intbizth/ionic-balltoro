@@ -1,6 +1,7 @@
-class Clubs extends Factory then constructor: (NgBackboneCollection, Club) ->
+class Clubs extends Factory then constructor: (TORO, NgBackboneCollection, Club) ->
     return NgBackboneCollection.extend
         model: Club
+        url: TORO.API 'clubs/'
 
 class Club extends Factory then constructor: (NgBackboneModel, _) ->
     return NgBackboneModel.extend

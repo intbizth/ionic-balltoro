@@ -1,7 +1,7 @@
-class Matches extends Factory then constructor: (NgBackboneCollection, Match) ->
+class Matches extends Factory then constructor: (TORO, NgBackboneCollection, Match) ->
     return NgBackboneCollection.extend
         model: Match
-        url: '/api/matches/'
+        url: TORO.API 'matches/'
 
 class Match extends Factory then constructor: (NgBackboneModel, Club, Clubs) ->
     return NgBackboneModel.extend
