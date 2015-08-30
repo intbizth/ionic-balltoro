@@ -30,7 +30,13 @@ class NgBackboneCollection extends Factory then constructor: (
             totalPages: 'pages'
 
         constructor: ->
-            # Initialize status object
+            Object.defineProperty @, '$collection',
+                enumerable: no
+                get: =>
+                    return @fullCollection.models if @mode == 'infinite'
+                    return @models
+
+            # initialize status object
             @$status =
                 deleting: no
                 loading: no
@@ -38,26 +44,16 @@ class NgBackboneCollection extends Factory then constructor: (
                 syncing: no
 
             @on 'request', (model, xhr, options) ->
-                @$setStatus
-                    deleting: options.method == 'DELETE'
-                    loading: options.method == 'GET'
-                    saving: options.method == 'POST' or options.method == 'PUT'
+                method = options.method.toUpperCase()
+                @setStatus
+                    deleting: method == 'DELETE'
+                    loading: method == 'GET'
+                    saving: method == 'POST' or method == 'PUT'
                     syncing: no
-                return
 
-            @on 'sync error', @$resetStatus
-
-            # For clearing status when destroy model on collection
-            @on 'destroy', @$resetStatus
-
-            @on 'sync', ->
-                $rootScope.$broadcast 'scroll.infiniteScrollComplete' if @mode == 'infinite'
-
-            Object.defineProperty @, '$collection',
-                enumerable: no
-                get: =>
-                    return @fullCollection.models if @mode == 'infinite'
-                    return @models
+            @on 'sync error', @resetStatus
+            @on 'destroy', @resetStatus
+            @on 'sync', -> $rootScope.$broadcast 'scroll.infiniteScrollComplete' if @mode == 'infinite'
 
             NgBackbone.PageableCollection.apply @, arguments
             return
@@ -86,13 +82,7 @@ class NgBackboneCollection extends Factory then constructor: (
         # has more page
         hasMorePage: -> @state.total > 0 and @state.total > @state.totalRecords
 
-        parseRecords: (resp) ->
-            data = _.result resp.data, '_embedded'
-
-            return data.items if data
-            return resp.data
-
-        $setStatus: (key, value, options) ->
+        setStatus: (key, value, options) ->
             return @ if _.isUndefined(key)
 
             if _.isObject(key)
@@ -107,8 +97,8 @@ class NgBackboneCollection extends Factory then constructor: (
                     @$status[attr] = attrs[attr]
             return
 
-        $resetStatus: ->
-            @$setStatus
+        resetStatus: ->
+            @setStatus
                 deleting: no
                 loading: no
                 saving: no
