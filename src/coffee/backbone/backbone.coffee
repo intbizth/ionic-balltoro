@@ -6,7 +6,7 @@ class NgBackbone extends Factory then constructor: ($http, _) ->
         delete: 'DELETE'
         read: 'GET'
 
-    ajax = -> $http.apply $http, arguments
+    http = -> $http.apply $http, arguments
     sync = (method, model, options) ->
         # Default options to empty object
         if _.isUndefined options
@@ -25,7 +25,7 @@ class NgBackbone extends Factory then constructor: ($http, _) ->
         if httpMethod == 'GET' and !_.isUndefined options.data
             params.params = options.data
 
-        xhr = ajax _.extend(params, options)
+        xhr = http _.extend(params, options)
         xhr.then (data, status, headers, config) ->
             options.xhr =
                 status: status
@@ -52,4 +52,4 @@ class NgBackbone extends Factory then constructor: ($http, _) ->
     # Override Backbone ajax request
     return _.extend Backbone,
         sync: sync
-        ajax: ajax
+        ajax: http
