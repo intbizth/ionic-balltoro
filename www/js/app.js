@@ -28,19 +28,19 @@
                 ENVIRONMENT: {
                     dev: {
                         api: {
-                            baseUrl: 'http://demo.balltoro.com',
+                            baseUrl: 'http://demo.balltoro.com/api/',
                             proxy: ''
                         }
                     },
                     prod: {
                         api: {
-                            baseUrl: 'http://api.balltoro.com',
+                            baseUrl: 'http://api.balltoro.com/api/',
                             proxy: ''
                         }
                     },
                     sim: {
                         api: {
-                            baseUrl: 'http://demo.balltoro.com',
+                            baseUrl: 'http://demo.balltoro.com/api/',
                             proxy: ''
                         }
                     }
@@ -158,7 +158,7 @@
     var NgBackbone;
     NgBackbone = function () {
         function NgBackbone($http, _) {
-            var ajax, methodMap, sync;
+            var http, methodMap, sync;
             methodMap = {
                 create: 'POST',
                 update: 'PUT',
@@ -166,7 +166,7 @@
                 'delete': 'DELETE',
                 read: 'GET'
             };
-            ajax = function () {
+            http = function () {
                 return $http.apply($http, arguments);
             };
             sync = function (method, model, options) {
@@ -185,7 +185,7 @@
                 if (httpMethod === 'GET' && !_.isUndefined(options.data)) {
                     params.params = options.data;
                 }
-                xhr = ajax(_.extend(params, options));
+                xhr = http(_.extend(params, options));
                 xhr.then(function (data, status, headers, config) {
                     options.xhr = {
                         status: status,
@@ -211,7 +211,7 @@
             };
             return _.extend(Backbone, {
                 sync: sync,
-                ajax: ajax
+                ajax: http
             });
         }
         return NgBackbone;
@@ -242,27 +242,6 @@
                     totalPages: 'pages'
                 },
                 constructor: function () {
-                    this.$status = {
-                        deleting: false,
-                        loading: false,
-                        saving: false,
-                        syncing: false
-                    };
-                    this.on('request', function (model, xhr, options) {
-                        this.$setStatus({
-                            deleting: options.method === 'DELETE',
-                            loading: options.method === 'GET',
-                            saving: options.method === 'POST' || options.method === 'PUT',
-                            syncing: false
-                        });
-                    });
-                    this.on('sync error', this.$resetStatus);
-                    this.on('destroy', this.$resetStatus);
-                    this.on('sync', function () {
-                        if (this.mode === 'infinite') {
-                            return $rootScope.$broadcast('scroll.infiniteScrollComplete');
-                        }
-                    });
                     Object.defineProperty(this, '$collection', {
                         enumerable: false,
                         get: function (_this) {
@@ -273,6 +252,29 @@
                                 return _this.models;
                             };
                         }(this)
+                    });
+                    this.$status = {
+                        deleting: false,
+                        loading: false,
+                        saving: false,
+                        syncing: false
+                    };
+                    this.on('request', function (model, xhr, options) {
+                        var method;
+                        method = options.method.toUpperCase();
+                        return this.setStatus({
+                            deleting: method === 'DELETE',
+                            loading: method === 'GET',
+                            saving: method === 'POST' || method === 'PUT',
+                            syncing: false
+                        });
+                    });
+                    this.on('sync error', this.resetStatus);
+                    this.on('destroy', this.resetStatus);
+                    this.on('sync', function () {
+                        if (this.mode === 'infinite') {
+                            return $rootScope.$broadcast('scroll.infiniteScrollComplete');
+                        }
                     });
                     NgBackbone.PageableCollection.apply(this, arguments);
                 },
@@ -298,9 +300,6 @@
                         return NgBackbone.PageableCollection.prototype.parseLinks.apply(this, arguments);
                     }
                 },
-                hasMorePage: function () {
-                    return this.state.total > 0 && this.state.total > this.state.totalRecords;
-                },
                 parseRecords: function (resp) {
                     var data;
                     data = _.result(resp.data, '_embedded');
@@ -309,7 +308,10 @@
                     }
                     return resp.data;
                 },
-                $setStatus: function (key, value, options) {
+                hasMorePage: function () {
+                    return this.state.total > 0 && this.state.total > this.state.totalRecords;
+                },
+                setStatus: function (key, value, options) {
                     var attr, attrs;
                     if (_.isUndefined(key)) {
                         return this;
@@ -327,8 +329,8 @@
                         }
                     }
                 },
-                $resetStatus: function () {
-                    return this.$setStatus({
+                resetStatus: function () {
+                    return this.setStatus({
                         deleting: false,
                         loading: false,
                         saving: false,
@@ -428,31 +430,51 @@
                         syncing: false
                     };
                     this.on('request', function (model, xhr, options) {
-                        this.$setStatus({
-                            deleting: options.method === 'DELETE',
-                            loading: options.method === 'GET',
-                            saving: options.method === 'POST' || options.method === 'PUT',
+                        var method;
+                        method = options.method.toUpperCase();
+                        return this.setStatus({
+                            deleting: method === 'DELETE',
+                            loading: method === 'GET',
+                            saving: method === 'POST' || method === 'PUT',
                             syncing: true
                         });
                     });
-                    this.on('sync error', this.$resetStatus);
+                    this.on('sync error', this.resetStatus);
                     return NgBackbone.RelationalModel.apply(this, arguments);
                 },
                 set: function (key, val, options) {
                     var output;
                     output = NgBackbone.RelationalModel.prototype.set.apply(this, arguments);
-                    this.$setBinding(key, val, options);
+                    this.setBinding(key, val, options);
                     return output;
                 },
-                $resetStatus: function () {
-                    return this.$setStatus({
+                setStatus: function (key, value, options) {
+                    var attr, attrs;
+                    if (_.isUndefined(key)) {
+                        return this;
+                    }
+                    if (_.isObject(key)) {
+                        attrs = key;
+                        options = value;
+                    } else {
+                        (attrs = {})[key] = value;
+                    }
+                    options = options || {};
+                    for (attr in this.$status) {
+                        if (attrs.hasOwnProperty(attr) && _.isBoolean(attrs[attr])) {
+                            this.$status[attr] = attrs[attr];
+                        }
+                    }
+                },
+                resetStatus: function () {
+                    return this.setStatus({
                         deleting: false,
                         loading: false,
                         saving: false,
                         syncing: false
                     });
                 },
-                $setBinding: function (key, val, options) {
+                setBinding: function (key, val, options) {
                     var attr, attrs, unset;
                     if (_.isUndefined(key)) {
                         return this;
@@ -478,26 +500,8 @@
                     }
                     return this;
                 },
-                $setStatus: function (key, value, options) {
-                    var attr, attrs;
-                    if (_.isUndefined(key)) {
-                        return this;
-                    }
-                    if (_.isObject(key)) {
-                        attrs = key;
-                        options = value;
-                    } else {
-                        (attrs = {})[key] = value;
-                    }
-                    options = options || {};
-                    for (attr in this.$status) {
-                        if (attrs.hasOwnProperty(attr) && _.isBoolean(attrs[attr])) {
-                            this.$status[attr] = attrs[attr];
-                        }
-                    }
-                },
-                $removeBinding: function (attr, options) {
-                    return this.$setBinding(attr, void 0, _.extend({}, options, { unset: true }));
+                removeBinding: function (attr, options) {
+                    return this.setBinding(attr, void 0, _.extend({}, options, { unset: true }));
                 }
             });
         }
@@ -507,6 +511,83 @@
         '$rootScope',
         'NgBackbone',
         NgBackboneModel
+    ]);
+}.call(this));
+(function () {
+    var Club, Clubs;
+    Clubs = function () {
+        function Clubs(TORO, NgBackboneCollection, Club) {
+            return NgBackboneCollection.extend({
+                model: Club,
+                url: TORO.API('clubs/')
+            });
+        }
+        return Clubs;
+    }();
+    Club = function () {
+        function Club(NgBackboneModel, _) {
+            return NgBackboneModel.extend({
+                defaults: { _links: null },
+                getLogo: function (size) {
+                    var logo;
+                    logo = _.isUndefined(size) || _.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
+                    return _.result(logo, 'href');
+                }
+            });
+        }
+        return Club;
+    }();
+    angular.module('balltoro').factory('Clubs', [
+        'TORO',
+        'NgBackboneCollection',
+        'Club',
+        Clubs
+    ]).factory('Club', [
+        'NgBackboneModel',
+        '_',
+        Club
+    ]);
+}.call(this));
+(function () {
+    var Match, Matches;
+    Matches = function () {
+        function Matches(TORO, NgBackboneCollection, Match) {
+            return NgBackboneCollection.extend({
+                model: Match,
+                url: TORO.API('matches/')
+            });
+        }
+        return Matches;
+    }();
+    Match = function () {
+        function Match(NgBackboneModel, Club, Clubs) {
+            return NgBackboneModel.extend({
+                relations: [
+                    {
+                        type: 'HasOne',
+                        key: 'home_club',
+                        relatedModel: Club
+                    },
+                    {
+                        type: 'HasOne',
+                        key: 'away_club',
+                        relatedModel: Club
+                    }
+                ]
+            });
+        }
+        return Match;
+    }();
+    angular.module('balltoro').factory('Matches', [
+        'TORO',
+        'NgBackboneCollection',
+        'Match',
+        Matches
+    ]).factory('Match', [
+        'NgBackboneModel',
+        'Club',
+        'Clubs',
+        Match
     ]);
 }.call(this));
 /**
@@ -712,83 +793,6 @@
         return _;
     }();
     angular.module('balltoro').factory('_', [_]);
-}.call(this));
-(function () {
-    var Club, Clubs;
-    Clubs = function () {
-        function Clubs(TORO, NgBackboneCollection, Club) {
-            return NgBackboneCollection.extend({
-                model: Club,
-                url: TORO.API('/api/clubs/')
-            });
-        }
-        return Clubs;
-    }();
-    Club = function () {
-        function Club(NgBackboneModel, _) {
-            return NgBackboneModel.extend({
-                defaults: { _links: null },
-                getLogo: function (size) {
-                    var logo;
-                    logo = _.isUndefined(size) || _.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
-                    return _.result(logo, 'href');
-                }
-            });
-        }
-        return Club;
-    }();
-    angular.module('balltoro').factory('Clubs', [
-        'TORO',
-        'NgBackboneCollection',
-        'Club',
-        Clubs
-    ]).factory('Club', [
-        'NgBackboneModel',
-        '_',
-        Club
-    ]);
-}.call(this));
-(function () {
-    var Match, Matches;
-    Matches = function () {
-        function Matches(TORO, NgBackboneCollection, Match) {
-            return NgBackboneCollection.extend({
-                model: Match,
-                url: TORO.API('/api/matches/')
-            });
-        }
-        return Matches;
-    }();
-    Match = function () {
-        function Match(NgBackboneModel, Club, Clubs) {
-            return NgBackboneModel.extend({
-                relations: [
-                    {
-                        type: 'HasOne',
-                        key: 'home_club',
-                        relatedModel: Club
-                    },
-                    {
-                        type: 'HasOne',
-                        key: 'away_club',
-                        relatedModel: Club
-                    }
-                ]
-            });
-        }
-        return Match;
-    }();
-    angular.module('balltoro').factory('Matches', [
-        'TORO',
-        'NgBackboneCollection',
-        'Match',
-        Matches
-    ]).factory('Match', [
-        'NgBackboneModel',
-        'Club',
-        'Clubs',
-        Match
-    ]);
 }.call(this));
 (function () {
     var Auth;
