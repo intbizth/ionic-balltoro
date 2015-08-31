@@ -89,6 +89,7 @@ class NgBackboneCollection extends Factory then constructor: (
         # has more page
         hasMorePage: -> @state.total > 0 and @state.total > @state.totalRecords
 
+        # set on request status
         setStatus: (key, value, options) ->
             return @ if _.isUndefined(key)
 
