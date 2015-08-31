@@ -1,14 +1,14 @@
 class NgBackboneCollection extends Factory then constructor: (
-    TORO,
+    CFG,
     NgBackbone,
     NgBackboneModel,
     $rootScope,
     $ionicLoading,
-    _
+    Und
 ) ->
     # TODO: to move up `backbone` into abstract layer inject me as dependency!! or override in sub-class
-    PROXY = TORO.ENVIRONMENT["@@proxyPass"].api.proxy
-    BASE_URL = TORO.ENVIRONMENT["@@proxyPass"].api.baseUrl
+    PROXY = CFG.API.getProxy()
+    BASE_URL = CFG.API.getBaseUrl()
 
     # TODO:
     # - subscribe `reset` to make `ordering` of fullCollection to
@@ -64,13 +64,13 @@ class NgBackboneCollection extends Factory then constructor: (
             return @state
 
         parseLinks: (resp, options) ->
-            _links = _.result resp.data, '_links'
+            _links = Und.result resp.data, '_links'
 
             if _links
                 defs = href: ''
-                first = _.result _links, 'first', defs
-                next = _.result _links, 'next', defs
-                previous = _.result _links, 'previous', defs
+                first = Und.result _links, 'first', defs
+                next = Und.result _links, 'next', defs
+                previous = Und.result _links, 'previous', defs
 
                 return {
                     first: first.href#.replace PROXY, BASE_URL
@@ -81,7 +81,7 @@ class NgBackboneCollection extends Factory then constructor: (
 
         # parse hateote data
         parseRecords: (resp) ->
-            data = _.result resp.data, '_embedded'
+            data = Und.result resp.data, '_embedded'
 
             return data.items if data
             return resp.data
@@ -91,9 +91,9 @@ class NgBackboneCollection extends Factory then constructor: (
 
         # set on request status
         setStatus: (key, value, options) ->
-            return @ if _.isUndefined(key)
+            return @ if Und.isUndefined(key)
 
-            if _.isObject(key)
+            if Und.isObject(key)
                 attrs = key
                 options = value
             else (attrs = {})[key] = value
@@ -101,7 +101,7 @@ class NgBackboneCollection extends Factory then constructor: (
             options = options or {}
 
             for attr of @$status
-                if attrs.hasOwnProperty(attr) and _.isBoolean(attrs[attr])
+                if attrs.hasOwnProperty(attr) and Und.isBoolean(attrs[attr])
                     @$status[attr] = attrs[attr]
             return
 

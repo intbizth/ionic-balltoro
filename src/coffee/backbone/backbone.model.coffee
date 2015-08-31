@@ -1,4 +1,4 @@
-class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone) ->
+class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone, Und) ->
 
     # Usage: model.$attributes.someKey
     propertyAccessor = (key) ->
@@ -17,13 +17,13 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
             enumerable: true
             configurable: true
             get: =>
-                if !_.isUndefined(@attributes[key])
+                if Und.isDefined(@attributes[key])
                     return @$attributes[key]
                 else
                     return @[key]
 
             set: (newValue) =>
-                if !_.isUndefined(@attributes[key])
+                if Und.isDefined(@attributes[key])
                     @attributes[key] = newValue
                 else @[key] = newValue
                 return
@@ -56,9 +56,9 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
             return output
 
         setStatus: (key, value, options) ->
-            return @ if _.isUndefined(key)
+            return @ if Und.isUndefined(key)
 
-            if _.isObject(key)
+            if Und.isObject(key)
                 attrs = key
                 options = value
             else (attrs = {})[key] = value
@@ -66,7 +66,7 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
             options = options or {}
 
             for attr of @$status
-                if attrs.hasOwnProperty(attr) and _.isBoolean(attrs[attr])
+                if attrs.hasOwnProperty(attr) and Und.isBoolean(attrs[attr])
                     @$status[attr] = attrs[attr]
             return
 
@@ -78,15 +78,15 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
                 syncing: false
 
         setBinding: (key, val, options) ->
-            return @ if _.isUndefined(key)
+            return @ if Und.isUndefined(key)
 
-            if _.isObject(key)
+            if Und.isObject(key)
                 attrs = key
                 options = val
             else (attrs = {})[key] = val
 
             options = options or {}
-            @$attributes = {} if _.isUndefined(@$attributes)
+            @$attributes = {} if Und.isUndefined(@$attributes)
             unset = options.unset
 
             for attr of attrs
@@ -98,4 +98,4 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
             return @
 
         removeBinding: (attr, options) ->
-            @setBinding attr, undefined, _.extend({}, options, unset: true)
+            @setBinding attr, undefined, Und.extend({}, options, unset: true)

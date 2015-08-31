@@ -15,46 +15,6 @@
     angular.module('balltoro', new App());
 }.call(this));
 (function () {
-    var TORO;
-    TORO = function () {
-        function TORO() {
-            return {
-                VERSION: '0.0.1',
-                HTTP_STATUS_CODES: {
-                    '401': 'Unauthorized',
-                    '403': 'Forbidden',
-                    '404': 'Not Found'
-                },
-                ENVIRONMENT: {
-                    dev: {
-                        api: {
-                            baseUrl: 'http://demo.balltoro.com/api/',
-                            proxy: ''
-                        }
-                    },
-                    prod: {
-                        api: {
-                            baseUrl: 'http://api.balltoro.com/api/',
-                            proxy: ''
-                        }
-                    },
-                    sim: {
-                        api: {
-                            baseUrl: 'http://demo.balltoro.com/api/',
-                            proxy: ''
-                        }
-                    }
-                },
-                API: function (path) {
-                    return this.ENVIRONMENT.dev.api.baseUrl + path;
-                }
-            };
-        }
-        return TORO;
-    }();
-    angular.module('balltoro').constant('TORO', TORO());
-}.call(this));
-(function () {
     var Run;
     Run = function () {
         function Run($rootScope, $ionicPlatform, $location, $cordovaKeyboard, $cordovaToast, LogLine) {
@@ -84,24 +44,57 @@
     ]);
 }.call(this));
 (function () {
-    var Config;
-    Config = function () {
-        /**
-     * @param {object} $stateProvider
-     * @param {object} $urlRouterProvider
-     * @param {object} $ionicConfigProvider See http://ionicframework.com/docs/api/provider/$ionicConfigProvider/
-     */
-        function Config(TORO, $ionicConfigProvider, $ionicLoadingConfig) {
-            $ionicLoadingConfig.template = '<ion-spinner icon="lines"></ion-spinner>';
+    var CFG;
+    CFG = function () {
+        function CFG() {
+            var ApiConfig, Config;
+            Config = {
+                VERSION: '0.0.1',
+                HTTP_STATUS_CODES: {
+                    '401': 'Unauthorized',
+                    '403': 'Forbidden',
+                    '404': 'Not Found',
+                    '500': 'Internal Service Error'
+                },
+                ENVIRONMENT: {
+                    dev: {
+                        api: {
+                            baseUrl: 'http://demo.balltoro.com/api/',
+                            proxy: ''
+                        }
+                    },
+                    prod: {
+                        api: {
+                            baseUrl: 'http://api.balltoro.com/api/',
+                            proxy: ''
+                        }
+                    },
+                    sim: {
+                        api: {
+                            baseUrl: 'http://demo.balltoro.com/api/',
+                            proxy: ''
+                        }
+                    }
+                }
+            };
+            ApiConfig = Config.ENVIRONMENT.dev.api;
+            return angular.extend(Config, {
+                API: {
+                    getPath: function (path) {
+                        return ApiConfig.baseUrl + path;
+                    },
+                    getProxy: function () {
+                        return ApiConfig.proxy;
+                    },
+                    getBaseUrl: function () {
+                        return ApiConfig.baseUrl;
+                    }
+                }
+            });
         }
-        return Config;
+        return CFG;
     }();
-    angular.module('balltoro').config([
-        'TORO',
-        '$ionicConfigProvider',
-        '$ionicLoadingConfig',
-        Config
-    ]);
+    angular.module('balltoro').constant('CFG', CFG());
 }.call(this));
 (function () {
     var Routing;
@@ -155,9 +148,29 @@
     ]);
 }.call(this));
 (function () {
+    var Setting;
+    Setting = function () {
+        /**
+     * @param {object} $stateProvider
+     * @param {object} $urlRouterProvider
+     * @param {object} $ionicConfigProvider See http://ionicframework.com/docs/api/provider/$ionicConfigProvider/
+     */
+        function Setting(CFG, $ionicConfigProvider, $ionicLoadingConfig) {
+            $ionicLoadingConfig.template = '<ion-spinner icon="lines"></ion-spinner>';
+        }
+        return Setting;
+    }();
+    angular.module('balltoro').config([
+        'CFG',
+        '$ionicConfigProvider',
+        '$ionicLoadingConfig',
+        Setting
+    ]);
+}.call(this));
+(function () {
     var NgBackbone;
     NgBackbone = function () {
-        function NgBackbone($http, _) {
+        function NgBackbone($http, Und) {
             var http, methodMap, sync;
             methodMap = {
                 create: 'POST',
@@ -171,28 +184,28 @@
             };
             sync = function (method, model, options) {
                 var httpMethod, params, xhr;
-                if (_.isUndefined(options)) {
+                if (Und.isUndefined(options)) {
                     options = {};
                 }
                 httpMethod = options.method || methodMap[method];
                 params = { method: httpMethod };
-                if (!options.url && !_.isUndefined(model.url)) {
+                if (!options.url && Und.isDefined(model.url)) {
                     params.url = model.url;
                 }
-                if (_.isUndefined(options.data) && model && (httpMethod === 'POST' || httpMethod === 'PUT' || httpMethod === 'PATCH')) {
+                if (Und.isUndefined(options.data) && model && (httpMethod === 'POST' || httpMethod === 'PUT' || httpMethod === 'PATCH')) {
                     params.data = angular.toJson(options.attrs || model.toJSON(options));
                 }
-                if (httpMethod === 'GET' && !_.isUndefined(options.data)) {
+                if (httpMethod === 'GET' && Und.isDefined(options.data)) {
                     params.params = options.data;
                 }
-                xhr = http(_.extend(params, options));
+                xhr = http(Und.extend(params, options));
                 xhr.then(function (data, status, headers, config) {
                     options.xhr = {
                         status: status,
                         headers: headers,
                         config: config
                     };
-                    if (!_.isUndefined(options.success) && _.isFunction(options.success)) {
+                    if (Und.isDefined(options.success) && Und.isFunction(options.success)) {
                         options.success(data);
                     }
                 });
@@ -202,14 +215,14 @@
                         headers: headers,
                         config: config
                     };
-                    if (!_.isUndefined(options.error) && _.isFunction(options.error)) {
+                    if (Und.isDefined(options.error) && Und.isFunction(options.error)) {
                         options.error(data);
                     }
                 });
-                model.trigger('request', model, xhr, _.extend(params, options));
+                model.trigger('request', model, xhr, Und.extend(params, options));
                 return xhr;
             };
-            return _.extend(Backbone, {
+            return Und.extend(Backbone, {
                 sync: sync,
                 ajax: http
             });
@@ -218,17 +231,17 @@
     }();
     angular.module('balltoro').factory('NgBackbone', [
         '$http',
-        '_',
+        'Und',
         NgBackbone
     ]);
 }.call(this));
 (function () {
     var NgBackboneCollection;
     NgBackboneCollection = function () {
-        function NgBackboneCollection(TORO, NgBackbone, NgBackboneModel, $rootScope, $ionicLoading, _) {
+        function NgBackboneCollection(CFG, NgBackbone, NgBackboneModel, $rootScope, $ionicLoading, Und) {
             var BASE_URL, PROXY;
-            PROXY = TORO.ENVIRONMENT.dev.api.proxy;
-            BASE_URL = TORO.ENVIRONMENT.dev.api.baseUrl;
+            PROXY = CFG.API.getProxy();
+            BASE_URL = CFG.API.getBaseUrl();
             return NgBackbone.PageableCollection.extend({
                 model: NgBackboneModel,
                 mode: 'infinite',
@@ -285,12 +298,12 @@
                 },
                 parseLinks: function (resp, options) {
                     var defs, first, next, previous, _links;
-                    _links = _.result(resp.data, '_links');
+                    _links = Und.result(resp.data, '_links');
                     if (_links) {
                         defs = { href: '' };
-                        first = _.result(_links, 'first', defs);
-                        next = _.result(_links, 'next', defs);
-                        previous = _.result(_links, 'previous', defs);
+                        first = Und.result(_links, 'first', defs);
+                        next = Und.result(_links, 'next', defs);
+                        previous = Und.result(_links, 'previous', defs);
                         return {
                             first: first.href,
                             next: next.href,
@@ -302,7 +315,7 @@
                 },
                 parseRecords: function (resp) {
                     var data;
-                    data = _.result(resp.data, '_embedded');
+                    data = Und.result(resp.data, '_embedded');
                     if (data) {
                         return data.items;
                     }
@@ -313,10 +326,10 @@
                 },
                 setStatus: function (key, value, options) {
                     var attr, attrs;
-                    if (_.isUndefined(key)) {
+                    if (Und.isUndefined(key)) {
                         return this;
                     }
-                    if (_.isObject(key)) {
+                    if (Und.isObject(key)) {
                         attrs = key;
                         options = value;
                     } else {
@@ -324,7 +337,7 @@
                     }
                     options = options || {};
                     for (attr in this.$status) {
-                        if (attrs.hasOwnProperty(attr) && _.isBoolean(attrs[attr])) {
+                        if (attrs.hasOwnProperty(attr) && Und.isBoolean(attrs[attr])) {
                             this.$status[attr] = attrs[attr];
                         }
                     }
@@ -367,19 +380,19 @@
         return NgBackboneCollection;
     }();
     angular.module('balltoro').factory('NgBackboneCollection', [
-        'TORO',
+        'CFG',
         'NgBackbone',
         'NgBackboneModel',
         '$rootScope',
         '$ionicLoading',
-        '_',
+        'Und',
         NgBackboneCollection
     ]);
 }.call(this));
 (function () {
     var NgBackboneModel;
     NgBackboneModel = function () {
-        function NgBackboneModel($rootScope, NgBackbone) {
+        function NgBackboneModel($rootScope, NgBackbone, Und) {
             var propertyAccessor, propertyQuickAccessor;
             propertyAccessor = function (key) {
                 Object.defineProperty(this.$attributes, key, {
@@ -403,7 +416,7 @@
                     configurable: true,
                     get: function (_this) {
                         return function () {
-                            if (!_.isUndefined(_this.attributes[key])) {
+                            if (Und.isDefined(_this.attributes[key])) {
                                 return _this.$attributes[key];
                             } else {
                                 return _this[key];
@@ -412,7 +425,7 @@
                     }(this),
                     set: function (_this) {
                         return function (newValue) {
-                            if (!_.isUndefined(_this.attributes[key])) {
+                            if (Und.isDefined(_this.attributes[key])) {
                                 _this.attributes[key] = newValue;
                             } else {
                                 _this[key] = newValue;
@@ -450,10 +463,10 @@
                 },
                 setStatus: function (key, value, options) {
                     var attr, attrs;
-                    if (_.isUndefined(key)) {
+                    if (Und.isUndefined(key)) {
                         return this;
                     }
-                    if (_.isObject(key)) {
+                    if (Und.isObject(key)) {
                         attrs = key;
                         options = value;
                     } else {
@@ -461,7 +474,7 @@
                     }
                     options = options || {};
                     for (attr in this.$status) {
-                        if (attrs.hasOwnProperty(attr) && _.isBoolean(attrs[attr])) {
+                        if (attrs.hasOwnProperty(attr) && Und.isBoolean(attrs[attr])) {
                             this.$status[attr] = attrs[attr];
                         }
                     }
@@ -476,17 +489,17 @@
                 },
                 setBinding: function (key, val, options) {
                     var attr, attrs, unset;
-                    if (_.isUndefined(key)) {
+                    if (Und.isUndefined(key)) {
                         return this;
                     }
-                    if (_.isObject(key)) {
+                    if (Und.isObject(key)) {
                         attrs = key;
                         options = val;
                     } else {
                         (attrs = {})[key] = val;
                     }
                     options = options || {};
-                    if (_.isUndefined(this.$attributes)) {
+                    if (Und.isUndefined(this.$attributes)) {
                         this.$attributes = {};
                     }
                     unset = options.unset;
@@ -501,7 +514,7 @@
                     return this;
                 },
                 removeBinding: function (attr, options) {
-                    return this.setBinding(attr, void 0, _.extend({}, options, { unset: true }));
+                    return this.setBinding(attr, void 0, Und.extend({}, options, { unset: true }));
                 }
             });
         }
@@ -510,85 +523,101 @@
     angular.module('balltoro').factory('NgBackboneModel', [
         '$rootScope',
         'NgBackbone',
+        'Und',
         NgBackboneModel
     ]);
 }.call(this));
 (function () {
-    var Club, Clubs;
-    Clubs = function () {
-        function Clubs(TORO, NgBackboneCollection, Club) {
-            return NgBackboneCollection.extend({
-                model: Club,
-                url: TORO.API('clubs/')
-            });
-        }
-        return Clubs;
-    }();
-    Club = function () {
-        function Club(NgBackboneModel, _) {
-            return NgBackboneModel.extend({
-                defaults: { _links: null },
-                getLogo: function (size) {
-                    var logo;
-                    logo = _.isUndefined(size) || _.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
-                    return _.result(logo, 'href');
+    var LogLine;
+    LogLine = function () {
+        function LogLine() {
+            var appName, brandName, defaultLen, defaultSymbol;
+            defaultLen = 32;
+            defaultSymbol = '.';
+            appName = 'TORO';
+            brandName = 'INTBIZTH';
+            return {
+                appName: function (appName) {
+                    appName = appName;
+                    return this;
+                },
+                brandName: function (brandName) {
+                    brandName = brandName;
+                    return this;
+                },
+                len: function (len) {
+                    defaultLen = len;
+                    return this;
+                },
+                symbol: function (symbol) {
+                    defaultSymbol = symbol;
+                    return this;
+                },
+                platform: function () {
+                    return this.print([ionic.Platform.platform().toUpperCase()], defaultLen, defaultSymbol, defaultSymbol);
+                },
+                brand: function () {
+                    return this.print(brandName + ' - MOBILE', defaultLen, defaultSymbol);
+                },
+                app: function () {
+                    return this.print(appName + ' APP STARTED', defaultLen, defaultSymbol);
+                },
+                rockNroll: function () {
+                    return this.print('Rock \'n Roll!! READY.', defaultLen, defaultSymbol);
+                },
+                footer: function () {
+                    return this.print(defaultSymbol, defaultLen, defaultSymbol, defaultSymbol);
+                },
+                startup: function () {
+                    this.platform();
+                    this.brand();
+                    return this.app();
+                },
+                ready: function () {
+                    this.rockNroll();
+                    return this.footer();
+                },
+                /**
+         * Print log text.
+         *
+         * @param {string|array} text Display text, an array given will add padding aroun text.
+         * @param {int} len Block width.
+         * @param {string} symbol The symbol text.
+         * @param {string} spacing Spacing for print text.
+         */
+                print: function (text, len, symbol, spacing) {
+                    var odd, str1, str2;
+                    if (typeof text === 'object') {
+                        text = ' ' + text[0] + ' ';
+                    }
+                    if (!symbol) {
+                        symbol = '+';
+                    }
+                    if (!spacing) {
+                        spacing = ' ';
+                    }
+                    odd = text.length % 2 ? len : len - 1;
+                    str1 = str2 = Array(Math.ceil((odd - text.length) / 2)).join(spacing);
+                    if (odd === len) {
+                        str2 = str2.substr(1);
+                    }
+                    return console.log(symbol + str1 + text + str2 + symbol);
                 }
-            });
+            };
         }
-        return Club;
+        return LogLine;
     }();
-    angular.module('balltoro').factory('Clubs', [
-        'TORO',
-        'NgBackboneCollection',
-        'Club',
-        Clubs
-    ]).factory('Club', [
-        'NgBackboneModel',
-        '_',
-        Club
-    ]);
+    angular.module('balltoro').factory('LogLine', [LogLine]);
 }.call(this));
 (function () {
-    var Match, Matches;
-    Matches = function () {
-        function Matches(TORO, NgBackboneCollection, Match) {
-            return NgBackboneCollection.extend({
-                model: Match,
-                url: TORO.API('matches/')
-            });
+    var Und;
+    Und = function () {
+        function Und() {
+            return window._.extend(window._, { isDefined: angular.isDefined });
         }
-        return Matches;
+        return Und;
     }();
-    Match = function () {
-        function Match(NgBackboneModel, Club, Clubs) {
-            return NgBackboneModel.extend({
-                relations: [
-                    {
-                        type: 'HasOne',
-                        key: 'home_club',
-                        relatedModel: Club
-                    },
-                    {
-                        type: 'HasOne',
-                        key: 'away_club',
-                        relatedModel: Club
-                    }
-                ]
-            });
-        }
-        return Match;
-    }();
-    angular.module('balltoro').factory('Matches', [
-        'TORO',
-        'NgBackboneCollection',
-        'Match',
-        Matches
-    ]).factory('Match', [
-        'NgBackboneModel',
-        'Club',
-        'Clubs',
-        Match
-    ]);
+    angular.module('balltoro').factory('Und', [Und]);
 }.call(this));
 /**
  * NOTE:
@@ -703,96 +732,81 @@
     ]);
 }.call(this));
 (function () {
-    var LogLine;
-    LogLine = function () {
-        function LogLine() {
-            var appName, brandName, defaultLen, defaultSymbol;
-            defaultLen = 32;
-            defaultSymbol = '.';
-            appName = 'TORO';
-            brandName = 'INTBIZTH';
-            return {
-                appName: function (appName) {
-                    appName = appName;
-                    return this;
-                },
-                brandName: function (brandName) {
-                    brandName = brandName;
-                    return this;
-                },
-                len: function (len) {
-                    defaultLen = len;
-                    return this;
-                },
-                symbol: function (symbol) {
-                    defaultSymbol = symbol;
-                    return this;
-                },
-                platform: function () {
-                    return this.print([ionic.Platform.platform().toUpperCase()], defaultLen, defaultSymbol, defaultSymbol);
-                },
-                brand: function () {
-                    return this.print(brandName + ' - MOBILE', defaultLen, defaultSymbol);
-                },
-                app: function () {
-                    return this.print(appName + ' APP STARTED', defaultLen, defaultSymbol);
-                },
-                rockNroll: function () {
-                    return this.print('Rock \'n Roll!! READY.', defaultLen, defaultSymbol);
-                },
-                footer: function () {
-                    return this.print(defaultSymbol, defaultLen, defaultSymbol, defaultSymbol);
-                },
-                startup: function () {
-                    this.platform();
-                    this.brand();
-                    return this.app();
-                },
-                ready: function () {
-                    this.rockNroll();
-                    return this.footer();
-                },
-                /**
-         * Print log text.
-         *
-         * @param {string|array} text Display text, an array given will add padding aroun text.
-         * @param {int} len Block width.
-         * @param {string} symbol The symbol text.
-         * @param {string} spacing Spacing for print text.
-         */
-                print: function (text, len, symbol, spacing) {
-                    var odd, str1, str2;
-                    if (typeof text === 'object') {
-                        text = ' ' + text[0] + ' ';
-                    }
-                    if (!symbol) {
-                        symbol = '+';
-                    }
-                    if (!spacing) {
-                        spacing = ' ';
-                    }
-                    odd = text.length % 2 ? len : len - 1;
-                    str1 = str2 = Array(Math.ceil((odd - text.length) / 2)).join(spacing);
-                    if (odd === len) {
-                        str2 = str2.substr(1);
-                    }
-                    return console.log(symbol + str1 + text + str2 + symbol);
-                }
-            };
+    var Club, Clubs;
+    Clubs = function () {
+        function Clubs(CFG, NgBackboneCollection, Club) {
+            return NgBackboneCollection.extend({
+                model: Club,
+                url: CFG.API.getPath('clubs/')
+            });
         }
-        return LogLine;
+        return Clubs;
     }();
-    angular.module('balltoro').factory('LogLine', [LogLine]);
+    Club = function () {
+        function Club(NgBackboneModel, Und) {
+            return NgBackboneModel.extend({
+                defaults: { _links: null },
+                getLogo: function (size) {
+                    var logo;
+                    logo = Und.isUndefined(size) || Und.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
+                    return Und.result(logo, 'href');
+                }
+            });
+        }
+        return Club;
+    }();
+    angular.module('balltoro').factory('Clubs', [
+        'CFG',
+        'NgBackboneCollection',
+        'Club',
+        Clubs
+    ]).factory('Club', [
+        'NgBackboneModel',
+        'Und',
+        Club
+    ]);
 }.call(this));
 (function () {
-    var _;
-    _ = function () {
-        function _() {
-            return window._;
+    var Match, Matches;
+    Matches = function () {
+        function Matches(CFG, NgBackboneCollection, Match) {
+            return NgBackboneCollection.extend({
+                model: Match,
+                url: CFG.API.getPath('matches/')
+            });
         }
-        return _;
+        return Matches;
     }();
-    angular.module('balltoro').factory('_', [_]);
+    Match = function () {
+        function Match(NgBackboneModel, Club, Clubs) {
+            return NgBackboneModel.extend({
+                relations: [
+                    {
+                        type: 'HasOne',
+                        key: 'home_club',
+                        relatedModel: Club
+                    },
+                    {
+                        type: 'HasOne',
+                        key: 'away_club',
+                        relatedModel: Club
+                    }
+                ]
+            });
+        }
+        return Match;
+    }();
+    angular.module('balltoro').factory('Matches', [
+        'CFG',
+        'NgBackboneCollection',
+        'Match',
+        Matches
+    ]).factory('Match', [
+        'NgBackboneModel',
+        'Club',
+        'Clubs',
+        Match
+    ]);
 }.call(this));
 (function () {
     var Auth;

@@ -1,16 +1,16 @@
-class Clubs extends Factory then constructor: (TORO, NgBackboneCollection, Club) ->
+class Clubs extends Factory then constructor: (CFG, NgBackboneCollection, Club) ->
     return NgBackboneCollection.extend
         model: Club
-        url: TORO.API 'clubs/'
+        url: CFG.API.getPath 'clubs/'
 
-class Club extends Factory then constructor: (NgBackboneModel, _) ->
+class Club extends Factory then constructor: (NgBackboneModel, Und) ->
     return NgBackboneModel.extend
         defaults:
             _links: null
 
         getLogo: (size) ->
-            logo = if _.isUndefined(size) or _.isUndefined(@._links['logo_' + size])
+            logo = if Und.isUndefined(size) or Und.isUndefined(@._links['logo_' + size])
                 @._links.logo
             else @._links['logo_' + size]
 
-            return _.result logo, 'href'
+            return Und.result logo, 'href'
