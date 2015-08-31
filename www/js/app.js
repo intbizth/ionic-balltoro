@@ -528,96 +528,57 @@
     ]);
 }.call(this));
 (function () {
-    var LogLine;
-    LogLine = function () {
-        function LogLine() {
-            var appName, brandName, defaultLen, defaultSymbol;
-            defaultLen = 32;
-            defaultSymbol = '.';
-            appName = 'TORO';
-            brandName = 'INTBIZTH';
+    var FloatingButton;
+    FloatingButton = function () {
+        function FloatingButton(Und) {
             return {
-                appName: function (appName) {
-                    appName = appName;
-                    return this;
+                restrict: 'E',
+                transclude: true,
+                scope: {
+                    title: '@',
+                    icon: '@'
                 },
-                brandName: function (brandName) {
-                    brandName = brandName;
-                    return this;
-                },
-                len: function (len) {
-                    defaultLen = len;
-                    return this;
-                },
-                symbol: function (symbol) {
-                    defaultSymbol = symbol;
-                    return this;
-                },
-                platform: function () {
-                    return this.print([ionic.Platform.platform().toUpperCase()], defaultLen, defaultSymbol, defaultSymbol);
-                },
-                brand: function () {
-                    return this.print(brandName + ' - MOBILE', defaultLen, defaultSymbol);
-                },
-                app: function () {
-                    return this.print(appName + ' APP STARTED', defaultLen, defaultSymbol);
-                },
-                rockNroll: function () {
-                    return this.print('Rock \'n Roll!! READY.', defaultLen, defaultSymbol);
-                },
-                footer: function () {
-                    return this.print(defaultSymbol, defaultLen, defaultSymbol, defaultSymbol);
-                },
-                startup: function () {
-                    this.platform();
-                    this.brand();
-                    return this.app();
-                },
-                ready: function () {
-                    this.rockNroll();
-                    return this.footer();
-                },
-                /**
-         * Print log text.
-         *
-         * @param {string|array} text Display text, an array given will add padding aroun text.
-         * @param {int} len Block width.
-         * @param {string} symbol The symbol text.
-         * @param {string} spacing Spacing for print text.
-         */
-                print: function (text, len, symbol, spacing) {
-                    var odd, str1, str2;
-                    if (typeof text === 'object') {
-                        text = ' ' + text[0] + ' ';
+                template: '<div class="ux-floating-button" ng-class="{open:clicked}">' + '<div class="item toggle" ng-click="open()" title="{{title}}">' + '<i class="icon ion-{{icon}}"></i>' + '</div>' + '<div class="menu" ng-class="{in:isIn, out:isOut}" ng-transclude>' + '</div>' + '</div>',
+                compile: function (element, attr) {
+                    if (Und.isUndefined(attr.icon)) {
+                        attr.icon = 'settings';
                     }
-                    if (!symbol) {
-                        symbol = '+';
-                    }
-                    if (!spacing) {
-                        spacing = ' ';
-                    }
-                    odd = text.length % 2 ? len : len - 1;
-                    str1 = str2 = Array(Math.ceil((odd - text.length) / 2)).join(spacing);
-                    if (odd === len) {
-                        str2 = str2.substr(1);
-                    }
-                    return console.log(symbol + str1 + text + str2 + symbol);
+                },
+                controller: function ($scope) {
+                    $scope.clicked = false;
+                    $scope.isIn = false;
+                    $scope.isOut = false;
+                    return $scope.open = function () {
+                        $scope.clicked = !$scope.clicked;
+                        $scope.isIn = $scope.clicked;
+                        return $scope.isOut = !$scope.clicked;
+                    };
                 }
             };
         }
-        return LogLine;
+        return FloatingButton;
     }();
-    angular.module('balltoro').factory('LogLine', [LogLine]);
+    angular.module('balltoro').directive('floatingButton', [
+        'Und',
+        FloatingButton
+    ]);
 }.call(this));
 (function () {
-    var Und;
-    Und = function () {
-        function Und() {
-            return window._.extend(window._, { isDefined: angular.isDefined });
+    var FloatingButtonItem;
+    FloatingButtonItem = function () {
+        function FloatingButtonItem() {
+            return {
+                restrict: 'E',
+                scope: {
+                    title: '@',
+                    icon: '@'
+                },
+                template: '<div class="item" title="{{title}}">' + '<i class="icon ion-{{icon}}"></i>' + '</div>'
+            };
         }
-        return Und;
+        return FloatingButtonItem;
     }();
-    angular.module('balltoro').factory('Und', [Und]);
+    angular.module('balltoro').directive('floatingButtonItem', [FloatingButtonItem]);
 }.call(this));
 /**
  * NOTE:
@@ -730,6 +691,98 @@
         '$scope',
         Playlists
     ]);
+}.call(this));
+(function () {
+    var LogLine;
+    LogLine = function () {
+        function LogLine() {
+            var appName, brandName, defaultLen, defaultSymbol;
+            defaultLen = 32;
+            defaultSymbol = '.';
+            appName = 'TORO';
+            brandName = 'INTBIZTH';
+            return {
+                appName: function (appName) {
+                    appName = appName;
+                    return this;
+                },
+                brandName: function (brandName) {
+                    brandName = brandName;
+                    return this;
+                },
+                len: function (len) {
+                    defaultLen = len;
+                    return this;
+                },
+                symbol: function (symbol) {
+                    defaultSymbol = symbol;
+                    return this;
+                },
+                platform: function () {
+                    return this.print([ionic.Platform.platform().toUpperCase()], defaultLen, defaultSymbol, defaultSymbol);
+                },
+                brand: function () {
+                    return this.print(brandName + ' - MOBILE', defaultLen, defaultSymbol);
+                },
+                app: function () {
+                    return this.print(appName + ' APP STARTED', defaultLen, defaultSymbol);
+                },
+                rockNroll: function () {
+                    return this.print('Rock \'n Roll!! READY.', defaultLen, defaultSymbol);
+                },
+                footer: function () {
+                    return this.print(defaultSymbol, defaultLen, defaultSymbol, defaultSymbol);
+                },
+                startup: function () {
+                    this.platform();
+                    this.brand();
+                    return this.app();
+                },
+                ready: function () {
+                    this.rockNroll();
+                    return this.footer();
+                },
+                /**
+         * Print log text.
+         *
+         * @param {string|array} text Display text, an array given will add padding aroun text.
+         * @param {int} len Block width.
+         * @param {string} symbol The symbol text.
+         * @param {string} spacing Spacing for print text.
+         */
+                print: function (text, len, symbol, spacing) {
+                    var odd, str1, str2;
+                    if (typeof text === 'object') {
+                        text = ' ' + text[0] + ' ';
+                    }
+                    if (!symbol) {
+                        symbol = '+';
+                    }
+                    if (!spacing) {
+                        spacing = ' ';
+                    }
+                    odd = text.length % 2 ? len : len - 1;
+                    str1 = str2 = Array(Math.ceil((odd - text.length) / 2)).join(spacing);
+                    if (odd === len) {
+                        str2 = str2.substr(1);
+                    }
+                    return console.log(symbol + str1 + text + str2 + symbol);
+                }
+            };
+        }
+        return LogLine;
+    }();
+    angular.module('balltoro').factory('LogLine', [LogLine]);
+}.call(this));
+(function () {
+    var Und;
+    Und = function () {
+        function Und() {
+            return window._.extend(window._, { isDefined: angular.isDefined });
+        }
+        return Und;
+    }();
+    angular.module('balltoro').factory('Und', [Und]);
 }.call(this));
 (function () {
     var Club, Clubs;

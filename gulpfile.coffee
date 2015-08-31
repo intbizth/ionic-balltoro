@@ -29,13 +29,16 @@ gulp = require 'gulp'
 bower = require 'bower'
 replace = require 'gulp-replace-task'
 fixmyjs = require 'gulp-fixmyjs'
+autoprefixer = require 'gulp-autoprefixer'
 $logger = $.util.log
 
 $logger 'Environment: ' + ($.util.colors.yellow environment)
 
 paths =
     styles: [
-        './src/scss/ionic.app.scss'
+        './src/scss/*.scss'
+        './src/scss/**.scss'
+        './src/scss/**/*.scss'
     ]
     scripts: [
         './src/coffee/app.coffee'
@@ -53,6 +56,7 @@ gulp.task 'sass', (done) ->
     gulp.src(paths.styles)
         .pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
         .pipe($.sass(errLogToConsole: true))
+        .pipe(autoprefixer({browsers: ['last 4 versions']}))
         .pipe($.concat('style.css'))
         .pipe(gulp.dest('./www/css'))
         .pipe($.minifyCss(keepSpecialComments: 0))
