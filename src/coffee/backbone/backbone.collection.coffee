@@ -79,6 +79,12 @@ class NgBackboneCollection extends Factory then constructor: (
                 }
             else return NgBackbone.PageableCollection::parseLinks.apply @, arguments
 
+        parseRecords: (resp) ->
+            data = _.result resp.data, '_embedded'
+
+            return data.items if data
+            return resp.data
+
         # has more page
         hasMorePage: -> @state.total > 0 and @state.total > @state.totalRecords
 

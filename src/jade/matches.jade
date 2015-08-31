@@ -2,10 +2,10 @@ ion-view(view-title='Matches')
     ion-content
         ion-item(collection-repeat="r in store.$collection")
             div
-                img(ng-src="{{r.get('home_club').getLogo('70x70')}}" style="height:20px")
+                img(ng-src="{{r.home_club.getLogo('70x70')}}" style="height:20px")
                 | {{r.home_club.name}}
                 | VS
-                img(ng-src="{{r.get('away_club').getLogo('70x70')}}" style="height:20px")
+                img(ng-src="{{r.away_club.getLogo('70x70')}}" style="height:20px")
                 | {{r.away_club.name}}
 
         ion-infinite-scroll(
