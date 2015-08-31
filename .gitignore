@@ -5,9 +5,6 @@ node_modules/
 platforms/
 plugins/
 
-www/js/
-www/js/
-www/css/
-www/css/*
-www/lib/
-www/lib/*
+www/js
+www/css
+www/lib

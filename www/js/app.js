@@ -626,83 +626,6 @@
     ]);
 }.call(this));
 (function () {
-    var Club, Clubs;
-    Clubs = function () {
-        function Clubs(TORO, NgBackboneCollection, Club) {
-            return NgBackboneCollection.extend({
-                model: Club,
-                url: TORO.API('clubs/')
-            });
-        }
-        return Clubs;
-    }();
-    Club = function () {
-        function Club(NgBackboneModel, _) {
-            return NgBackboneModel.extend({
-                defaults: { _links: null },
-                getLogo: function (size) {
-                    var logo;
-                    logo = _.isUndefined(size) || _.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
-                    return _.result(logo, 'href');
-                }
-            });
-        }
-        return Club;
-    }();
-    angular.module('balltoro').factory('Clubs', [
-        'TORO',
-        'NgBackboneCollection',
-        'Club',
-        Clubs
-    ]).factory('Club', [
-        'NgBackboneModel',
-        '_',
-        Club
-    ]);
-}.call(this));
-(function () {
-    var Match, Matches;
-    Matches = function () {
-        function Matches(TORO, NgBackboneCollection, Match) {
-            return NgBackboneCollection.extend({
-                model: Match,
-                url: TORO.API('matches/')
-            });
-        }
-        return Matches;
-    }();
-    Match = function () {
-        function Match(NgBackboneModel, Club, Clubs) {
-            return NgBackboneModel.extend({
-                relations: [
-                    {
-                        type: 'HasOne',
-                        key: 'home_club',
-                        relatedModel: Club
-                    },
-                    {
-                        type: 'HasOne',
-                        key: 'away_club',
-                        relatedModel: Club
-                    }
-                ]
-            });
-        }
-        return Match;
-    }();
-    angular.module('balltoro').factory('Matches', [
-        'TORO',
-        'NgBackboneCollection',
-        'Match',
-        Matches
-    ]).factory('Match', [
-        'NgBackboneModel',
-        'Club',
-        'Clubs',
-        Match
-    ]);
-}.call(this));
-(function () {
     var LogLine;
     LogLine = function () {
         function LogLine() {
@@ -793,6 +716,83 @@
         return _;
     }();
     angular.module('balltoro').factory('_', [_]);
+}.call(this));
+(function () {
+    var Club, Clubs;
+    Clubs = function () {
+        function Clubs(TORO, NgBackboneCollection, Club) {
+            return NgBackboneCollection.extend({
+                model: Club,
+                url: TORO.API('clubs/')
+            });
+        }
+        return Clubs;
+    }();
+    Club = function () {
+        function Club(NgBackboneModel, _) {
+            return NgBackboneModel.extend({
+                defaults: { _links: null },
+                getLogo: function (size) {
+                    var logo;
+                    logo = _.isUndefined(size) || _.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
+                    return _.result(logo, 'href');
+                }
+            });
+        }
+        return Club;
+    }();
+    angular.module('balltoro').factory('Clubs', [
+        'TORO',
+        'NgBackboneCollection',
+        'Club',
+        Clubs
+    ]).factory('Club', [
+        'NgBackboneModel',
+        '_',
+        Club
+    ]);
+}.call(this));
+(function () {
+    var Match, Matches;
+    Matches = function () {
+        function Matches(TORO, NgBackboneCollection, Match) {
+            return NgBackboneCollection.extend({
+                model: Match,
+                url: TORO.API('matches/')
+            });
+        }
+        return Matches;
+    }();
+    Match = function () {
+        function Match(NgBackboneModel, Club, Clubs) {
+            return NgBackboneModel.extend({
+                relations: [
+                    {
+                        type: 'HasOne',
+                        key: 'home_club',
+                        relatedModel: Club
+                    },
+                    {
+                        type: 'HasOne',
+                        key: 'away_club',
+                        relatedModel: Club
+                    }
+                ]
+            });
+        }
+        return Match;
+    }();
+    angular.module('balltoro').factory('Matches', [
+        'TORO',
+        'NgBackboneCollection',
+        'Match',
+        Matches
+    ]).factory('Match', [
+        'NgBackboneModel',
+        'Club',
+        'Clubs',
+        Match
+    ]);
 }.call(this));
 (function () {
     var Auth;

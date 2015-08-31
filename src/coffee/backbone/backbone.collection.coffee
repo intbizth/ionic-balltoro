@@ -79,6 +79,7 @@ class NgBackboneCollection extends Factory then constructor: (
                 }
             else return NgBackbone.PageableCollection::parseLinks.apply @, arguments
 
+        # parse hateote data
         parseRecords: (resp) ->
             data = _.result resp.data, '_embedded'
 
