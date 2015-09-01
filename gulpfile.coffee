@@ -54,7 +54,7 @@ paths =
 
 gulp.task 'sass', (done) ->
     gulp.src(paths.styles)
-        .pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
+        #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
         .pipe($.sass(errLogToConsole: true))
         .pipe(autoprefixer({browsers: ['last 4 versions']}))
         .pipe($.concat('style.css'))
@@ -67,7 +67,7 @@ gulp.task 'sass', (done) ->
 
 gulp.task 'coffee', (done) ->
     gulp.src(paths.scripts)
-        .pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
+        #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
         .pipe($.ngClassify(appName: appName))
         .pipe($.coffee(bare: no).on('error', $logger))
         .pipe($.jshint(".jshintrc"))
@@ -85,7 +85,7 @@ gulp.task 'coffee', (done) ->
 
 gulp.task 'jade', (done) ->
     gulp.src(paths.views)
-        .pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
+        #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
         .pipe($.jade())
         # .pipe(gulp.dest('./www/templates')) # uncomment to show compiled html templates
         .pipe($.angularTemplatecache('templates', {standalone:true, root: 'templates/'} ))
