@@ -135,6 +135,14 @@
                         templateUrl: 'templates/playlist.html'
                     }
                 }
+            }).state('app.news', {
+                url: '/news',
+                views: {
+                    menuContent: {
+                        controller: 'newsController',
+                        templateUrl: 'templates/news.html'
+                    }
+                }
             });
             $urlRouterProvider.otherwise('/app/matches');
             return;
@@ -527,59 +535,6 @@
         NgBackboneModel
     ]);
 }.call(this));
-(function () {
-    var FloatingButton;
-    FloatingButton = function () {
-        function FloatingButton(Und) {
-            return {
-                restrict: 'E',
-                transclude: true,
-                scope: {
-                    title: '@',
-                    icon: '@'
-                },
-                template: '<div class="ux-floating-button" ng-class="{open:clicked}">' + '<div class="item toggle" ng-click="open()" title="{{title}}">' + '<i class="icon ion-{{icon}}"></i>' + '</div>' + '<div class="menu" ng-class="{in:isIn, out:isOut}" ng-transclude>' + '</div>' + '</div>',
-                compile: function (element, attr) {
-                    if (Und.isUndefined(attr.icon)) {
-                        attr.icon = 'settings';
-                    }
-                },
-                controller: function ($scope) {
-                    $scope.clicked = false;
-                    $scope.isIn = false;
-                    $scope.isOut = false;
-                    return $scope.open = function () {
-                        $scope.clicked = !$scope.clicked;
-                        $scope.isIn = $scope.clicked;
-                        return $scope.isOut = !$scope.clicked;
-                    };
-                }
-            };
-        }
-        return FloatingButton;
-    }();
-    angular.module('balltoro').directive('floatingButton', [
-        'Und',
-        FloatingButton
-    ]);
-}.call(this));
-(function () {
-    var FloatingButtonItem;
-    FloatingButtonItem = function () {
-        function FloatingButtonItem() {
-            return {
-                restrict: 'E',
-                scope: {
-                    title: '@',
-                    icon: '@'
-                },
-                template: '<div class="item" title="{{title}}">' + '<i class="icon ion-{{icon}}"></i>' + '</div>'
-            };
-        }
-        return FloatingButtonItem;
-    }();
-    angular.module('balltoro').directive('floatingButtonItem', [FloatingButtonItem]);
-}.call(this));
 /**
  * NOTE:
  *   With the new view caching in Ionic, Controllers are only called
@@ -646,6 +601,20 @@
     ]);
 }.call(this));
 (function () {
+    var News;
+    News = function () {
+        function News($scope, NewsStore) {
+            new NewsStore().load($scope);
+        }
+        return News;
+    }();
+    angular.module('balltoro').controller('newsController', [
+        '$scope',
+        'NewsStore',
+        News
+    ]);
+}.call(this));
+(function () {
     var Playlist;
     Playlist = function () {
         function Playlist() {
@@ -691,6 +660,59 @@
         '$scope',
         Playlists
     ]);
+}.call(this));
+(function () {
+    var FloatingButton;
+    FloatingButton = function () {
+        function FloatingButton(Und) {
+            return {
+                restrict: 'E',
+                transclude: true,
+                scope: {
+                    title: '@',
+                    icon: '@'
+                },
+                template: '<div class="ux-floating-button" ng-class="{open:clicked}">' + '<div class="item toggle" ng-click="open()" title="{{title}}">' + '<i class="icon ion-{{icon}}"></i>' + '</div>' + '<div class="menu" ng-class="{in:isIn, out:isOut}" ng-transclude>' + '</div>' + '</div>',
+                compile: function (element, attr) {
+                    if (Und.isUndefined(attr.icon)) {
+                        attr.icon = 'settings';
+                    }
+                },
+                controller: function ($scope) {
+                    $scope.clicked = false;
+                    $scope.isIn = false;
+                    $scope.isOut = false;
+                    return $scope.open = function () {
+                        $scope.clicked = !$scope.clicked;
+                        $scope.isIn = $scope.clicked;
+                        return $scope.isOut = !$scope.clicked;
+                    };
+                }
+            };
+        }
+        return FloatingButton;
+    }();
+    angular.module('balltoro').directive('floatingButton', [
+        'Und',
+        FloatingButton
+    ]);
+}.call(this));
+(function () {
+    var FloatingButtonItem;
+    FloatingButtonItem = function () {
+        function FloatingButtonItem() {
+            return {
+                restrict: 'E',
+                scope: {
+                    title: '@',
+                    icon: '@'
+                },
+                template: '<div class="item" title="{{title}}">' + '<i class="icon ion-{{icon}}"></i>' + '</div>'
+            };
+        }
+        return FloatingButtonItem;
+    }();
+    angular.module('balltoro').directive('floatingButtonItem', [FloatingButtonItem]);
 }.call(this));
 (function () {
     var LogLine;
@@ -820,6 +842,34 @@
     ]);
 }.call(this));
 (function () {
+    var Countries, Country;
+    Countries = function () {
+        function Countries(CFG, NgBackboneCollection, Country) {
+            return NgBackboneCollection.extend({
+                model: Country,
+                url: CFG.API.getPath('countries/')
+            });
+        }
+        return Countries;
+    }();
+    Country = function () {
+        function Country(NgBackboneModel, Und) {
+            return NgBackboneModel.extend({ defaults: { _links: null } });
+        }
+        return Country;
+    }();
+    angular.module('balltoro').factory('Countries', [
+        'CFG',
+        'NgBackboneCollection',
+        'Country',
+        Countries
+    ]).factory('Country', [
+        'NgBackboneModel',
+        'Und',
+        Country
+    ]);
+}.call(this));
+(function () {
     var Match, Matches;
     Matches = function () {
         function Matches(CFG, NgBackboneCollection, Match) {
@@ -831,7 +881,7 @@
         return Matches;
     }();
     Match = function () {
-        function Match(NgBackboneModel, Club, Clubs) {
+        function Match(NgBackboneModel, Club, Country) {
             return NgBackboneModel.extend({
                 relations: [
                     {
@@ -843,6 +893,11 @@
                         type: 'HasOne',
                         key: 'away_club',
                         relatedModel: Club
+                    },
+                    {
+                        type: 'HasOne',
+                        key: 'country',
+                        relatedModel: Country
                     }
                 ]
             });
@@ -857,8 +912,36 @@
     ]).factory('Match', [
         'NgBackboneModel',
         'Club',
-        'Clubs',
+        'Country',
         Match
+    ]);
+}.call(this));
+(function () {
+    var News, NewsStore;
+    NewsStore = function () {
+        function NewsStore(CFG, NgBackboneCollection, News) {
+            return NgBackboneCollection.extend({
+                model: News,
+                url: CFG.API.getPath('news/latest')
+            });
+        }
+        return NewsStore;
+    }();
+    News = function () {
+        function News(NgBackboneModel, Und) {
+            return NgBackboneModel.extend({ defaults: { _links: null } });
+        }
+        return News;
+    }();
+    angular.module('balltoro').factory('NewsStore', [
+        'CFG',
+        'NgBackboneCollection',
+        'News',
+        NewsStore
+    ]).factory('News', [
+        'NgBackboneModel',
+        'Und',
+        News
     ]);
 }.call(this));
 (function () {

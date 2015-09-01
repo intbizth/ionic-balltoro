@@ -24,6 +24,34 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 .loading-container {
     .loading {
-        background: none;
+        background: #000;
+    }
+}
+
+#news {
+    ion-item {
+        background-color: #549BF7;
+        min-height: 250px;
+        padding: 0;
+        .cover {
+            width: 100%;
+            min-height: 180px;
+        }
+        .info{
+            padding: 15px;
+            overflow: hidden;
+            h3 {
+                color: #fff;
+                margin-bottom: 10px;
+            }
+            .columnist {
+                float: left;
+                margin-right: 10px;
+            }
+            p {
+                margin-top: 22px;
+                color: #fff;
+            }
+        }
     }
 }

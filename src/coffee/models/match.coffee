@@ -3,7 +3,7 @@ class Matches extends Factory then constructor: (CFG, NgBackboneCollection, Matc
         model: Match
         url: CFG.API.getPath 'matches/'
 
-class Match extends Factory then constructor: (NgBackboneModel, Club, Clubs) ->
+class Match extends Factory then constructor: (NgBackboneModel, Club, Country) ->
     return NgBackboneModel.extend
         relations: [{
             type: 'HasOne'
@@ -13,4 +13,8 @@ class Match extends Factory then constructor: (NgBackboneModel, Club, Clubs) ->
             type: 'HasOne'
             key: 'away_club'
             relatedModel: Club
+        }, {
+            type: 'HasOne'
+            key: 'country'
+            relatedModel: Country
         }]

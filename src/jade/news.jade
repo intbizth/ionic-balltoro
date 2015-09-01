@@ -1,0 +1,16 @@
+#news
+    ion-view(view-title='News')
+        ion-content
+            ion-item(collection-repeat="r in store.$collection")
+                img.cover(ng-src="{{r.cover}}")
+                .info
+                    h3 {{r.headline}}
+                    img.columnist(ng-src="{{r.user.profile_picture}}" style="height:50px; width:50px")
+                    p {{r.user.displayname}}
+
+            ion-infinite-scroll(
+                ng-if="store.hasMorePage()"
+                on-infinite="store.getNextPage()"
+                distance="5%"
+                spinner="{{$spinnerIcon}}"
+            )
