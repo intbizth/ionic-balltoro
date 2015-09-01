@@ -1,3 +1,2 @@
-class Playlist extends Controller
-    constructor: ->
-        # TODO
+class Playlist extends Controller then constructor: ->
+    # TODO
