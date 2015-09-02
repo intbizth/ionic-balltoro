@@ -7,9 +7,8 @@
 #     $scope.$on('$ionicView.enter', function(e) {
 #     });
 ###
-class Main extends Controller then constructor: (
-    $scope, $ionicModal, $timeout, $cordovaOauth
-) ->
+class Main extends Controller
+    constructor: ($scope, $ionicModal, $timeout, $cordovaOauth) ->
         @scope = $scope
         @modal = $ionicModal
         @timeout = $timeout
