@@ -10,13 +10,13 @@
 class Main extends Controller then constructor: (
     $scope, $ionicModal, $timeout, $cordovaOauth
 ) ->
-    @scope = $scope
-    @modal = $ionicModal
-    @timeout = $timeout
-    @oauth = $cordovaOauth
+        @scope = $scope
+        @modal = $ionicModal
+        @timeout = $timeout
+        @oauth = $cordovaOauth
 
-    # Define login with in root scope to access on any childs.
-    @setupLogin @scope
+        # Define login with in root scope to access on any childs.
+        @setupLogin @scope
 
     # @param {object} $scope App root scope.
     setupLogin: ($scope) ->
