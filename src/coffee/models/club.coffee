@@ -1,3 +1,8 @@
+###*
+# Club Model Collection
+#
+# @author liverbool <phaiboon@intbizth.com>
+###
 class Clubs extends Factory then constructor: (
     CFG, NgBackboneCollection, Club
 ) ->
@@ -5,13 +10,32 @@ class Clubs extends Factory then constructor: (
         model: Club
         url: CFG.API.getPath 'clubs/'
 
+###*
+# Club Model
+###
 class Club extends Factory then constructor: (
-    NgBackboneModel, Und
+    NgBackboneModel, Country, Und
 ) ->
     return NgBackboneModel.extend
+
+        # Model relations.
+        relations: [{
+            type: 'HasOne'
+            key: 'country'
+            relatedModel: Country
+        }]
+
+        # Define default items
         defaults:
             _links: null
 
+        ###*
+        # Get club logo specify the size.
+        #
+        # @param {string} size The size of image eg. 70x70
+        #
+        # @return {string} Logo path
+        ###
         getLogo: (size) ->
             logo = if Und.isUndefined(size) or Und.isUndefined(@._links['logo_' + size])
                 @._links.logo
