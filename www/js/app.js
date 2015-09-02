@@ -140,7 +140,15 @@
                 views: {
                     menuContent: {
                         controller: 'newsController',
-                        templateUrl: 'templates/news.html'
+                        templateUrl: 'templates/news/news.html'
+                    }
+                }
+            }).state('app.detail', {
+                url: '/news/:newsId',
+                views: {
+                    menuContent: {
+                        controller: 'newsDetailController',
+                        templateUrl: 'templates/news/detail.html'
                     }
                 }
             });
@@ -612,6 +620,22 @@
         '$scope',
         'NewsStore',
         News
+    ]);
+}.call(this));
+(function () {
+    var NewsDetail;
+    NewsDetail = function () {
+        function NewsDetail($scope, $stateParams, News) {
+            console.log($stateParams);
+            new News().setBinding($stateParams);
+        }
+        return NewsDetail;
+    }();
+    angular.module('balltoro').controller('newsDetailController', [
+        '$scope',
+        '$stateParams',
+        'News',
+        NewsDetail
     ]);
 }.call(this));
 (function () {

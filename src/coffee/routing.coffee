@@ -40,12 +40,19 @@ class Routing extends Config
                         controller: 'playlistController'
                         templateUrl: 'templates/playlist.html'
 
-            ).state 'app.news',
+            ).state('app.news',
                 url: '/news'
                 views:
                     menuContent:
                         controller: 'newsController'
-                        templateUrl: 'templates/news.html'
+                        templateUrl: 'templates/news/news.html'
+
+            ).state 'app.detail',
+                url: '/news/:newsId'
+                views:
+                    menuContent:
+                        controller: 'newsDetailController'
+                        templateUrl: 'templates/news/detail.html'
 
           # if none of the above states are matched, use this as the fallback
           $urlRouterProvider.otherwise '/app/matches'
