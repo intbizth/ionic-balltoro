@@ -47,7 +47,7 @@ class NgBackboneModel extends Factory then constructor: (
                     syncing: true
 
             @on 'sync error', @resetStatus
-            return NgBackbone.RelationalModel.apply @, arguments
+            return NgBackbone.RelationalModel::constructor.apply @, arguments
 
         set: (key, val, options) ->
             output = NgBackbone.RelationalModel::set.apply @, arguments
@@ -55,6 +55,10 @@ class NgBackboneModel extends Factory then constructor: (
             # Do not set binding if attributes are invalid
             @setBinding key, val, options
             return output
+
+        parse: (resp, xhr) ->
+            return resp.data if Und.isDefined resp.data
+            return resp
 
         setStatus: (key, value, options) ->
             return @ if Und.isUndefined(key)

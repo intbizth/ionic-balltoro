@@ -4,19 +4,20 @@
 # @author liverbool <phaiboon@intbizth.com>
 ###
 class Clubs extends Factory then constructor: (
-    CFG, NgBackboneCollection, Club
+    NgBackboneCollection, Club
 ) ->
     return NgBackboneCollection.extend
         model: Club
-        url: CFG.API.getPath 'clubs/'
+        url: Club::url
 
 ###*
 # Club Model
 ###
 class Club extends Factory then constructor: (
-    NgBackboneModel, Country, Und
+    CFG, NgBackboneModel, Country, Und
 ) ->
     return NgBackboneModel.extend
+        url: CFG.API.getPath 'clubs/'
 
         # Model relations.
         relations: [{

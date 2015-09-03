@@ -4,16 +4,17 @@
 # @author liverbool <phaiboon@intbizth.com>
 ###
 class Countries extends Factory then constructor: (
-    CFG, NgBackboneCollection, Country
+    NgBackboneCollection, Country
 ) ->
     return NgBackboneCollection.extend
         model: Country
-        url: CFG.API.getPath 'countries/'
+        url: Country::url
 
 ###*
 # Country Model
 ###
 class Country extends Factory then constructor: (
-    NgBackboneModel
+    CFG, NgBackboneModel
 ) ->
-    return NgBackboneModel.extend {}
+    return NgBackboneModel.extend
+        url: CFG.API.getPath 'countries/'
