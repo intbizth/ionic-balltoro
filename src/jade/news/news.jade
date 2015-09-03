@@ -1,18 +1,17 @@
 ion-view(view-title='News')
     ion-content
         ion-item.news-thumbnail(collection-repeat="r in store.$collection")
-            div(ng-show="$index === 0 || $index === 1")
-                a(href='#/app/news/{{r.id}}')
-                    img.cover(ng-src="{{r.cover}}")
-                    .news-info
-                        h3.headline {{r.headline}}
-                        img.columnist(ng-src="{{r.user.profile_picture}}" style="height:50px; width:50px")
-                        p.author {{r.user.displayname}}
-
-            div.-half(ng-show="$index === 2 || $index === 3")
-                a(href='#/app/news/{{r.id}}')
-                    img.cover(ng-src="{{r.cover}}")
-                    .news-info
-                        h3.headline {{r.headline}}
-                        img.columnist(ng-src="{{r.user.profile_picture}}" style="height:50px; width:50px")
-                        p.author {{r.user.displayname}}
+            a(href='#/app/news/{{r.id}}')
+                img.cover(ng-src="{{r.cover}}")
+                .info
+                    h3.headline {{r.headline}}
+                    img.columnist(ng-src="{{r.user.profile_picture}}" style="height:50px; width:50px")
+                    p.author {{r.user.displayname}}
+            //
+            //div.-half(ng-show="$index === 2 || $index === 3")
+            //    a(href='#/app/news/{{r.id}}')
+            //        img.cover(ng-src="{{r.cover}}")
+            //        .news-info
+            //            h3.headline {{r.headline}}
+            //            img.columnist(ng-src="{{r.user.profile_picture}}" style="height:50px; width:50px")
+            //            p.author {{r.user.displayname}}

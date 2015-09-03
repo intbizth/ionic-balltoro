@@ -4,16 +4,17 @@
 # @author beer <kannipa@intbizth.com>
 ###
 class NewsStore extends Factory then constructor: (
-    CFG, NgBackboneCollection, News
+    NgBackboneCollection, News
 ) ->
     return NgBackboneCollection.extend
         model: News
-        url: CFG.API.getPath 'news/latest'
+        url: News::url + 'latest'
 
 ###*
 # News Model
 ###
 class News extends Factory then constructor: (
-    NgBackboneModel
+    CFG, NgBackboneModel
 ) ->
-    return NgBackboneModel.extend {}
+    return NgBackboneModel.extend
+        url: CFG.API.getPath 'news/'

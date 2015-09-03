@@ -160,7 +160,7 @@ class NgBackboneCollection extends Factory then constructor: (
                     # TODO: support :holder replacement (must to define url for each get, put, post, patch)
                     model = new @model()
                     promise = model.fetch
-                        url: (@url + attr.id)
+                        url: (model.url + attr.id)
                         success: (model) ->
                             resolve model
                             applyOptions.call @, model

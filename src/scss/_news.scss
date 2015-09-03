@@ -1,8 +1,14 @@
 $news-bg: #549BF7;
 $news-info-headline: #fff;
 $news-info-author: $news-info-headline;
-$show-bg: #fff;
-$show-date-border: $show-bg;
+$news-show-bg: $news-info-headline;
+$news-show-text: #030303;
+$news-date-color: #6E6D72;
+$news-show-divider: $news-date-color;
+$news-show-author: $news-show-divider;
+$news-show-content: #22A9E1;
+$news-show-subhead: #231F20;
+$news-show-desc: #3c3c3c;
 
 .news-thumbnail {
     background: $news-bg;
@@ -15,7 +21,7 @@ $show-date-border: $show-bg;
         width: 100%;
         min-height: 180px;
     }
-    .news-info {
+    .info {
         padding: 15px;
         overflow: hidden;
         .headline {
@@ -28,16 +34,14 @@ $show-date-border: $show-bg;
         }
         .author {
             margin-top: 22px;
+            font-size: 18px;
             color: $news-info-author;
         }
     }
 }
 
-.-half {
-    width: 50%;
-}
-.show-item {
-    background: $show-bg;
+.news-show {
+    background: $news-show-bg;
     .cover {
         width: 100%;
         min-height: 200px;
@@ -51,24 +55,36 @@ $show-date-border: $show-bg;
         overflow: hidden;
     }
     .author {
+        color: $news-show-author;
         float: left;
         margin-top: 15px;
     }
     .date {
         margin: 10px 0;
         padding: 10px 0;
-        border-top: 1px solid $show-date-border;
-        border-bottom: 1px solid $show-date-border;
+        color: $news-date-color;
+        border-top: 1px solid $news-show-divider;
+        border-bottom: 1px solid $news-show-divider;
         width: 30%;
     }
     .content {
+        margin: 30px 0;
         &:before, &:after {
             content: "//////////";
+            color: $news-show-content;
+            font-size: 24px;
         }
     }
     .headline {
         margin: 15px 0;
     }
+    .subhead {
+        color: $news-show-subhead;
+    }
+    .desc {
+        color: $news-show-desc;
+    }
+
 }
 
 .-clearfix {
