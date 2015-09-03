@@ -1,5 +1,6 @@
-class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone, Und) ->
-
+class NgBackboneModel extends Factory then constructor: (
+    $rootScope, NgBackbone, Und
+) ->
     # Usage: model.$attributes.someKey
     propertyAccessor = (key) ->
         Object.defineProperty @$attributes, key,

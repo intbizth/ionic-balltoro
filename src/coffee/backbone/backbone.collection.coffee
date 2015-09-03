@@ -1,10 +1,5 @@
 class NgBackboneCollection extends Factory then constructor: (
-    CFG,
-    NgBackbone,
-    NgBackboneModel,
-    $rootScope,
-    $ionicLoading,
-    Und
+    CFG, NgBackbone, NgBackboneModel, $rootScope, $ionicLoading, Und
 ) ->
     # TODO: to move up `backbone` into abstract layer inject me as dependency!! or override in sub-class
     PROXY = CFG.API.getProxy()

@@ -97,73 +97,6 @@
     angular.module('balltoro').constant('CFG', CFG());
 }.call(this));
 (function () {
-    var Routing;
-    Routing = function () {
-        function Routing($stateProvider, $urlRouterProvider) {
-            $stateProvider.state('app', {
-                url: '/app',
-                abstract: true,
-                templateUrl: 'templates/menu.html',
-                controller: 'mainController'
-            }).state('app.matches', {
-                url: '/matches',
-                views: {
-                    menuContent: {
-                        controller: 'matchController',
-                        templateUrl: 'templates/matches.html'
-                    }
-                }
-            }).state('app.search', {
-                url: '/search',
-                views: { menuContent: { templateUrl: 'templates/search.html' } }
-            }).state('app.browse', {
-                url: '/browse',
-                views: { menuContent: { templateUrl: 'templates/browse.html' } }
-            }).state('app.playlists', {
-                url: '/playlists',
-                views: {
-                    menuContent: {
-                        controller: 'playlistsController',
-                        templateUrl: 'templates/playlists.html'
-                    }
-                }
-            }).state('app.single', {
-                url: '/playlists/:playlistId',
-                views: {
-                    menuContent: {
-                        controller: 'playlistController',
-                        templateUrl: 'templates/playlist.html'
-                    }
-                }
-            }).state('app.news', {
-                url: '/news',
-                views: {
-                    menuContent: {
-                        controller: 'newsController',
-                        templateUrl: 'templates/news/news.html'
-                    }
-                }
-            }).state('app.detail', {
-                url: '/news/:newsId',
-                views: {
-                    menuContent: {
-                        controller: 'newsDetailController',
-                        templateUrl: 'templates/news/detail.html'
-                    }
-                }
-            });
-            $urlRouterProvider.otherwise('/app/matches');
-            return;
-        }
-        return Routing;
-    }();
-    angular.module('balltoro').config([
-        '$stateProvider',
-        '$urlRouterProvider',
-        Routing
-    ]);
-}.call(this));
-(function () {
     var Setting;
     Setting = function () {
         /**
@@ -835,6 +768,11 @@
     }();
     angular.module('balltoro').factory('Und', [Und]);
 }.call(this));
+/**
+ * Club Model Collection
+ *
+ * @author liverbool <phaiboon@intbizth.com>
+ */
 (function () {
     var Club, Clubs;
     Clubs = function () {
@@ -846,10 +784,25 @@
         }
         return Clubs;
     }();
+    /**
+   * Club Model
+   */
     Club = function () {
-        function Club(NgBackboneModel, Und) {
+        function Club(NgBackboneModel, Country, Und) {
             return NgBackboneModel.extend({
+                relations: [{
+                        type: 'HasOne',
+                        key: 'country',
+                        relatedModel: Country
+                    }],
                 defaults: { _links: null },
+                /**
+         * Get club logo specify the size.
+         *
+         * @param {string} size The size of image eg. 70x70
+         *
+         * @return {string} Logo path
+         */
                 getLogo: function (size) {
                     var logo;
                     logo = Und.isUndefined(size) || Und.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
@@ -866,10 +819,16 @@
         Clubs
     ]).factory('Club', [
         'NgBackboneModel',
+        'Country',
         'Und',
         Club
     ]);
 }.call(this));
+/**
+ * Country Model Collection
+ *
+ * @author liverbool <phaiboon@intbizth.com>
+ */
 (function () {
     var Countries, Country;
     Countries = function () {
@@ -881,9 +840,12 @@
         }
         return Countries;
     }();
+    /**
+   * Country Model
+   */
     Country = function () {
-        function Country(NgBackboneModel, Und) {
-            return NgBackboneModel.extend({ defaults: { _links: null } });
+        function Country(NgBackboneModel) {
+            return NgBackboneModel.extend({});
         }
         return Country;
     }();
@@ -894,10 +856,14 @@
         Countries
     ]).factory('Country', [
         'NgBackboneModel',
-        'Und',
         Country
     ]);
 }.call(this));
+/**
+ * Match Model Collection
+ *
+ * @author liverbool <phaiboon@intbizth.com>
+ */
 (function () {
     var Match, Matches;
     Matches = function () {
@@ -909,6 +875,9 @@
         }
         return Matches;
     }();
+    /**
+   * Match Model
+   */
     Match = function () {
         function Match(NgBackboneModel, Club, Country) {
             return NgBackboneModel.extend({

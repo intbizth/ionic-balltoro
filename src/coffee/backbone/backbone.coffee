@@ -1,4 +1,6 @@
-class NgBackbone extends Factory then constructor: ($http, Und) ->
+class NgBackbone extends Factory then constructor: (
+    $http, Und
+) ->
     methodMap =
         create: 'POST'
         update: 'PUT'

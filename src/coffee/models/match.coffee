@@ -1,9 +1,22 @@
-class Matches extends Factory then constructor: (CFG, NgBackboneCollection, Match) ->
+###*
+# Match Model Collection
+#
+# @author liverbool <phaiboon@intbizth.com>
+###
+class Matches extends Factory then constructor: (
+    CFG, NgBackboneCollection, Match
+) ->
     return NgBackboneCollection.extend
         model: Match
         url: CFG.API.getPath 'matches/'
 
-class Match extends Factory then constructor: (NgBackboneModel, Club, Country) ->
+###*
+# Match Model
+###
+class Match extends Factory then constructor: (
+    NgBackboneModel, Club, Country
+) ->
+
     return NgBackboneModel.extend
         relations: [{
             type: 'HasOne'

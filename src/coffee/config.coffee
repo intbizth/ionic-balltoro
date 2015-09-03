@@ -22,7 +22,7 @@ class CFG extends Constant then constructor: ->
                     proxy: ''
 
     ApiConfig = Config.ENVIRONMENT['@@environment'].api
-    return angular.extend  Config,
+    return angular.extend Config,
         API:
             getPath: (path) -> ApiConfig.baseUrl + path
             getProxy: -> ApiConfig.proxy
