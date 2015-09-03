@@ -42,6 +42,6 @@ class Routing extends Config then constructor: (
                 controller: 'playlistController'
                 templateUrl: 'templates/playlist.html'
 
-      # if none of the above states are matched, use this as the fallback
-      $urlRouterProvider.otherwise '/app/matches'
-      return
+    # if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise '/app/matches'
+    return
