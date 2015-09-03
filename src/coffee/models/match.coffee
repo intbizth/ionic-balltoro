@@ -9,6 +9,7 @@ class Matches extends Factory then constructor: (
     return NgBackboneCollection.extend
         model: Match
         url: Match::url
+        alias: 'matches'
 
 ###*
 # Match Model

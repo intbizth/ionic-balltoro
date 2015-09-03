@@ -9,6 +9,7 @@ class Countries extends Factory then constructor: (
     return NgBackboneCollection.extend
         model: Country
         url: Country::url
+        alias: 'countries'
 
 ###*
 # Country Model
