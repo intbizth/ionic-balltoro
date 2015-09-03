@@ -147,6 +147,9 @@ class NgBackboneCollection extends Factory then constructor: (
         #        scope: $scope
         #        key: 'r' # the name to be used in view.
         #    }
+        #
+        # @return Promise
+        # @see https://docs.angularjs.org/api/ng/service/$q
         ###
         find: (attr, options) ->
 
@@ -176,6 +179,7 @@ class NgBackboneCollection extends Factory then constructor: (
                     applyOptions.call @, model
                 else
                     # start loading
+                    # TODO: should be handled from controller ?
                     $ionicLoading.show()
 
                     # TODO: support :holder replacement (must to define url for each get, put, post, patch)

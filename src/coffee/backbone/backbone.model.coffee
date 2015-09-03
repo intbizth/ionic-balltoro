@@ -105,7 +105,16 @@ class NgBackboneModel extends Factory then constructor: (
         removeBinding: (attr, options) ->
             @setBinding attr, undefined, Und.extend({}, options, unset: true)
 
-        getCollectionLink: (name, collection) ->
+        ###*
+        # Get model's embeded links.
+        #
+        # @param {string} name Link name.
+        # @param {function|null} collection A model collection constructor.
+        #
+        # @return Promise with (Collection|Model|Object|null)
+        # @see https://docs.angularjs.org/api/ng/service/$q
+        ###
+        getLinked: (name, collection) ->
             $q (resolve, reject) =>
                 obj = Und.result @_links, name
 

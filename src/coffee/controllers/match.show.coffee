@@ -3,6 +3,6 @@ class MatchShow extends Controller then constructor: (
 ) ->
     promise = new Matches().find $stateParams.id, $scope
     promise.then (model) ->
-        promise = model.getCollectionLink 'activities', Activities
+        promise = model.getLinked 'activities', Activities
         promise.then (r) ->
             console.log r
