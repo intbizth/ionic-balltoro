@@ -1,4 +1,4 @@
 class Match extends Controller then constructor: (
-    $scope, Matches
+    $scope, Matches, Match
 ) ->
     new Matches().load $scope

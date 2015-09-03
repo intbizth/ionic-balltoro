@@ -1,6 +1,6 @@
 {
-  "name": "balltoro-mobile",
-  "app_id": "",
+  "name": "ionic-balltoro",
+  "app_id": "3c1f08dc",
   "gulpStartupTasks": [
     "sass",
     "coffee",

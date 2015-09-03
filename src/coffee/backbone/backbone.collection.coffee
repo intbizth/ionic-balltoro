@@ -1,5 +1,5 @@
 class NgBackboneCollection extends Factory then constructor: (
-    CFG, NgBackbone, NgBackboneModel, $rootScope, $ionicLoading, Und
+    CFG, NgBackbone, NgBackboneModel, $q, $rootScope, $ionicLoading, Und
 ) ->
     # TODO: to move up `backbone` into abstract layer inject me as dependency!! or override in sub-class
     PROXY = CFG.API.getProxy()
@@ -50,7 +50,7 @@ class NgBackboneCollection extends Factory then constructor: (
             @on 'destroy', @resetStatus
             @on 'sync', -> $rootScope.$broadcast 'scroll.infiniteScrollComplete' if @mode == 'infinite'
 
-            NgBackbone.PageableCollection.apply @, arguments
+            NgBackbone.PageableCollection::constructor.apply @, arguments
             return
 
         parseState: (resp, queryParams, state, options) ->
@@ -133,3 +133,40 @@ class NgBackboneCollection extends Factory then constructor: (
             $ionicLoading.show()
             @getFirstPage()
             return @
+
+        find: (attr, options) ->
+
+            if !Und.isObject attr
+                attr = id: attr
+
+            # find in repo
+            model = NgBackbone.PageableCollection::find.apply @, attr
+
+            # need scope
+            applyOptions = (model) ->
+                if options
+                    $scope = options.scope || options
+                    $scope[options.key || 'model'] = model
+
+            # start loading
+            $ionicLoading.show()
+
+            # return promise
+            $q (resolve, reject) =>
+                if model
+                    resolve model
+                    applyOptions.call @, model
+                else
+                    # TODO: support :holder replacement (must to define url for each get, put, post, patch)
+                    model = new @model()
+                    promise = model.fetch
+                        url: (@url + attr.id)
+                        success: (model) ->
+                            resolve model
+                            applyOptions.call @, model
+                        error: (xhr) ->
+                            reject xhr
+                            applyOptions.call @, null
+
+                    # hide loading
+                    promise.finally -> $ionicLoading.hide()

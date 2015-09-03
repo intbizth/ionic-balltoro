@@ -12,47 +12,47 @@ class Routing extends Config then constructor: (
     state 'app.matches',
         url: '/matches'
         views:
-            menuContent:
+            content:
                 controller: 'matchController'
                 templateUrl: 'templates/matches.html'
 
     state 'app.search',
         url: '/search'
         views:
-            menuContent:
+            content:
                 templateUrl: 'templates/search.html'
 
     state 'app.browse',
         url: '/browse'
         views:
-            menuContent:
+            content:
                 templateUrl: 'templates/browse.html'
 
     state 'app.playlists',
         url: '/playlists'
         views:
-            menuContent:
+            content:
                 controller: 'playlistsController'
                 templateUrl: 'templates/playlists.html'
 
     state 'app.single',
         url: '/playlists/:playlistId'
         views:
-            menuContent:
+            content:
                 controller: 'playlistController'
                 templateUrl: 'templates/playlist.html'
 
     state 'app.news',
         url: '/news'
         views:
-            menuContent:
+            content:
                 controller: 'newsController'
                 templateUrl: 'templates/news/news.html'
 
     state 'app.detail',
         url: '/news/:newsId'
         views:
-            menuContent:
+            content:
                 controller: 'newsDetailController'
                 templateUrl: 'templates/news/detail.html'
 
