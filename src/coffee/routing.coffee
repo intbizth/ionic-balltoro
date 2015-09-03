@@ -2,6 +2,7 @@ class Routing extends Config then constructor: (
     $stateProvider, $urlRouterProvider
 ) ->
     state = $stateProvider.state
+
     state 'app',
         url: '/app'
         abstract: true
