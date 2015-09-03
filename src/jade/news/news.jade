@@ -7,10 +7,3 @@ ion-view(view-title='News')
                     h3.headline {{r.headline}}
                     img.columnist(ng-src="{{r.user.profile_picture}}" style="height:50px; width:50px")
                     p.author {{r.user.displayname}}
-
-        ion-infinite-scroll(
-        ng-if="store.hasMorePage()"
-        on-infinite="store.getNextPage()"
-        distance="5%"
-        spinner="{{$spinnerIcon}}"
-        )

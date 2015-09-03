@@ -612,7 +612,12 @@
     var News;
     News = function () {
         function News($scope, NewsStore) {
-            new NewsStore().load($scope);
+            var store;
+            store = new NewsStore();
+            store.load($scope);
+            store.on('sync', function () {
+                return console.log(arguments);
+            });
         }
         return News;
     }();
@@ -625,16 +630,16 @@
 (function () {
     var NewsDetail;
     NewsDetail = function () {
-        function NewsDetail($scope, $stateParams, News) {
-            console.log($stateParams);
-            new News().setBinding($stateParams);
+        function NewsDetail($scope, $stateParams, NewsStore) {
+            var store;
+            store = new NewsStore().loadPublised;
         }
         return NewsDetail;
     }();
     angular.module('balltoro').controller('newsDetailController', [
         '$scope',
         '$stateParams',
-        'News',
+        'NewsStore',
         NewsDetail
     ]);
 }.call(this));

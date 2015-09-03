@@ -1,8 +1,6 @@
 class NewsDetail extends Controller
-    constructor: ($scope, $stateParams, News) ->
-        console.log($stateParams)
-        new News().setBinding $stateParams
-
+    constructor: ($scope, $stateParams, NewsStore) ->
+        store = new NewsStore().loadPublised
 
 #        class News extends Controller
 #    constructor: ($scope, NewsStore) ->
