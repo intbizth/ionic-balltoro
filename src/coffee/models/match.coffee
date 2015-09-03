@@ -16,7 +16,6 @@ class Matches extends Factory then constructor: (
 class Match extends Factory then constructor: (
     NgBackboneModel, Club, Country
 ) ->
-
     return NgBackboneModel.extend
         relations: [{
             type: 'HasOne'

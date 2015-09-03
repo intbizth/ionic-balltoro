@@ -2,6 +2,7 @@ class Routing extends Config then constructor: (
     $stateProvider, $urlRouterProvider
 ) ->
     state = $stateProvider.state
+
     state 'app',
         url: '/app'
         abstract: true
@@ -11,57 +12,50 @@ class Routing extends Config then constructor: (
     state 'app.matches',
         url: '/matches'
         views:
-            content:
+            menuContent:
                 controller: 'matchController'
                 templateUrl: 'templates/matches.html'
 
     state 'app.search',
         url: '/search'
         views:
-            content:
+            menuContent:
                 templateUrl: 'templates/search.html'
 
     state 'app.browse',
         url: '/browse'
         views:
-            content:
+            menuContent:
                 templateUrl: 'templates/browse.html'
 
     state 'app.playlists',
         url: '/playlists'
         views:
-            content:
+            menuContent:
                 controller: 'playlistsController'
                 templateUrl: 'templates/playlists.html'
 
     state 'app.single',
         url: '/playlists/:playlistId'
         views:
-            content:
+            menuContent:
                 controller: 'playlistController'
                 templateUrl: 'templates/playlist.html'
 
-    .state 'app.single',
-        url: '/playlists/:playlistId'
-        views:
-            content:
-                controller: 'playlistController'
-                templateUrl: 'templates/playlist.html'
-
-    .state'app.news',
+    state 'app.news',
         url: '/news'
         views:
-            content:
+            menuContent:
                 controller: 'newsController'
                 templateUrl: 'templates/news/news.html'
 
-    .state 'app.detail',
+    state 'app.detail',
         url: '/news/:newsId'
         views:
-            content:
+            menuContent:
                 controller: 'newsDetailController'
                 templateUrl: 'templates/news/detail.html'
 
-  # if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise '/app/matches'
-  return
+    # if none of the above states are matched, use this as the fallback
+    $urlRouterProvider.otherwise '/app/matches'
+    return

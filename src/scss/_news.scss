@@ -4,9 +4,9 @@ $news-info-author: $news-info-headline;
 $show-bg: #fff;
 $show-date-border: $show-bg;
 
-.news-item {
-    background-color: $news-bg;
-    min-height: 250px;
+.news-thumbnail {
+    background: $news-bg;
+    min-height: 300px;
     padding: 0;
     a {
         text-decoration: none;
@@ -15,7 +15,7 @@ $show-date-border: $show-bg;
         width: 100%;
         min-height: 180px;
     }
-    .info {
+    .news-info {
         padding: 15px;
         overflow: hidden;
         .headline {
@@ -33,6 +33,9 @@ $show-date-border: $show-bg;
     }
 }
 
+.-half {
+    width: 50%;
+}
 .show-item {
     background: $show-bg;
     .cover {
