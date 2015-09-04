@@ -6,7 +6,7 @@ class Routing extends Config then constructor: (
     state 'app',
         url: '/app'
         abstract: true
-        templateUrl: 'templates/menu.html'
+        templateUrl: 'templates/main.html'
         controller: 'mainController'
 
     state 'app.matches',
@@ -47,14 +47,14 @@ class Routing extends Config then constructor: (
         views:
             content:
                 controller: 'newsController'
-                templateUrl: 'templates/news/news.html'
-
-    state 'app.detail',
-        url: '/news/:newsId'
+                templateUrl: 'templates/news/index.html'
+#    TODO: "." not working on state more than second place
+    state 'app.news_show',
+        url: '/news/show/:newsId'
         views:
             content:
                 controller: 'newsDetailController'
-                templateUrl: 'templates/news/detail.html'
+                templateUrl: 'templates/news/show.html'
 
     # if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise '/app/matches'

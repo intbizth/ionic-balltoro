@@ -21,7 +21,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
 @import "ux.button.floating";
-@import "news";
+@import "news/index";
+@import "news/show";
+@import "common/share";
 
 
 .loading-container {

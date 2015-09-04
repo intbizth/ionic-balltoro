@@ -1,44 +1,11 @@
-$news-bg: #549BF7;
-$news-info-headline: #fff;
-$news-info-author: $news-info-headline;
-$news-show-bg: $news-info-headline;
+$news-show-bg: #fff;
 $news-show-text: #030303;
-$news-date-color: #6E6D72;
-$news-show-divider: $news-date-color;
+$news-show-date: #6E6D72;
+$news-show-divider: $news-show-date;
 $news-show-author: $news-show-divider;
 $news-show-content: #22A9E1;
 $news-show-subhead: #231F20;
 $news-show-desc: #3c3c3c;
-
-.news-thumbnail {
-    background: $news-bg;
-    min-height: 300px;
-    padding: 0;
-    a {
-        text-decoration: none;
-    }
-    .cover {
-        width: 100%;
-        min-height: 180px;
-    }
-    .info {
-        padding: 15px;
-        overflow: hidden;
-        .headline {
-            color: $news-info-headline;
-            margin-bottom: 10px;
-        }
-        .columnist {
-            float: left;
-            margin-right: 10px;
-        }
-        .author {
-            margin-top: 22px;
-            font-size: 18px;
-            color: $news-info-author;
-        }
-    }
-}
 
 .news-show {
     background: $news-show-bg;
@@ -52,7 +19,8 @@ $news-show-desc: #3c3c3c;
     .columnist {
         float: left;
         margin: 0 15px 15px 0;
-        overflow: hidden;
+        width: 50px;
+        height: 50px;
     }
     .author {
         color: $news-show-author;
@@ -62,7 +30,7 @@ $news-show-desc: #3c3c3c;
     .date {
         margin: 10px 0;
         padding: 10px 0;
-        color: $news-date-color;
+        color: $news-show-date;
         border-top: 1px solid $news-show-divider;
         border-bottom: 1px solid $news-show-divider;
         width: 30%;
@@ -90,3 +58,19 @@ $news-show-desc: #3c3c3c;
 .-clearfix {
     clear: both;
 }
+//TODO: Beer'll edit this code
+//.list .item.item-accordion {
+//    line-height: 38px;
+//    padding-top: 0;
+//    padding-bottom: 0;
+//    transition: 0.09s all linear;
+//}
+//
+//.list .item.item-accordion.ng-hide {
+//    line-height: 0px;
+//}
+//
+//.list .item.item-accordion.ng-hide-add,
+//.list .item.item-accordion.ng-hide-remove {
+//    display: block !important;
+//}

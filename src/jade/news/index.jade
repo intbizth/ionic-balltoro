@@ -1,0 +1,9 @@
+ion-view(view-title='News')
+    ion-content
+        ion-item.news-thumbnail(collection-repeat="r in store.$collection")
+            a(href='#/app/news/show/{{r.id}}')
+                img.cover(ng-src="{{r.cover}}")
+                .info
+                    h3.headline {{r.headline}}
+                    img.columnist(ng-src="{{r.user.profile_picture}}")
+                    p.author {{r.user.displayname}}
