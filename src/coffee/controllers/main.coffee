@@ -74,14 +74,20 @@ class Main extends Controller
                     {text: 'USER SETTING', link: ''}
                     {text: 'GAME SETTING', link: ''}
                 ]
-#TODO: Beer'll edit collapse
+##TODO: Beer'll edit collapse
 #    toggleGroup: (group) ->
 #        if @scope.isGroupShown(group)
-#            @scope.shownGroup = null
+#            @scope.shownGroup = group
 #        else
 #            @scope.shownGroup = group
-#        return
+#    return
 #
 #    isGroupShown: (group) ->
 #        @scope.shownGroup == group
 #    return
+#
+#    tester: (data) ->
+#        id = @.attribute['data-click'].value
+#        alert id
+#    return
+#
