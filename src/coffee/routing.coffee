@@ -48,13 +48,21 @@ class Routing extends Config then constructor: (
             content:
                 controller: 'newsController'
                 templateUrl: 'templates/news/index.html'
-#    TODO: "." not working on state more than second place
+
     state 'app.news_show',
         url: '/news/show/:newsId'
         views:
             content:
                 controller: 'newsDetailController'
                 templateUrl: 'templates/news/show.html'
+
+    state 'app.register',
+        url: '/register'
+        views:
+            content:
+                controller: 'registerController'
+                templateUrl: 'templates/user/register.html'
+
 
     # if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise '/app/matches'

@@ -23,8 +23,8 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "ux.button.floating";
 @import "news/index";
 @import "news/show";
-@import "common/share";
-
+@import "common/main";
+@import "user/register";
 
 .loading-container {
     .loading {

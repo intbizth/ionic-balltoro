@@ -23,15 +23,16 @@ class Main extends Controller
         @setupLogin()
         @setupMenus()
 
-    # @param {object} $scope App root scope.
+# @param {object} $scope App root scope.
     setupLogin: ->
-        # Form data for the login modal
+# Form data for the login modal
         @scope.loginData = {}
 
         # Create the login modal that we will use later
         @modal.fromTemplateUrl(
-            'templates/login.html', scope: @scope
-        ).then (modal) =>
+            'templates/user/login.html', scope: @scope
+        )
+        .then (modal) =>
             @scope.modal = modal
             # requirement of jshint
             return
@@ -52,42 +53,21 @@ class Main extends Controller
             @rootScope.IsLoggedIn = yes
             @scope.closeLogin()
 
-            # Simulate a login delay. Remove this and replace with your login
-            # code if using a login system
-            #@timeout ->
-            #    $scope.closeLogin()
-            #, 1000
+        # Simulate a login delay. Remove this and replace with your login
+        # code if using a login system
+        #@timeout ->
+        #    $scope.closeLogin()
+        #, 1000
         return
 
     setupMenus: ->
         @scope.menus =
             leagues: [
-                {text: 'xxx', link: ''}
-                {text: 'xxx', link: ''}
+                {text: 'Thai Premier League', link: ''}
+                {text: 'English Premier League', link: ''}
             ]
 
-            setting:
-                header:
-                    text: 'SETTING'
-                    icon: ''
-                items: [
-                    {text: 'USER SETTING', link: ''}
-                    {text: 'GAME SETTING', link: ''}
-                ]
-##TODO: Beer'll edit collapse
-#    toggleGroup: (group) ->
-#        if @scope.isGroupShown(group)
-#            @scope.shownGroup = group
-#        else
-#            @scope.shownGroup = group
-#    return
-#
-#    isGroupShown: (group) ->
-#        @scope.shownGroup == group
-#    return
-#
-#    tester: (data) ->
-#        id = @.attribute['data-click'].value
-#        alert id
-#    return
-#
+            setting: [
+                {text: 'USER SETTING', link: ''}
+                {text: 'GAME SETTING', link: ''}
+            ]
