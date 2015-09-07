@@ -1,0 +1,31 @@
+$social-share-text: #5e5e5e;
+$social-share-border: #ccc;
+$social-icon-color: #22A9E1;
+$social-icon-alt-border: $social-share-border;
+$social-icon-alt-color: $social-share-text;
+
+.social-share {
+    width: 90%;
+    margin: 0 auto 30px;
+    height: 80px;
+    padding: 15px;
+    overflow: hidden;
+    color: $social-share-text;
+    border-top: 1px solid $social-share-border;
+    border-bottom: 1px solid $social-share-border;
+    .title {
+        padding: 13px 0;
+        float: left;
+        font-size: 18px;
+    }
+    .icon {
+        margin: 0 5px;
+        color: $social-icon-color;
+    }
+    .ion-android-share-alt {
+        border-right: 1px solid $social-icon-alt-border;
+        padding-right: 10px;
+        margin-right: 20px;
+        color: $social-icon-alt-color;
+    }
+}

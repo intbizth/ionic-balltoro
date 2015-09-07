@@ -1,0 +1,45 @@
+ion-side-menus(enable-menu-with-back-views='false')
+    ion-side-menu-content
+        ion-nav-bar.bar-header
+            ion-nav-back-button.buttons
+            ion-nav-buttons(side='left')
+                button.button.button-icon.buttons.ion-navicon(menu-toggle='left')
+
+        // content section
+        ion-nav-view(name='content')
+
+    ion-side-menu(side='left')
+        ion-header-bar.bar-stable(ng-show="IsLoggedIn")
+            h1.title Left {{IsLoggedIn}}
+
+        ion-content
+            ion-list.list-menu
+                ion-item(menu-close='', href='#')
+                    | HOME FEED
+                ion-item(menu-close='', href='#/app/news')
+                    | NEWS
+                ion-item(menu-close='', href='#/app/matches')
+                    | MATCHES
+                ion-item.main(menu-close='')
+                    | LEAGUES
+                ion-item.sub(ng-repeat="menu in menus.leagues", menu-close='', href="{{menu.link}}")
+                    | {{menu.text}}
+                ion-item(menu-close='', href='#')
+                    | PEOPLE RANKING
+                ion-item(menu-close='', href='#')
+                    | FANZONE
+                ion-item(menu-close='', href='#')
+                    | REWARD
+                ion-item(menu-close='', ng-click='login()')
+                    | LOG IN
+                ion-item(menu-close='', href='#/app/register')
+                    | SIGN IN
+            ion-list.list-menu(ng-show="IsLoggedIn")
+                ion-item.main(menu-close='')
+                    | SETTING
+                ion-item.sub(ng-repeat="menu in menus.setting", menu-close='', href="{{menu.link}}")
+                    | {{menu.text}}
+                ion-item(menu-close='', href='#')
+                    | MORE
+                ion-item(menu-close='', ng-click="")
+                    | LOG OUT

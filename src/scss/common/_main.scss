@@ -1,0 +1,29 @@
+@import "share";
+
+$bar-header-bg: #549AF7;
+$bar-header-text: #fff;
+$bar-button-text: $bar-header-text;
+$list-menu-main: #F1F2F2;
+
+.bar-header {
+    background: $bar-header-bg !important;
+    .title {
+        color: $bar-header-text !important;
+    }
+    .buttons {
+        color: $bar-button-text;
+    }
+}
+
+.list-menu {
+    .main {
+        background-color: $list-menu-main !important;
+    }
+    .sub {
+        border: 0;
+    }
+    .sub a {
+        padding: 10px 45px !important;
+    }
+
+}

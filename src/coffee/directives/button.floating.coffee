@@ -29,5 +29,4 @@ class FloatingButton extends Directive then constructor: (
                 $scope.clicked = !$scope.clicked
                 $scope.isIn = $scope.clicked
                 $scope.isOut = !$scope.clicked
-
     }

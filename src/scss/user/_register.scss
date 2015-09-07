@@ -1,0 +1,17 @@
+$register-button-bg: #549AF7;
+$register-button-text: #fff;
+
+.register-form {
+    padding: 15px;
+    .item {
+        margin-bottom: 10px;
+        color: red !important;
+    }
+    .button {
+        margin-top: 50px;
+        background: $register-button-bg;
+        color: $register-button-text;
+        border: 0;
+        box-shadow: 0;
+    }
+}
