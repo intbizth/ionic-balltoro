@@ -1,0 +1,79 @@
+$match-header-bg: #111F28;
+$match-header-text: #fff;
+$match-list-vs: #549AF7;
+$match-list-vs-text: $match-header-text;
+$league-header-bg: #E6E7E8;
+$league-header-text: #58595B;
+
+.match-header {
+    background: $match-header-bg;
+    overflow: hidden;
+    color: $match-header-text;
+    font-size: 20px;
+    padding: 15px;
+    .title {
+        font-size: inherit;
+        color: inherit;
+        margin-right: 15px;
+        text-align: center;
+    }
+    .date {
+        font-size: 14px;
+        color: inherit;
+    }
+}
+
+.league-header {
+    background: $league-header-bg;
+    padding: 5px 15px;
+    color: $league-header-text;
+    overflow: hidden;
+    .logo {
+        width: 30px;
+        height: 30px;
+        float: left;
+        margin-right: 10px;
+    }
+    .league {
+        padding: 5px;
+    }
+}
+
+.match-item {
+    padding: 0;
+    overflow: hidden;
+    .club {
+        width: 40%;
+        float: left;
+        .logo {
+            width: 45px;
+            height: 45px;
+            margin-top: 20px;
+        }
+        .name {
+            margin-left: 5px;
+            position: absolute;
+            padding-top: 30px;
+            font-size: 13px;
+            width: 25%;
+            white-space: normal;
+        }
+    }
+
+    .vs {
+        width: 18%;
+        text-align: center;
+        min-height: 85px;
+        background: $match-list-vs;
+        color: $match-list-vs-text;
+        font-weight: bold;
+        padding-top: 20px;
+        margin: 0 2px;
+        font-size: 1.8em;
+        float: left;
+        .time {
+            color: inherit;
+            margin-top: 5px;
+        }
+    }
+}

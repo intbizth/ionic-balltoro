@@ -1,13 +1,25 @@
 ion-view(view-title='Matches')
     ion-content
-        ion-item(collection-repeat="r in store.$collection")
-            div
-                img(ng-src="{{r.home_club.getLogo('70x70')}}" style="height:20px")
-                | {{r.home_club.name}}
-                | VS
-                img(ng-src="{{r.away_club.getLogo('70x70')}}" style="height:20px")
-                | {{r.away_club.name}}
-                h1 {{r.country.name}}
+        // current day
+        .match-header
+            span.title Match
+            span.date {{store.$collection[0].match_day|date:('dd/MM/yyyy')}}
+
+        ion-item.match-item(collection-repeat="item in matches")
+            .league-header
+                .logo
+                .league {{item.season.name}}
+
+            ion-item.match-item(ng-repeat="r in item.items")
+
+                .club
+                    img.logo(ng-src="{{r.home_club.getLogo('70x70')}}")
+                    span.name {{r.home_club.name}}
+                .vs VS
+                    p.time {{r.start_time|date:('HH:MM')}}
+                .club
+                    img.logo(ng-src="{{r.away_club.getLogo('70x70')}}")
+                    span.name {{r.away_club.name}}
 
         ion-infinite-scroll(
             ng-if="store.hasMorePage()"

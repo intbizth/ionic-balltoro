@@ -1,5 +1,6 @@
 $register-button-bg: #549AF7;
 $register-button-text: #fff;
+$register-valid-error: red;
 
 .register-form {
     padding: 15px;
@@ -13,5 +14,9 @@ $register-button-text: #fff;
         color: $register-button-text;
         border: 0;
         box-shadow: 0;
+    }
+    span {
+        font-size: 12px;
+        color: $register-valid-error;
     }
 }
