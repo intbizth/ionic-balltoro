@@ -1,0 +1,39 @@
+$profile-button-bg: #549AF7;
+$profile-button-text: #fff;
+$profile-icon: #ACACAD;
+$profile-avatar-border: #ccc;
+
+.profile-setting {
+    padding: 15px;
+    margin: 0 auto;
+    .avatar {
+        width: 100px;
+        height: 100px;
+        border: 3px solid $profile-avatar-border;
+        border-radius: 50%;
+        margin: inherit;
+        margin-bottom: 5px;
+        padding: 5px;
+    }
+    .upload {
+        text-align: center;
+        .browse, .camera {
+            border: 0;
+            background: none;
+            font-size: 48px;
+            margin: 0 25px;
+            color: $profile-icon;
+        }
+    }
+    .item {
+        margin-bottom: 10px;
+        color: red !important;
+    }
+    .button {
+        margin-top: 50px;
+        background: $profile-button-bg;
+        color: $profile-button-text;
+        border: 0;
+        box-shadow: 0;
+    }
+}

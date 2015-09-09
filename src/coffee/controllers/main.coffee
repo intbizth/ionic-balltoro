@@ -68,6 +68,6 @@ class Main extends Controller
             ]
 
             setting: [
-                {text: 'USER SETTING', link: ''}
-                {text: 'GAME SETTING', link: ''}
+                {text: 'USER SETTING', link: '/#/app/profile_edit'}
+                {text: 'GAME SETTING', link: '/#/app/profile_game'}
             ]

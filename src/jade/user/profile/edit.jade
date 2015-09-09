@@ -1,0 +1,17 @@
+ion-view(view-title='Profile')
+
+    ion-content
+        form(ng-submit='', name="profile")
+            .profile-setting.list
+                .avatar
+                .upload
+                    button.browse.icon.ion-ios-plus-empty
+                    button.camera.icon.ion-ios-camera-outline
+                label.item.item-input
+                    input(type='text', name="name", placeholder="Name")
+
+                label.item.item-input
+                    input(type='text', name='surname', placeholder="surname")
+
+                label
+                    button.button.button-block(type='submit') Submit

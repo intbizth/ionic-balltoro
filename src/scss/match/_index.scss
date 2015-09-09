@@ -9,17 +9,18 @@ $league-header-text: #58595B;
     background: $match-header-bg;
     overflow: hidden;
     color: $match-header-text;
-    font-size: 20px;
     padding: 15px;
-    .title {
-        font-size: inherit;
-        color: inherit;
-        margin-right: 15px;
-        text-align: center;
-    }
     .date {
         font-size: 14px;
         color: inherit;
+        float: left;
+        padding-left: 50px;
+    }
+    .prev {
+        float: left;
+    }
+    .next {
+        float: right;
     }
 }
 

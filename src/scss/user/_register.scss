@@ -1,3 +1,6 @@
+@import "profile/edit";
+@import "profile/game";
+
 $register-button-bg: #549AF7;
 $register-button-text: #fff;
 $register-valid-error: red;
@@ -6,10 +9,9 @@ $register-valid-error: red;
     padding: 15px;
     .item {
         margin-bottom: 10px;
-        color: red !important;
     }
     .button {
-        margin-top: 50px;
+        margin-top: 100px;
         background: $register-button-bg;
         color: $register-button-text;
         border: 0;
