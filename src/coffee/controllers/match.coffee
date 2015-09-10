@@ -12,10 +12,10 @@ class Match extends Controller then constructor: (
         seasonId = 0
 
         for match in cs
-            if seasonId != match.program_period.id
+            if seasonId != match.season.id
                 $scope.matches.push
-                    season: match.program_period
+                    season: match.season
                     items: []
-                seasonId = match.program_period.id
+                seasonId = match.season.id
 
             $scope.matches[$scope.matches.length-1].items.push match

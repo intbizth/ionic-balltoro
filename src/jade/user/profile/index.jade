@@ -1,0 +1,52 @@
+ion-view(view-title='Profile')
+    ion-content
+        .ranking-item
+            .desc
+                .title เกมทายผลทายสกอร์
+                .ranking ranking
+            .time 0
+            .point pts
+                span.result 0
+        .ranking-item.-blue
+            .desc
+                .title เกมทายผลทายสกอร์
+                .ranking ranking
+            .time 0
+            .point pts
+                span.result 0
+        .ranking-item
+            .desc
+                .title เกมทายผลทายสกอร์
+                .ranking ranking
+            .time 0
+            .point pts
+                span.result 0
+
+        .summary-point
+            .section
+                .point 100
+                p point
+
+            .section.-blue
+                .coin 0
+                p total
+
+        .game-setting
+            .user-info
+                .avatar
+                .username AAAISMAUSER
+                .fullname AAA ISMYUSER
+            .team-choosen
+                .header Team Favorite
+                .logo
+
+        .profile-edit
+            a.button.button-block(ng-href="/#/app/profile-edit") Edit Profile
+
+
+    ion-infinite-scroll(
+        ng-if="store.hasMorePage()"
+        on-infinite="store.getNextPage()"
+        distance="5%"
+        spinner="{{$spinnerIcon}}"
+        )

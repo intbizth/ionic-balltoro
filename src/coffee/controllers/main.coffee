@@ -15,7 +15,6 @@ class Main extends Controller
         @modal = $ionicModal
         @timeout = $timeout
         @oauth = $cordovaOauth
-
         # Login indicator state
         $rootScope.IsLoggedIn = no
 
@@ -68,6 +67,6 @@ class Main extends Controller
             ]
 
             setting: [
-                {text: 'USER SETTING', link: '/#/app/profile_edit'}
-                {text: 'GAME SETTING', link: '/#/app/profile_game'}
+                {text: 'USER SETTING', link: '/#/app/profile'}
+                {text: 'GAME SETTING', link: '/#/app/account-profile-game'}
             ]

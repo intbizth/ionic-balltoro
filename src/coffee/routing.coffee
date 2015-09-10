@@ -56,7 +56,7 @@ class Routing extends Config then constructor: (
                 controller: 'newsController'
                 templateUrl: 'templates/news/index.html'
 
-    state 'app.news_show',
+    state 'app.news-show',
         url: '/news/show/:newsId'
         views:
             content:
@@ -70,18 +70,29 @@ class Routing extends Config then constructor: (
                 controller: 'registerController'
                 templateUrl: 'templates/user/register.html'
 
-    state 'app.profile_edit',
-        url: '/profile_edit'
+    state 'app.profile',
+        url: '/profile'
+        views:
+            content:
+                templateUrl: 'templates/user/profile/index.html'
+
+    state 'app.profile-edit',
+        url: '/profile-edit'
         views:
             content:
                 templateUrl: 'templates/user/profile/edit.html'
 
-    state 'app.profile_game',
-        url: '/profile_game'
+    state 'app.account-profile-game',
+        url: '/account-profile-game'
         views:
             content:
-                controller: 'userController'
-                templateUrl: 'templates/user/profile/game.html'
+                templateUrl: 'templates/account/profile/game.html'
+
+    state 'app.account-profile-favorite',
+        url: '/account-profile-favorite'
+        views:
+            content:
+                templateUrl: 'templates/account/profile/favorite.html'
 
     # if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise '/app/matches'
