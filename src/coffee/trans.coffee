@@ -1,4 +1,4 @@
-class trans extends Filter
+class Trans extends Filter
     constructor: ($parse, $translate) ->
 
         filter = (translationId, interpolateParams, interpolation) ->
