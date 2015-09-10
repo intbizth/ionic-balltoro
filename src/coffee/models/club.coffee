@@ -9,6 +9,7 @@ class Clubs extends Factory then constructor: (
     return NgBackboneCollection.extend
         model: Club
         url: Club::url
+        alias: 'clubs'
 
 ###*
 # Club Model

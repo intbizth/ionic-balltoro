@@ -14,7 +14,14 @@ class Routing extends Config then constructor: (
         views:
             content:
                 controller: 'matchController'
-                templateUrl: 'templates/matches.html'
+                templateUrl: 'templates/match/index.html'
+
+    state 'app.matches-show',
+        url: '/matches/:id'
+        views:
+            content:
+                controller: 'matchShowController'
+                templateUrl: 'templates/match/show.html'
 
     state 'app.search',
         url: '/search'

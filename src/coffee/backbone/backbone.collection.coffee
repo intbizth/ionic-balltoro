@@ -48,7 +48,8 @@ class NgBackboneCollection extends Factory then constructor: (
 
             @on 'sync error', @resetStatus
             @on 'destroy', @resetStatus
-            @on 'sync', -> $rootScope.$broadcast 'scroll.infiniteScrollComplete' if @mode == 'infinite'
+            @on 'sync', ->
+                $rootScope.$broadcast 'scroll.infiniteScrollComplete' if @mode == 'infinite'
 
             NgBackbone.PageableCollection::constructor.apply @, arguments
             return
@@ -125,31 +126,51 @@ class NgBackboneCollection extends Factory then constructor: (
             $scope = options.scope || options
             $scope[options.storeKey || 'store'] = @
 
-            @on 'sync', (model) ->
-                $scope[options.collectionKey || 'collection'] = model.$collection
+            @on 'sync', (store) ->
+                $scope[options.collectionKey || 'collection'] = store.$collection
                 $ionicLoading.hide()
+
+                # store collection with `alias`
+                if store.alias
+                    $rootScope['$' + store.alias] = @
 
             # start loading first page.
             $ionicLoading.show()
             @getFirstPage()
             return @
 
+        ###
+        # Shortcut to find model in the collection.
+        #
+        # @param {object} options The `options` can be `$scope` for short-hand or
+        #    {
+        #        scope: $scope
+        #        key: 'r' # the name to be used in view.
+        #    }
+        #
+        # @return Promise
+        # @see https://docs.angularjs.org/api/ng/service/$q
+        ###
         find: (attr, options) ->
 
             if !Und.isObject attr
                 attr = id: attr
 
             # find in repo
-            model = NgBackbone.PageableCollection::find.apply @, attr
+            if options
+                $scope = options.scope || options
 
             # need scope
             applyOptions = (model) ->
                 if options
                     $scope = options.scope || options
-                    $scope[options.key || 'model'] = model
+                    $scope[options.key || 'r'] = model
 
-            # start loading
-            $ionicLoading.show()
+            # find form loaded models.
+            if $rootScope['$' + @alias]
+                store = $rootScope['$' + @alias]
+                if store.fullCollection
+                    model = store.fullCollection.get attr.id
 
             # return promise
             $q (resolve, reject) =>
@@ -157,6 +178,10 @@ class NgBackboneCollection extends Factory then constructor: (
                     resolve model
                     applyOptions.call @, model
                 else
+                    # start loading
+                    # TODO: should be handled from controller ?
+                    $ionicLoading.show()
+
                     # TODO: support :holder replacement (must to define url for each get, put, post, patch)
                     model = new @model()
                     promise = model.fetch
