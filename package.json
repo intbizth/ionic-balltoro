@@ -52,8 +52,5 @@
   "cordovaPlatforms": [
     "ios",
     "android"
-  ],
-  "scripts": {
-    "install": "sudo npm install -g cordova ionic ios-sim gulp bower coffee-script sass && bower install"
-  }
+  ]
 }
