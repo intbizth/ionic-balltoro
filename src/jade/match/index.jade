@@ -1,5 +1,6 @@
-ion-view(view-title='Matches')
+ion-view(view-title="{{'ui.t.match.header.title'|trans}}")
     ion-content
+        | {{ 'ui.t.hello'|trans:'{displayName: "Balltoro"}' }}
         ion-item(collection-repeat="r in store.$collection", href="#/app/matches/{{r.id}}")
             img(ng-src="{{r.home_club.getLogo('70x70')}}" style="height:20px")
             | {{r.home_club.name}}
