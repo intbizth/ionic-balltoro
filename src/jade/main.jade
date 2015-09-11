@@ -7,6 +7,8 @@ ion-side-menus(enable-menu-with-back-views='false')
 
         // content section
         ion-nav-view(name='content')
+        ion-nav-view(name='match')
+        ion-nav-view(name='news')
 
     ion-side-menu(side='left')
         ion-header-bar.bar-stable(ng-show="IsLoggedIn")
@@ -14,7 +16,7 @@ ion-side-menus(enable-menu-with-back-views='false')
 
         ion-content
             ion-list.list-menu
-                ion-item(menu-close='', href='#')
+                ion-item(menu-close='', href='#/app/index')
                     | HOME FEED
                 ion-item(menu-close='', href='#/app/news')
                     | NEWS
@@ -26,10 +28,6 @@ ion-side-menus(enable-menu-with-back-views='false')
                     | {{menu.text}}
                 ion-item(menu-close='', href='#')
                     | PEOPLE RANKING
-                ion-item(menu-close='', href='#')
-                    | FANZONE
-                ion-item(menu-close='', href='#')
-                    | REWARD
                 ion-item(menu-close='', ng-click='login()')
                     | LOG IN
                 ion-item(menu-close='', href='#/app/register')

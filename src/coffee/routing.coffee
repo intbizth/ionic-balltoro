@@ -9,6 +9,14 @@ class Routing extends Config then constructor: (
         templateUrl: 'templates/main.html'
         controller: 'mainController'
 
+    state 'app.index',
+        url: '/index'
+        views:
+            news:
+                templateUrl: 'templates/index.html'
+            match:
+                templateUrl: 'templates/index1.html'
+
     state 'app.matches',
         url: '/matches'
         views:
@@ -95,5 +103,5 @@ class Routing extends Config then constructor: (
                 templateUrl: 'templates/account/profile/favorite.html'
 
     # if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise '/app/matches'
+    $urlRouterProvider.otherwise '/app/index'
     return
