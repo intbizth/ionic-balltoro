@@ -113,9 +113,5 @@ class Routing extends Config then constructor: (
                 templateUrl: 'templates/account/profile/favorite.html'
 
     # if none of the above states are matched, use this as the fallback
-<<<<<<< HEAD
-    $urlRouterProvider.otherwise '/app/index'
-=======
     $urlRouterProvider.otherwise '/app/home/index'
->>>>>>> master
     return
