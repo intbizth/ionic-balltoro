@@ -71,7 +71,7 @@ class NgBackboneCollection extends Factory then constructor: (
                 return {
                     first: first.href#.replace PROXY, BASE_URL
                     next: next.href#.replace PROXY, BASE_URL
-                    prev: previous#.href.replace PROXY, BASE_URL
+                    prev: previous.href#.replace PROXY, BASE_URL
                 }
             else return NgBackbone.PageableCollection::parseLinks.apply @, arguments
 

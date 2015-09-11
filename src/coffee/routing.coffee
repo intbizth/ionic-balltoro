@@ -70,6 +70,11 @@ class Routing extends Config then constructor: (
                 controller: 'registerController'
                 templateUrl: 'templates/user/register.html'
 
+    state 'app.ranking',
+        url: '/ranking'
+        views:
+            content:
+                templateUrl: 'templates/ranking/index.html'
 
     # if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise '/app/matches'
