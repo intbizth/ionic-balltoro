@@ -6,9 +6,9 @@ ion-side-menus(enable-menu-with-back-views='false')
                 button.button.button-icon.buttons.ion-navicon(menu-toggle='left')
 
         // content section
-        ion-nav-view(name='content')
+        ion-nav-view(name="content")
 
-    ion-side-menu(side='left')
+    ion-side-menu(side="left" expose-aside-when="large")
         ion-header-bar.bar-stable(ng-show="IsLoggedIn")
             h1.title Left {{IsLoggedIn}}
 
