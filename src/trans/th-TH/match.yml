@@ -4,3 +4,5 @@ ui.t:
         time: เวลาแข่งขัน
         header:
             title: โปรแกรมการแข่งขัน
+            lasted: Lasted Match
+            view: Veiw all

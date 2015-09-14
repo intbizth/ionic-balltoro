@@ -6,14 +6,12 @@ ion-view(view-title="{{'ui.t.match.header.title'|trans}}")
             .date {{store.$collection[0].match_day|date:('dd/MM/yyyy')}}
             button.next(type="button") {{"30/10/10>>"}}
 
-        | {{ 'ui.t.hello'|trans:'{displayName: "Balltoro"}' }}
         ion-item.match-item(collection-repeat="item in matches")
             .league-header
                 .logo
                 .league {{item.season.name}}
 
             ion-item.match-item(ng-repeat="r in item.items")
-
                 .club
                     img.logo(ng-src="{{r.home_club.getLogo('70x70')}}")
                     span.name {{r.home_club.name}}

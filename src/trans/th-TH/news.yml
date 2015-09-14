@@ -1,0 +1,6 @@
+ui.t:
+    news:
+        header:
+            title: News
+            lasted: Lasted News
+            view: Veiw all

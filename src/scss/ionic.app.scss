@@ -27,6 +27,10 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "common/main";
 @import "user/register";
 @import "match/index";
+@import "home/news";
+@import "home/match";
+@import "home/matchtalk";
+@import "home/ads";
 
 .loading-container {
     .loading {

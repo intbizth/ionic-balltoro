@@ -24,8 +24,12 @@ class Routing extends Config then constructor: (
                 controller: 'homeNewsController'
                 templateUrl: 'templates/home/news.html'
             'home-matches':
-#                controller: 'homeMatchesController'
+                controller: 'homeMatchesController'
                 templateUrl: 'templates/home/matches.html'
+            'home-ads':
+                templateUrl: 'templates/home/ads.html'
+            'home-matchtalk':
+                templateUrl: 'templates/home/matchtalk.html'
 
     state 'app.matches',
         url: '/matches'
