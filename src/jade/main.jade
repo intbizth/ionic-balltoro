@@ -24,7 +24,7 @@ ion-side-menus(enable-menu-with-back-views='false')
                     | LEAGUES
                 ion-item.sub(ng-repeat="menu in menus.leagues", menu-close='', href="{{menu.link}}")
                     | {{menu.text}}
-                ion-item(menu-close='', href='#/app/ranking')
+                ion-item(menu-close='', ui-sref="app.ranking.game-prediction")
                     | PEOPLE RANKING
                 ion-item(menu-close='', href='#')
                     | FANZONE
