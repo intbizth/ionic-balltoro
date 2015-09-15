@@ -8,7 +8,7 @@ $game-prediction-text: #FFFFFF;
     }
     h4,h5,h6 {
         margin-top: 0px;
-        margin-bottom: 0px;
+        margin-bottom: 2px;
     }
     .row {
         border-bottom-style: solid;
@@ -20,8 +20,9 @@ $game-prediction-text: #FFFFFF;
         float: right;
         z-index: 5;
         position: absolute;
-        right: 10%;
-        margin: 15px;
+        right: 3%;
+        margin-top: 20px;
+        margin-right: 10px;
         .pts {
             color: #FAAF40;
             position: relative;
@@ -29,10 +30,11 @@ $game-prediction-text: #FFFFFF;
             z-index: 3;
             text-align: center;
             margin-top: 8px;
+            margin-left: 25px;
         }
         .score {
-            width: 90px;
-            height: 35px;
+            width: 70px;
+            height: 30px;
             border-radius: 5px;
             background: #549AF7;
             z-index: 2;
@@ -43,6 +45,7 @@ $game-prediction-text: #FFFFFF;
             h3 {
                 color: $game-prediction-text;
                 margin: 0;
+                font-size: 20px;
             }
         }
     }
@@ -55,14 +58,36 @@ $game-prediction-text: #FFFFFF;
             margin-right: 10px;
             width: 50px;
             height: 50px;
-            border-radius: 25px;
-            border-width: 3px;
+            border: 2px #ffffff solid;
+            border-radius: 50%;
+        }
+        .rating {
+            width: 20px;
+            height: 20px;
+            border: 3px #ffffff solid;
+            border-radius: 50%;
+            position: absolute;
+            margin-top: 37px;
+            margin-left: 15px;
+            background: #4089C8;
+            text-align: center;
+            h3 {
+                margin: 1px;
+                font-size: 8px;
+                color: $game-prediction-text;
+            }
         }
         .username {
             color: $game-prediction-text;
+            margin-top: 5px;
+            font-size: 15px;
         }
         .count {
             color: $game-prediction-text;
+            .color {
+                color: #549AF7;
+                font-size: small;
+            }
         }
     }
 }
