@@ -21,6 +21,7 @@ class Main extends Controller
         # Define login with in root scope to access on any childs.
         @setupLogin()
         @setupMenus()
+        @setupCollapse()
 
 # @param {object} $scope App root scope.
     setupLogin: ->
@@ -70,3 +71,6 @@ class Main extends Controller
                 {text: 'USER SETTING', link: '/#/app/profile'}
                 {text: 'GAME SETTING', link: '/#/app/account-profile-game'}
             ]
+
+    setupCollapse: ->
+        @scope.active = true;

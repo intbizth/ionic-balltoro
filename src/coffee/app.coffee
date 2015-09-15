@@ -6,6 +6,7 @@ class App extends App then constructor: ->
         'ngMaterial'
         'templates'
         'ngCordovaOauth'
+        'ngAnimate'
     ]
 
 # TODO:

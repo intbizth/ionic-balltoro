@@ -12,14 +12,15 @@ ion-view(view-title="{{'ui.t.match.header.title'|trans}}")
                 .league {{item.season.name}}
 
             ion-item.match-item(ng-repeat="r in item.items")
-                .club
-                    img.logo(ng-src="{{r.home_club.getLogo('70x70')}}")
-                    span.name {{r.home_club.name}}
-                .vs {{r.result}}
-                    p.time {{r.start_time|date:('HH:MM')}}
-                .club
-                    img.logo(ng-src="{{r.away_club.getLogo('70x70')}}")
-                    span.name {{r.away_club.name}}
+                a(ui-sref="app.matches-show({ id:r.id })")
+                    .club
+                        img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
+                        span.name {{r.home_club.name}}
+                    .vs {{r.result}}
+                        p.time {{r.start_time|date:('HH:MM')}}
+                    .club
+                        img.logo(ng-src!="{{r.away_club.getLogo('70x70')}}")
+                        span.name {{r.away_club.name}}
 
         ion-infinite-scroll(
             ng-if="store.hasMorePage()"

@@ -41,6 +41,7 @@ $league-header-text: #58595B;
 }
 
 .match-item {
+    margin: 0 !important;
     padding: 0;
     overflow: hidden;
     .club {
@@ -50,6 +51,7 @@ $league-header-text: #58595B;
             width: 45px;
             height: 45px;
             margin-top: 20px;
+            margin-left: 5px;
         }
         .name {
             margin-left: 5px;

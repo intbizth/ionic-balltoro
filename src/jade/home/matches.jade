@@ -2,13 +2,14 @@
     a.views(ui-sref='app.matches') {{ 'ui.t.match.header.view'|trans}}
 
 ion-item.match-item(ng-repeat="r in store.$collection | limitTo:quantity")
-    .club
-        img.logo(ng-src="{{r.home_club.getLogo('70x70')}}")
-        span.name {{r.home_club.name}}
+    a(ui-sref="app.matches-show({ id:r.id })")
+        .club
+            img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
+            span.name {{r.home_club.name}}
 
-    .vs {{r.result}}
-        p.time {{r.start_time|date:('HH:MM')}}
+        .vs {{r.result}}
+            p.time {{r.start_time|date:('HH:MM')}}
 
-    .club
-        span.name {{r.away_club.name}}
-        img.logo.-right(ng-src="{{r.away_club.getLogo('70x70')}}")
+        .club
+            span.name {{r.away_club.name}}
+            img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
