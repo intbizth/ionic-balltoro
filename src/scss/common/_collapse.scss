@@ -6,7 +6,6 @@
     .collapsed {
         cursor: pointer;
         position: relative;
-        z-index: 100000000;
         > span {
             position: absolute;
             top: 25px;
@@ -14,11 +13,9 @@
             font-size: 20px;
             line-height: 0;
         }
-
     }
     .expanded {
         cursor: pointer;
-        z-index: 100000000;
         position: relative;
         > span {
             position: absolute;
@@ -33,7 +30,6 @@
         margin: 0;
     }
     .slides {
-        height: 141px;
         transition: height 0.35s ease;
         overflow: hidden;
         position: relative;

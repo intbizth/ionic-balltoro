@@ -1,0 +1,51 @@
+ion-item.match-item
+    .club
+        img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
+        span.name {{r.home_club.name}}
+    .vs VS
+        p.time {{r.start_time|date:('HH:MM')}}
+    .club
+        img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
+        span.name {{r.away_club.name}}
+.handicap-bar Handicap
+    span.title {{r.handicap}}
+
+.statistic-status.row
+    .col.col-50
+        .status.-w w
+        .status.-d d
+        .status.-l l
+        .status.-w w
+        .status.-w w
+    .col.col-50
+        .status.-w w
+        .status.-d d
+        .status.-l l
+        .status.-w w
+        .status.-w w
+
+//TODO:h2h might be from another controller
+.expand-collapse.h2h-collapse
+    .header(ng-click!="active = !active", ng-class!="{'collapsed': active, 'expanded': !active}", ng-animate="{'caret': active}")
+            | Head 2 Head สถิติการพบกันล่าสุด
+    .slides(ng-hide="active")
+        .content
+            .row.titles
+                .col.col-10 Pos
+                .col.col-25 Date
+                .col.col-55
+                .col.col-10 FT
+
+        .div(ng-repeat="w in r")
+            .row(ng-class-odd!="'odd'", ng-class-even!="'even'")
+                .col.col-10 ww
+                .col.col-25 ww
+                .col.col-55 ww
+                .col.col-10 ww
+
+.social-share
+    .title Share
+    a.button.button-icon.icon.ion-android-share-alt
+    a.button.button-icon.icon.ion-social-facebook
+    a.button.button-icon.icon.ion-social-twitter
+    a.button.button-icon.icon.ion-social-pinterest

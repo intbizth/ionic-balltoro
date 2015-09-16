@@ -12,7 +12,7 @@ ion-view(view-title="{{'ui.t.match.header.title'|trans}}")
                 .league {{item.season.name}}
 
             ion-item.match-item(ng-repeat="r in item.items")
-                a(ui-sref="app.matches-show({ id:r.id })")
+                a(ui-sref="app.matches-show.statistic({ id:r.id })")
                     .club
                         img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
                         span.name {{r.home_club.name}}

@@ -39,11 +39,26 @@ class Routing extends Config then constructor: (
                 templateUrl: 'templates/match/index.html'
 
     state 'app.matches-show',
-        url: '/matches/:id'
+        url: '/matches-show'
+        abstract: true
         views:
             content:
                 controller: 'matchShowController'
                 templateUrl: 'templates/match/show.html'
+
+    state 'app.matches-show.game-prediction',
+        url: '/game-prediction/:id'
+        views:
+            'game-prediction':
+                controller: 'matchShowController'
+                templateUrl: 'templates/match/tabs/game-prediction.html'
+
+    state 'app.matches-show.statistic',
+        url: '/statistic/:id'
+        views:
+            'statistic':
+                controller: 'matchShowController'
+                templateUrl: 'templates/match/tabs/statistic.html'
 
     state 'app.search',
         url: '/search'

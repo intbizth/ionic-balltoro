@@ -2,7 +2,7 @@
     a.views(ui-sref='app.matches') {{ 'ui.t.match.header.view'|trans}}
 
 ion-item.match-item(ng-repeat="r in store.$collection | limitTo:quantity")
-    a(ui-sref="app.matches-show({ id:r.id })")
+    a(ui-sref="app.matches-show.statistic({ id:r.id })")
         .club
             img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
             span.name {{r.home_club.name}}
