@@ -1,0 +1,70 @@
+$user-info-text: #549AF7;
+$user-avatar-border: #ccc;
+$team-header-text: $user-avatar-border;
+$team-header-bg: $team-header-text;
+
+.game-setting {
+    padding: 15px;
+    position: relative;
+    text-align: center;
+    margin: 0 auto;
+    .button {
+        margin-top: 5px;
+        background: $profile-button-bg;
+        color: $profile-button-text;
+        border: 0;
+        box-shadow: 0;
+    }
+}
+
+.user-info {
+    margin: 0 auto;
+    text-align: center;
+    color: $user-info-text;
+    padding: 15px 0;
+    .avatar {
+        width: 100px;
+        height: 100px;
+        border: 3px solid $user-avatar-border;
+        border-radius: 50%;
+        margin: inherit;
+        margin-bottom: 15px;
+        padding: 5px;
+    }
+    .username {
+        margin: 5px 0;
+        font-size: 20px;
+        font-weight: bold;
+    }
+    .fullname {
+        font-size: 12px;
+        font-weight: normal;
+    }
+    .email {
+        @extend .fullname;
+        margin: 0;
+    }
+}
+
+.team-choosen {
+    margin: 0 auto;
+    padding-bottom: 30px;
+    .header {
+        color: $team-header-text;
+        text-align: center;
+        &:before, &:after {
+            background-color: $team-header-bg;
+            content: "";
+            display: inline-block;
+            height: 1px;
+            vertical-align: middle;
+            width: 25%;
+            margin: 0 5px;
+        }
+    }
+    .logo {
+        width: 50px;
+        height: 50px;
+        margin: inherit;
+    }
+}

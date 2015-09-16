@@ -1,0 +1,61 @@
+.expand-collapse {
+    overflow: hidden;
+    .item {
+        overflow: hidden;
+    }
+    .collapsed {
+        cursor: pointer;
+        position: relative;
+        z-index: 100000000;
+        > span {
+            position: absolute;
+            top: 25px;
+            right: 15px;
+            font-size: 20px;
+            line-height: 0;
+        }
+
+    }
+    .expanded {
+        cursor: pointer;
+        z-index: 100000000;
+        position: relative;
+        > span {
+            position: absolute;
+            top: 25px;
+            right: 15px;
+            font-size: 20px;
+            line-height: 0;
+        }
+    }
+    .content {
+        padding: 0;
+        margin: 0;
+    }
+    .slides {
+        height: 141px;
+        transition: height 0.35s ease;
+        overflow: hidden;
+        position: relative;
+        &.ng-hide {
+            height: 0;
+            transition: height 0.35s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        &.ng-hide-remove, &.ng-hide-add {
+            display: block !important;
+        }
+        &.ng-hide-add {
+            animation-name: hide;
+            animation-duration: .5s;
+            animation-timing-function: ease-in;
+        }
+
+        &.ng-hide-remove {
+            animation-name: show;
+            animation-duration: .5s;
+            animation-timing-function: ease-out;
+        }
+    }
+}

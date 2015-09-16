@@ -1,0 +1,19 @@
+$footer-top-bg: #213647;
+$footer-top-border: #549AF7;
+$footer-bottom-bg: #294050;
+$footer-bottom-border: #375974;
+
+.footer-wrapper {
+    width: 100%;
+    overflow: hidden;
+    .top {
+        background: $footer-top-bg;
+        height: 20px;
+        border-top: $footer-top-border 10px solid;
+    }
+    .bottom {
+        border-top: $footer-bottom-border 2px solid;
+        background: $footer-bottom-bg;
+        padding: 15px;
+    }
+}

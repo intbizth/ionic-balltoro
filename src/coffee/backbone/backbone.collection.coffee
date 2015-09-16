@@ -1,14 +1,9 @@
 class NgBackboneCollection extends Factory then constructor: (
-    TORO,
-    NgBackbone,
-    NgBackboneModel,
-    $rootScope,
-    $ionicLoading,
-    _
+    CFG, NgBackbone, NgBackboneModel, $q, $rootScope, $ionicLoading, Und
 ) ->
     # TODO: to move up `backbone` into abstract layer inject me as dependency!! or override in sub-class
-    PROXY = TORO.ENVIRONMENT["@@proxyPass"].api.proxy
-    BASE_URL = TORO.ENVIRONMENT["@@proxyPass"].api.baseUrl
+    PROXY = CFG.API.getProxy()
+    BASE_URL = CFG.API.getBaseUrl()
 
     # TODO:
     # - subscribe `reset` to make `ordering` of fullCollection to
@@ -53,9 +48,10 @@ class NgBackboneCollection extends Factory then constructor: (
 
             @on 'sync error', @resetStatus
             @on 'destroy', @resetStatus
-            @on 'sync', -> $rootScope.$broadcast 'scroll.infiniteScrollComplete' if @mode == 'infinite'
+            @on 'sync', ->
+                $rootScope.$broadcast 'scroll.infiniteScrollComplete' if @mode == 'infinite'
 
-            NgBackbone.PageableCollection.apply @, arguments
+            NgBackbone.PageableCollection::constructor.apply @, arguments
             return
 
         parseState: (resp, queryParams, state, options) ->
@@ -64,13 +60,13 @@ class NgBackboneCollection extends Factory then constructor: (
             return @state
 
         parseLinks: (resp, options) ->
-            _links = _.result resp.data, '_links'
+            _links = Und.result resp.data, '_links'
 
             if _links
                 defs = href: ''
-                first = _.result _links, 'first', defs
-                next = _.result _links, 'next', defs
-                previous = _.result _links, 'previous', defs
+                first = Und.result _links, 'first', defs
+                next = Und.result _links, 'next', defs
+                previous = Und.result _links, 'previous', defs
 
                 return {
                     first: first.href#.replace PROXY, BASE_URL
@@ -81,7 +77,7 @@ class NgBackboneCollection extends Factory then constructor: (
 
         # parse hateote data
         parseRecords: (resp) ->
-            data = _.result resp.data, '_embedded'
+            data = Und.result resp.data, '_embedded'
 
             return data.items if data
             return resp.data
@@ -91,9 +87,9 @@ class NgBackboneCollection extends Factory then constructor: (
 
         # set on request status
         setStatus: (key, value, options) ->
-            return @ if _.isUndefined(key)
+            return @ if Und.isUndefined(key)
 
-            if _.isObject(key)
+            if Und.isObject(key)
                 attrs = key
                 options = value
             else (attrs = {})[key] = value
@@ -101,7 +97,7 @@ class NgBackboneCollection extends Factory then constructor: (
             options = options or {}
 
             for attr of @$status
-                if attrs.hasOwnProperty(attr) and _.isBoolean(attrs[attr])
+                if attrs.hasOwnProperty(attr) and Und.isBoolean(attrs[attr])
                     @$status[attr] = attrs[attr]
             return
 
@@ -130,11 +126,72 @@ class NgBackboneCollection extends Factory then constructor: (
             $scope = options.scope || options
             $scope[options.storeKey || 'store'] = @
 
-            @on 'sync', (model) ->
-                $scope[options.collectionKey || 'collection'] = model.$collection
+            @on 'sync', (store) ->
+                $scope[options.collectionKey || 'collection'] = store.$collection
                 $ionicLoading.hide()
+
+                # store collection with `alias`
+                if store.alias
+                    $rootScope['$' + store.alias] = @
 
             # start loading first page.
             $ionicLoading.show()
             @getFirstPage()
             return @
+
+        ###
+        # Shortcut to find model in the collection.
+        #
+        # @param {object} options The `options` can be `$scope` for short-hand or
+        #    {
+        #        scope: $scope
+        #        key: 'r' # the name to be used in view.
+        #    }
+        #
+        # @return Promise
+        # @see https://docs.angularjs.org/api/ng/service/$q
+        ###
+        find: (attr, options) ->
+
+            if !Und.isObject attr
+                attr = id: attr
+
+            # find in repo
+            if options
+                $scope = options.scope || options
+
+            # need scope
+            applyOptions = (model) ->
+                if options
+                    $scope = options.scope || options
+                    $scope[options.key || 'r'] = model
+
+            # find form loaded models.
+            if $rootScope['$' + @alias]
+                store = $rootScope['$' + @alias]
+                if store.fullCollection
+                    model = store.fullCollection.get attr.id
+
+            # return promise
+            $q (resolve, reject) =>
+                if model
+                    resolve model
+                    applyOptions.call @, model
+                else
+                    # start loading
+                    # TODO: should be handled from controller ?
+                    $ionicLoading.show()
+
+                    # TODO: support :holder replacement (must to define url for each get, put, post, patch)
+                    model = new @model()
+                    promise = model.fetch
+                        url: (model.url + attr.id)
+                        success: (model) ->
+                            resolve model
+                            applyOptions.call @, model
+                        error: (xhr) ->
+                            reject xhr
+                            applyOptions.call @, null
+
+                    # hide loading
+                    promise.finally -> $ionicLoading.hide()

@@ -1,0 +1,18 @@
+$lastmatch-header-bg: #111F28;
+$lastmatch-header-text: #fff;
+
+.lastmatch-header {
+    margin-top: 44px;
+    background: $lastmatch-header-bg;
+    padding: 15px;
+    color: $lastmatch-header-text;
+    font-size: 18px;
+    font-weight: bold;
+    overflow: hidden;
+    .views {
+        float: right;
+        font-size: 14px;
+        font-weight: normal;
+        color: inherit;
+    }
+}

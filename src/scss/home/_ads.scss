@@ -1,0 +1,11 @@
+$ads-content-bg: black;
+$ads-content-text: #fff;
+
+.ads-content {
+    width: 100%;
+    height: 240px;
+    background: $ads-content-bg;
+    .test {
+        color: $ads-content-text !important;
+    }
+}

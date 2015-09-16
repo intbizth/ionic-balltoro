@@ -1,0 +1,25 @@
+@import "profile/index";
+@import "profile/edit";
+@import "profile/game";
+
+$register-button-bg: #549AF7;
+$register-button-text: #fff;
+$register-valid-error: red;
+
+.register-form {
+    padding: 15px;
+    .item {
+        margin-bottom: 10px;
+    }
+    .button {
+        margin-top: 100px;
+        background: $register-button-bg;
+        color: $register-button-text;
+        border: 0;
+        box-shadow: 0;
+    }
+    span {
+        font-size: 12px;
+        color: $register-valid-error;
+    }
+}

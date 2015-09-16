@@ -1,0 +1,15 @@
+ion-view(view-title="{{r.headline}}")
+    ion-content
+        div.news-show
+            img.cover(ng-src="{{r.cover}}")
+            div.info
+                img.columnist(ng-src="{{r.user.profile_picture}}")
+                p.author {{r.user.username}}
+                div.date.-clearfix {{r.published_date | date:'dd-MM-yyyy'}}
+                a(href='r.credit_url') {{r.credit_url}}
+                h3.headline {{r.headline}}
+                div.content
+                    h4 {{r.subhead}}
+                    h4.desc {{r.description}}
+        include ../common/share
+        include ../common/footer

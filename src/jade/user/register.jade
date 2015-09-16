@@ -1,0 +1,28 @@
+ion-view(view-title='Register')
+    ion-content
+        form(ng-submit='doRegister()', name="register", novalidate)
+            .register-form.list
+                label.item.item-input
+                    input(type="email", name="email", ng-model="email"
+                    placeholder="{{placeholder.email}}" required)
+
+                p(ng-show="register.email.$dirty && register.email.$invalid")
+                    span(ng-show="register.email.$error.required") Email required!
+                    span(ng-show="register.email.$error.email") Email valid!
+
+                label.item.item-input
+                    input(type='password',name="password", ng-model='password',
+                    placeholder="{{placeholder.password}}", required)
+
+                p(ng-show="register.password.$dirty && register.password.$invalid")
+                    span(ng-show="register.password.$error.required") Password required!
+
+                label.item.item-input
+                    input(type='password', ng-model='confirm_password', name='confirm_password',
+                    placeholder="{{placeholder.repassword}}", required)
+
+                p(ng-show="register.confirm_password.$dirty && register.confirm_password.$invalid")
+                    span(ng-show="register.password.$error.required") Password required!
+
+                label
+                    button.button.button-block(type='submit') Register

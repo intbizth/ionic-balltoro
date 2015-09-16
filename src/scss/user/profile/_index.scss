@@ -1,0 +1,86 @@
+$ranking-item-text: #fff;
+$ranking-item-bg: linear-gradient(to right, #213647, #596875);
+$ranking-item-point: orange;
+$ranking-item-result-text: #fff;
+$ranking-item-result-bg: #549AF7;
+$summary-point-section-left: $ranking-item-bg;
+$summary-point-text: $ranking-item-text;
+$profile-edit-button-text: #fff;
+$profile-edit-button-bg: $ranking-item-result-bg;
+$ranking-item-blue-bg: #213647;
+
+.ranking-item {
+    min-height: 70px;
+    background: $ranking-item-bg;
+    padding: 15px;
+    color: $ranking-item-text;
+    width: 100%;
+    vertical-align: middle;
+    .desc {
+        color: inherit;
+        width: 50%;
+        float: left;
+        font-size: 16px;
+        .title {
+            font-weight: bold;
+        }
+        .ranking {
+            margin-top: 8px;
+            font-size: 14px;
+        }
+    }
+    .time {
+        width: 25%;
+        float: left;
+        font-size: 28px;
+    }
+    .point {
+        width: 25%;
+        float: left;
+        color: $ranking-item-point;
+        .result {
+            color: $ranking-item-result-text;
+            font-size: 20px;
+            background: $ranking-item-result-bg;
+            padding: 5px 20px;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+    }
+}
+
+.item-blue {
+    background: $ranking-item-blue-bg;
+}
+
+.summary-point {
+    width: 100%;
+    overflow: hidden;
+    color: $summary-point-text;
+    text-align: center;
+    .section {
+        width: 50%;
+        padding: 10px 15px;
+        background: $summary-point-section-left;
+        float: left;
+        .point, .coin {
+            font-size: 24px;
+        }
+        p {
+            margin-bottom: 0;
+        }
+    }
+    .-blue {
+        background: $ranking-item-blue-bg;
+    }
+}
+
+.profile-edit {
+    padding: 0 15px;
+    .button {
+        background: $profile-edit-button-bg;
+        color: $profile-edit-button-text;
+        border: 0;
+        box-shadow: 0;
+    }
+}

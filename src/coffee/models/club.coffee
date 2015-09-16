@@ -1,16 +1,46 @@
-class Clubs extends Factory then constructor: (TORO, NgBackboneCollection, Club) ->
+###*
+# Club Model Collection
+#
+# @author liverbool <phaiboon@intbizth.com>
+###
+class Clubs extends Factory then constructor: (
+    NgBackboneCollection, Club
+) ->
     return NgBackboneCollection.extend
         model: Club
-        url: TORO.API 'clubs/'
+        url: Club::url
+        alias: 'clubs'
 
-class Club extends Factory then constructor: (NgBackboneModel, _) ->
+###*
+# Club Model
+###
+class Club extends Factory then constructor: (
+    CFG, NgBackboneModel, Country, Und
+) ->
     return NgBackboneModel.extend
+        url: CFG.API.getPath 'clubs/'
+
+# Model relations.
+        relations: [{
+            type: 'HasOne'
+            key: 'country'
+            relatedModel: Country
+        }]
+
+# Define default items
         defaults:
             _links: null
 
-        getLogo: (size) ->
-            logo = if _.isUndefined(size) or _.isUndefined(@._links['logo_' + size])
-                @._links.logo
-            else @._links['logo_' + size]
-
-            return _.result logo, 'href'
+    ###*
+    # Get club logo specify the size.
+    #
+    # @param {string} size The size of image eg. 70x70
+    #
+    # @return {string} Logo path
+    ###
+#        getLogo: (size) ->
+#            logo = if Und.isUndefined(size) or Und.isUndefined(@._links['logo_' + size])
+#                @._links.logo
+#            else @._links['logo_' + size]
+#
+#            return Und.result logo, 'href'

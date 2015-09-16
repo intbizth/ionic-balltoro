@@ -1,5 +1,6 @@
-class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone) ->
-
+class NgBackboneModel extends Factory then constructor: (
+    $q, $rootScope, $http, NgBackbone, Und
+) ->
     # Usage: model.$attributes.someKey
     propertyAccessor = (key) ->
         Object.defineProperty @$attributes, key,
@@ -17,13 +18,13 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
             enumerable: true
             configurable: true
             get: =>
-                if !_.isUndefined(@attributes[key])
+                if Und.isDefined(@attributes[key])
                     return @$attributes[key]
                 else
                     return @[key]
 
             set: (newValue) =>
-                if !_.isUndefined(@attributes[key])
+                if Und.isDefined(@attributes[key])
                     @attributes[key] = newValue
                 else @[key] = newValue
                 return
@@ -46,7 +47,7 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
                     syncing: true
 
             @on 'sync error', @resetStatus
-            return NgBackbone.RelationalModel.apply @, arguments
+            return NgBackbone.RelationalModel::constructor.apply @, arguments
 
         set: (key, val, options) ->
             output = NgBackbone.RelationalModel::set.apply @, arguments
@@ -55,10 +56,14 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
             @setBinding key, val, options
             return output
 
-        setStatus: (key, value, options) ->
-            return @ if _.isUndefined(key)
+        parse: (resp, xhr) ->
+            return resp.data if Und.isDefined resp.data
+            return resp
 
-            if _.isObject(key)
+        setStatus: (key, value, options) ->
+            return @ if Und.isUndefined(key)
+
+            if Und.isObject(key)
                 attrs = key
                 options = value
             else (attrs = {})[key] = value
@@ -66,7 +71,7 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
             options = options or {}
 
             for attr of @$status
-                if attrs.hasOwnProperty(attr) and _.isBoolean(attrs[attr])
+                if attrs.hasOwnProperty(attr) and Und.isBoolean(attrs[attr])
                     @$status[attr] = attrs[attr]
             return
 
@@ -78,15 +83,15 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
                 syncing: false
 
         setBinding: (key, val, options) ->
-            return @ if _.isUndefined(key)
+            return @ if Und.isUndefined(key)
 
-            if _.isObject(key)
+            if Und.isObject(key)
                 attrs = key
                 options = val
             else (attrs = {})[key] = val
 
             options = options or {}
-            @$attributes = {} if _.isUndefined(@$attributes)
+            @$attributes = {} if Und.isUndefined(@$attributes)
             unset = options.unset
 
             for attr of attrs
@@ -98,4 +103,28 @@ class NgBackboneModel extends Factory then constructor: ($rootScope, NgBackbone)
             return @
 
         removeBinding: (attr, options) ->
-            @setBinding attr, undefined, _.extend({}, options, unset: true)
+            @setBinding attr, undefined, Und.extend({}, options, unset: true)
+
+        ###*
+        # Get model's embeded links.
+        #
+        # @param {string} name Link name.
+        # @param {function|null} collection A model collection constructor.
+        #
+        # @return Promise with (Collection|Model|Object|null)
+        # @see https://docs.angularjs.org/api/ng/service/$q
+        ###
+        getLinked: (name, collection) ->
+            $q (resolve, reject) =>
+                obj = Und.result @_links, name
+
+                if !obj
+                    resolve null
+                else if collection
+                    # TODO: clear collection ?
+                    new collection().fetch
+                        url: obj.href
+                        success: (store) -> resolve store
+                        error: (xhr) -> reject xhr
+                else
+                    $http # TODO

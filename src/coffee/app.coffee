@@ -1,9 +1,12 @@
 class App extends App then constructor: ->
     return [
         'ionic'
+        'pascalprecht.translate'
         'ngCordova'
+        'ngMaterial'
         'templates'
         'ngCordovaOauth'
+        'ngAnimate'
     ]
 
 # TODO:

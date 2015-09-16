@@ -29,13 +29,17 @@ gulp = require 'gulp'
 bower = require 'bower'
 replace = require 'gulp-replace-task'
 fixmyjs = require 'gulp-fixmyjs'
+autoprefixer = require 'gulp-autoprefixer'
+yamlFlatten = require './yaml-flatten'
 $logger = $.util.log
 
 $logger 'Environment: ' + ($.util.colors.yellow environment)
 
 paths =
     styles: [
-        './src/scss/ionic.app.scss'
+        './src/scss/*.scss'
+        './src/scss/**.scss'
+        './src/scss/**/*.scss'
     ]
     scripts: [
         './src/coffee/app.coffee'
@@ -48,11 +52,15 @@ paths =
     views: [
         './src/jade/**/*.jade'
     ]
+    trans: [
+        './src/trans/**/*.yml'
+    ]
 
 gulp.task 'sass', (done) ->
     gulp.src(paths.styles)
-        .pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
+        #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
         .pipe($.sass(errLogToConsole: true))
+        .pipe(autoprefixer({browsers: ['last 4 versions']}))
         .pipe($.concat('style.css'))
         .pipe(gulp.dest('./www/css'))
         .pipe($.minifyCss(keepSpecialComments: 0))
@@ -63,7 +71,7 @@ gulp.task 'sass', (done) ->
 
 gulp.task 'coffee', (done) ->
     gulp.src(paths.scripts)
-        .pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
+        #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
         .pipe($.ngClassify(appName: appName))
         .pipe($.coffee(bare: no).on('error', $logger))
         .pipe($.jshint(".jshintrc"))
@@ -81,7 +89,7 @@ gulp.task 'coffee', (done) ->
 
 gulp.task 'jade', (done) ->
     gulp.src(paths.views)
-        .pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
+        #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
         .pipe($.jade())
         # .pipe(gulp.dest('./www/templates')) # uncomment to show compiled html templates
         .pipe($.angularTemplatecache('templates', {standalone:true, root: 'templates/'} ))
@@ -90,13 +98,22 @@ gulp.task 'jade', (done) ->
         .pipe($.size(showFiles: true))
     #.on('end', done)
 
+gulp.task 'trans', (done) ->
+    gulp.src(paths.trans)
+        .pipe(yamlFlatten())
+        .pipe($.rename(extname: '.json'))
+        .pipe(gulp.dest('./www/translations'))
+        .pipe($.size(showFiles: true))
+    #.on('end', done)
+
 gulp.task 'watch', ->
     gulp.watch(paths.styles, ['sass'])
     gulp.watch(paths.scripts, ['coffee'])
     gulp.watch(paths.views, ['jade'])
+    gulp.watch(paths.trans, ['trans'])
 
 gulp.task 'build', (callback) ->
-    $run("sass", "coffee", "jade", callback)
+    $run("sass", "coffee", "jade", "trans", callback)
 
 gulp.task 'install', ['git-check'], ->
     bower.commands.install().on 'log', (data) ->

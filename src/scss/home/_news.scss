@@ -1,0 +1,16 @@
+$news-header-bg: #111F28;
+$news-header-text: #fff;
+
+.news-header {
+    background: $news-header-bg;
+    padding: 15px;
+    color: $news-header-text;
+    font-size: 18px;
+    font-weight: bold;
+    .views {
+        float: right;
+        font-size: 14px;
+        font-weight: normal;
+        color: inherit;
+    }
+}
