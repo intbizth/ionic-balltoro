@@ -8,3 +8,15 @@ plugins/
 www/js
 www/css
 www/lib
+
+.idea/.name
+
+.idea/ionic-balltoro.iml
+
+.idea/misc.xml
+
+.idea/modules.xml
+
+.idea/vcs.xml
+
+.idea/workspace.xml
