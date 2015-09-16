@@ -5,9 +5,12 @@
         function App() {
             return [
                 'ionic',
+                'pascalprecht.translate',
                 'ngCordova',
+                'ngMaterial',
                 'templates',
-                'ngCordovaOauth'
+                'ngCordovaOauth',
+                'ngAnimate'
             ];
         }
         return App;
@@ -15,15 +18,59 @@
     angular.module('balltoro', new App());
 }.call(this));
 (function () {
-    var TORO;
-    TORO = function () {
-        function TORO() {
-            return {
+    var Run;
+    Run = function () {
+        function Run($rootScope, $ionicPlatform, $location, $cordovaKeyboard, $cordovaToast, LogLine) {
+            $rootScope.$spinnerIcon = 'ripple';
+            LogLine.len(32).startup();
+            $ionicPlatform.ready(function () {
+                LogLine.ready();
+                if (window.cordova) {
+                    $cordovaKeyboard.hideAccessoryBar(true);
+                    $cordovaKeyboard.disableScroll(true);
+                }
+                if (window.StatusBar) {
+                    return StatusBar.styleDefault();
+                }
+            });    /*
+      $rootScope.$on '$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
+        console.log '$stateChangeStart to ' + toState.to + '- fired when the transition begins. toState,toParams : \n', toState, toParams
+        console.log arguments
+        return
+      $rootScope.$on '$stateChangeError', (event, toState, toParams, fromState, fromParams) ->
+        console.log '$stateChangeError - fired when an error occurs during transition.'
+        console.log arguments
+        return
+      $rootScope.$on '$stateChangeSuccess', (event, toState, toParams, fromState, fromParams) ->
+        console.log '$stateChangeSuccess to ' + toState.name + ' - fired once the state transition is complete.'
+        console.log arguments
+        return
+       */
+        }
+        return Run;
+    }();
+    angular.module('balltoro').run([
+        '$rootScope',
+        '$ionicPlatform',
+        '$location',
+        '$cordovaKeyboard',
+        '$cordovaToast',
+        'LogLine',
+        Run
+    ]);
+}.call(this));
+(function () {
+    var CFG;
+    CFG = function () {
+        function CFG() {
+            var ApiConfig, Config;
+            Config = {
                 VERSION: '0.0.1',
                 HTTP_STATUS_CODES: {
                     '401': 'Unauthorized',
                     '403': 'Forbidden',
-                    '404': 'Not Found'
+                    '404': 'Not Found',
+                    '500': 'Internal Service Error'
                 },
                 ENVIRONMENT: {
                     dev: {
@@ -44,106 +91,152 @@
                             proxy: ''
                         }
                     }
-                },
-                API: function (path) {
-                    return this.ENVIRONMENT.dev.api.baseUrl + path;
                 }
             };
-        }
-        return TORO;
-    }();
-    angular.module('balltoro').constant('TORO', TORO());
-}.call(this));
-(function () {
-    var Run;
-    Run = function () {
-        function Run($rootScope, $ionicPlatform, $location, $cordovaKeyboard, $cordovaToast, LogLine) {
-            $rootScope.$spinnerIcon = 'ripple';
-            LogLine.len(32).startup();
-            $ionicPlatform.ready(function () {
-                LogLine.ready();
-                if (window.cordova) {
-                    $cordovaKeyboard.hideAccessoryBar(true);
-                    $cordovaKeyboard.disableScroll(true);
-                }
-                if (window.StatusBar) {
-                    return StatusBar.styleDefault();
+            ApiConfig = Config.ENVIRONMENT.dev.api;
+            return angular.extend(Config, {
+                API: {
+                    getPath: function (path) {
+                        return ApiConfig.baseUrl + path;
+                    },
+                    getProxy: function () {
+                        return ApiConfig.proxy;
+                    },
+                    getBaseUrl: function () {
+                        return ApiConfig.baseUrl;
+                    }
                 }
             });
         }
-        return Run;
+        return CFG;
     }();
-    angular.module('balltoro').run([
-        '$rootScope',
-        '$ionicPlatform',
-        '$location',
-        '$cordovaKeyboard',
-        '$cordovaToast',
-        'LogLine',
-        Run
-    ]);
-}.call(this));
-(function () {
-    var Config;
-    Config = function () {
-        /**
-     * @param {object} $stateProvider
-     * @param {object} $urlRouterProvider
-     * @param {object} $ionicConfigProvider See http://ionicframework.com/docs/api/provider/$ionicConfigProvider/
-     */
-        function Config(TORO, $ionicConfigProvider, $ionicLoadingConfig) {
-            $ionicLoadingConfig.template = '<ion-spinner icon="lines"></ion-spinner>';
-        }
-        return Config;
-    }();
-    angular.module('balltoro').config([
-        'TORO',
-        '$ionicConfigProvider',
-        '$ionicLoadingConfig',
-        Config
-    ]);
+    angular.module('balltoro').constant('CFG', CFG());
 }.call(this));
 (function () {
     var Routing;
     Routing = function () {
         function Routing($stateProvider, $urlRouterProvider) {
-            $stateProvider.state('app', {
+            var state;
+            state = $stateProvider.state;
+            state('app', {
                 url: '/app',
                 abstract: true,
-                templateUrl: 'templates/menu.html',
+                templateUrl: 'templates/main.html',
                 controller: 'mainController'
-            }).state('app.matches', {
-                url: '/matches',
+            });
+            state('app.home', {
+                url: '/home',
+                abstract: true,
                 views: {
-                    menuContent: {
-                        controller: 'matchController',
-                        templateUrl: 'templates/matches.html'
+                    content: {
+                        controller: 'homeIndexController',
+                        templateUrl: 'templates/home/index.html'
                     }
                 }
-            }).state('app.search', {
+            });
+            state('app.home.index', {
+                url: '/index',
+                views: {
+                    'home-news': {
+                        controller: 'homeNewsController',
+                        templateUrl: 'templates/home/news.html'
+                    },
+                    'home-matches': {
+                        controller: 'homeMatchesController',
+                        templateUrl: 'templates/home/matches.html'
+                    },
+                    'home-ads': { templateUrl: 'templates/home/ads.html' },
+                    'home-matchtalk': { templateUrl: 'templates/home/matchtalk.html' }
+                }
+            });
+            state('app.matches', {
+                url: '/matches',
+                views: {
+                    content: {
+                        controller: 'matchController',
+                        templateUrl: 'templates/match/index.html'
+                    }
+                }
+            });
+            state('app.matches-show', {
+                url: '/matches/:id',
+                views: {
+                    content: {
+                        controller: 'matchShowController',
+                        templateUrl: 'templates/match/show.html'
+                    }
+                }
+            });
+            state('app.search', {
                 url: '/search',
-                views: { menuContent: { templateUrl: 'templates/search.html' } }
-            }).state('app.browse', {
+                views: { content: { templateUrl: 'templates/search.html' } }
+            });
+            state('app.browse', {
                 url: '/browse',
-                views: { menuContent: { templateUrl: 'templates/browse.html' } }
-            }).state('app.playlists', {
+                views: { content: { templateUrl: 'templates/browse.html' } }
+            });
+            state('app.playlists', {
                 url: '/playlists',
                 views: {
-                    menuContent: {
+                    content: {
                         controller: 'playlistsController',
                         templateUrl: 'templates/playlists.html'
                     }
                 }
-            }).state('app.single', {
+            });
+            state('app.single', {
                 url: '/playlists/:playlistId',
                 views: {
-                    menuContent: {
+                    content: {
                         controller: 'playlistController',
                         templateUrl: 'templates/playlist.html'
                     }
                 }
             });
-            $urlRouterProvider.otherwise('/app/matches');
+            state('app.news', {
+                url: '/news',
+                views: {
+                    content: {
+                        controller: 'newsController',
+                        templateUrl: 'templates/news/index.html'
+                    }
+                }
+            });
+            state('app.news-show', {
+                url: '/news/show/:newsId',
+                views: {
+                    content: {
+                        controller: 'newsDetailController',
+                        templateUrl: 'templates/news/show.html'
+                    }
+                }
+            });
+            state('app.register', {
+                url: '/register',
+                views: {
+                    content: {
+                        controller: 'registerController',
+                        templateUrl: 'templates/user/register.html'
+                    }
+                }
+            });
+            state('app.profile', {
+                url: '/profile',
+                views: { content: { templateUrl: 'templates/user/profile/index.html' } }
+            });
+            state('app.profile-edit', {
+                url: '/profile-edit',
+                views: { content: { templateUrl: 'templates/user/profile/edit.html' } }
+            });
+            state('app.account-profile-game', {
+                url: '/account-profile-game',
+                views: { content: { templateUrl: 'templates/account/profile/game.html' } }
+            });
+            state('app.account-profile-favorite', {
+                url: '/account-profile-favorite',
+                views: { content: { templateUrl: 'templates/account/profile/favorite.html' } }
+            });
+            $urlRouterProvider.otherwise('/app/home/index');
             return;
         }
         return Routing;
@@ -155,9 +248,77 @@
     ]);
 }.call(this));
 (function () {
+    var Setting;
+    Setting = function () {
+        /**
+     * @param {object} $stateProvider
+     * @param {object} $urlRouterProvider
+     * @param {object} $ionicConfigProvider See http://ionicframework.com/docs/api/provider/$ionicConfigProvider/
+     */
+        function Setting(CFG, $ionicConfigProvider, $ionicLoadingConfig) {
+            $ionicLoadingConfig.template = '<ion-spinner icon="lines"></ion-spinner>';
+        }
+        return Setting;
+    }();
+    angular.module('balltoro').config([
+        'CFG',
+        '$ionicConfigProvider',
+        '$ionicLoadingConfig',
+        Setting
+    ]);
+}.call(this));
+(function () {
+    var Trans, Translation, TranslationRun;
+    Trans = function () {
+        function Trans($parse, $translate) {
+            var filter;
+            filter = function (translationId, interpolateParams, interpolation) {
+                if (!angular.isObject(interpolateParams)) {
+                    interpolateParams = $parse(interpolateParams)(this);
+                }
+                return $translate.instant(translationId, interpolateParams, interpolation);
+            };
+            if ($translate.statefulFilter()) {
+                filter.$stateful = true;
+            }
+            return filter;
+        }
+        return Trans;
+    }();
+    Translation = function () {
+        function Translation($translateProvider, $translatePartialLoaderProvider) {
+            $translateProvider.useLoader('$translatePartialLoader', { urlTemplate: 'translations/{lang}/{part}.json' });
+            $translateProvider.preferredLanguage('th-TH');
+            $translateProvider.fallbackLanguage('th-TH');
+            $translateProvider.useSanitizeValueStrategy('sanitizeParameters');
+        }
+        return Translation;
+    }();
+    TranslationRun = function () {
+        function TranslationRun($translate, $translatePartialLoader) {
+            $translatePartialLoader.addPart('common').addPart('match').addPart('news');
+            $translate.refresh();
+        }
+        return TranslationRun;
+    }();
+    angular.module('balltoro').filter('trans', [
+        '$parse',
+        '$translate',
+        Trans
+    ]).config([
+        '$translateProvider',
+        '$translatePartialLoaderProvider',
+        Translation
+    ]).run([
+        '$translate',
+        '$translatePartialLoader',
+        TranslationRun
+    ]);
+}.call(this));
+(function () {
     var NgBackbone;
     NgBackbone = function () {
-        function NgBackbone($http, _) {
+        function NgBackbone($http, Und) {
             var http, methodMap, sync;
             methodMap = {
                 create: 'POST',
@@ -171,28 +332,28 @@
             };
             sync = function (method, model, options) {
                 var httpMethod, params, xhr;
-                if (_.isUndefined(options)) {
+                if (Und.isUndefined(options)) {
                     options = {};
                 }
                 httpMethod = options.method || methodMap[method];
                 params = { method: httpMethod };
-                if (!options.url && !_.isUndefined(model.url)) {
+                if (!options.url && Und.isDefined(model.url)) {
                     params.url = model.url;
                 }
-                if (_.isUndefined(options.data) && model && (httpMethod === 'POST' || httpMethod === 'PUT' || httpMethod === 'PATCH')) {
+                if (Und.isUndefined(options.data) && model && (httpMethod === 'POST' || httpMethod === 'PUT' || httpMethod === 'PATCH')) {
                     params.data = angular.toJson(options.attrs || model.toJSON(options));
                 }
-                if (httpMethod === 'GET' && !_.isUndefined(options.data)) {
+                if (httpMethod === 'GET' && Und.isDefined(options.data)) {
                     params.params = options.data;
                 }
-                xhr = http(_.extend(params, options));
+                xhr = http(Und.extend(params, options));
                 xhr.then(function (data, status, headers, config) {
                     options.xhr = {
                         status: status,
                         headers: headers,
                         config: config
                     };
-                    if (!_.isUndefined(options.success) && _.isFunction(options.success)) {
+                    if (Und.isDefined(options.success) && Und.isFunction(options.success)) {
                         options.success(data);
                     }
                 });
@@ -202,14 +363,14 @@
                         headers: headers,
                         config: config
                     };
-                    if (!_.isUndefined(options.error) && _.isFunction(options.error)) {
+                    if (Und.isDefined(options.error) && Und.isFunction(options.error)) {
                         options.error(data);
                     }
                 });
-                model.trigger('request', model, xhr, _.extend(params, options));
+                model.trigger('request', model, xhr, Und.extend(params, options));
                 return xhr;
             };
-            return _.extend(Backbone, {
+            return Und.extend(Backbone, {
                 sync: sync,
                 ajax: http
             });
@@ -218,17 +379,17 @@
     }();
     angular.module('balltoro').factory('NgBackbone', [
         '$http',
-        '_',
+        'Und',
         NgBackbone
     ]);
 }.call(this));
 (function () {
     var NgBackboneCollection;
     NgBackboneCollection = function () {
-        function NgBackboneCollection(TORO, NgBackbone, NgBackboneModel, $rootScope, $ionicLoading, _) {
+        function NgBackboneCollection(CFG, NgBackbone, NgBackboneModel, $q, $rootScope, $ionicLoading, Und) {
             var BASE_URL, PROXY;
-            PROXY = TORO.ENVIRONMENT.dev.api.proxy;
-            BASE_URL = TORO.ENVIRONMENT.dev.api.baseUrl;
+            PROXY = CFG.API.getProxy();
+            BASE_URL = CFG.API.getBaseUrl();
             return NgBackbone.PageableCollection.extend({
                 model: NgBackboneModel,
                 mode: 'infinite',
@@ -276,7 +437,7 @@
                             return $rootScope.$broadcast('scroll.infiniteScrollComplete');
                         }
                     });
-                    NgBackbone.PageableCollection.apply(this, arguments);
+                    NgBackbone.PageableCollection.prototype.constructor.apply(this, arguments);
                 },
                 parseState: function (resp, queryParams, state, options) {
                     this.state.total = resp.data.total;
@@ -285,12 +446,12 @@
                 },
                 parseLinks: function (resp, options) {
                     var defs, first, next, previous, _links;
-                    _links = _.result(resp.data, '_links');
+                    _links = Und.result(resp.data, '_links');
                     if (_links) {
                         defs = { href: '' };
-                        first = _.result(_links, 'first', defs);
-                        next = _.result(_links, 'next', defs);
-                        previous = _.result(_links, 'previous', defs);
+                        first = Und.result(_links, 'first', defs);
+                        next = Und.result(_links, 'next', defs);
+                        previous = Und.result(_links, 'previous', defs);
                         return {
                             first: first.href,
                             next: next.href,
@@ -302,7 +463,7 @@
                 },
                 parseRecords: function (resp) {
                     var data;
-                    data = _.result(resp.data, '_embedded');
+                    data = Und.result(resp.data, '_embedded');
                     if (data) {
                         return data.items;
                     }
@@ -313,10 +474,10 @@
                 },
                 setStatus: function (key, value, options) {
                     var attr, attrs;
-                    if (_.isUndefined(key)) {
+                    if (Und.isUndefined(key)) {
                         return this;
                     }
-                    if (_.isObject(key)) {
+                    if (Und.isObject(key)) {
                         attrs = key;
                         options = value;
                     } else {
@@ -324,7 +485,7 @@
                     }
                     options = options || {};
                     for (attr in this.$status) {
-                        if (attrs.hasOwnProperty(attr) && _.isBoolean(attrs[attr])) {
+                        if (attrs.hasOwnProperty(attr) && Und.isBoolean(attrs[attr])) {
                             this.$status[attr] = attrs[attr];
                         }
                     }
@@ -354,32 +515,95 @@
                     var $scope;
                     $scope = options.scope || options;
                     $scope[options.storeKey || 'store'] = this;
-                    this.on('sync', function (model) {
-                        $scope[options.collectionKey || 'collection'] = model.$collection;
-                        return $ionicLoading.hide();
+                    this.on('sync', function (store) {
+                        $scope[options.collectionKey || 'collection'] = store.$collection;
+                        $ionicLoading.hide();
+                        if (store.alias) {
+                            return $rootScope['$' + store.alias] = this;
+                        }
                     });
                     $ionicLoading.show();
                     this.getFirstPage();
                     return this;
+                },
+                /*
+         * Shortcut to find model in the collection.
+         *
+         * @param {object} options The `options` can be `$scope` for short-hand or
+         *    {
+         *        scope: $scope
+         *        key: 'r' # the name to be used in view.
+         *    }
+         *
+         * @return Promise
+         * @see https://docs.angularjs.org/api/ng/service/$q
+         */
+                find: function (attr, options) {
+                    var $scope, applyOptions, model, store;
+                    if (!Und.isObject(attr)) {
+                        attr = { id: attr };
+                    }
+                    if (options) {
+                        $scope = options.scope || options;
+                    }
+                    applyOptions = function (model) {
+                        if (options) {
+                            $scope = options.scope || options;
+                            return $scope[options.key || 'r'] = model;
+                        }
+                    };
+                    if ($rootScope['$' + this.alias]) {
+                        store = $rootScope['$' + this.alias];
+                        if (store.fullCollection) {
+                            model = store.fullCollection.get(attr.id);
+                        }
+                    }
+                    return $q(function (_this) {
+                        return function (resolve, reject) {
+                            var promise;
+                            if (model) {
+                                resolve(model);
+                                return applyOptions.call(_this, model);
+                            } else {
+                                $ionicLoading.show();
+                                model = new _this.model();
+                                promise = model.fetch({
+                                    url: model.url + attr.id,
+                                    success: function (model) {
+                                        resolve(model);
+                                        return applyOptions.call(this, model);
+                                    },
+                                    error: function (xhr) {
+                                        reject(xhr);
+                                        return applyOptions.call(this, null);
+                                    }
+                                });
+                                return promise['finally'](function () {
+                                    return $ionicLoading.hide();
+                                });
+                            }
+                        };
+                    }(this));
                 }
             });
         }
         return NgBackboneCollection;
     }();
     angular.module('balltoro').factory('NgBackboneCollection', [
-        'TORO',
+        'CFG',
         'NgBackbone',
         'NgBackboneModel',
+        '$q',
         '$rootScope',
         '$ionicLoading',
-        '_',
+        'Und',
         NgBackboneCollection
     ]);
 }.call(this));
 (function () {
     var NgBackboneModel;
     NgBackboneModel = function () {
-        function NgBackboneModel($rootScope, NgBackbone) {
+        function NgBackboneModel($q, $rootScope, $http, NgBackbone, Und) {
             var propertyAccessor, propertyQuickAccessor;
             propertyAccessor = function (key) {
                 Object.defineProperty(this.$attributes, key, {
@@ -403,7 +627,7 @@
                     configurable: true,
                     get: function (_this) {
                         return function () {
-                            if (!_.isUndefined(_this.attributes[key])) {
+                            if (Und.isDefined(_this.attributes[key])) {
                                 return _this.$attributes[key];
                             } else {
                                 return _this[key];
@@ -412,7 +636,7 @@
                     }(this),
                     set: function (_this) {
                         return function (newValue) {
-                            if (!_.isUndefined(_this.attributes[key])) {
+                            if (Und.isDefined(_this.attributes[key])) {
                                 _this.attributes[key] = newValue;
                             } else {
                                 _this[key] = newValue;
@@ -440,7 +664,7 @@
                         });
                     });
                     this.on('sync error', this.resetStatus);
-                    return NgBackbone.RelationalModel.apply(this, arguments);
+                    return NgBackbone.RelationalModel.prototype.constructor.apply(this, arguments);
                 },
                 set: function (key, val, options) {
                     var output;
@@ -448,12 +672,18 @@
                     this.setBinding(key, val, options);
                     return output;
                 },
+                parse: function (resp, xhr) {
+                    if (Und.isDefined(resp.data)) {
+                        return resp.data;
+                    }
+                    return resp;
+                },
                 setStatus: function (key, value, options) {
                     var attr, attrs;
-                    if (_.isUndefined(key)) {
+                    if (Und.isUndefined(key)) {
                         return this;
                     }
-                    if (_.isObject(key)) {
+                    if (Und.isObject(key)) {
                         attrs = key;
                         options = value;
                     } else {
@@ -461,7 +691,7 @@
                     }
                     options = options || {};
                     for (attr in this.$status) {
-                        if (attrs.hasOwnProperty(attr) && _.isBoolean(attrs[attr])) {
+                        if (attrs.hasOwnProperty(attr) && Und.isBoolean(attrs[attr])) {
                             this.$status[attr] = attrs[attr];
                         }
                     }
@@ -476,17 +706,17 @@
                 },
                 setBinding: function (key, val, options) {
                     var attr, attrs, unset;
-                    if (_.isUndefined(key)) {
+                    if (Und.isUndefined(key)) {
                         return this;
                     }
-                    if (_.isObject(key)) {
+                    if (Und.isObject(key)) {
                         attrs = key;
                         options = val;
                     } else {
                         (attrs = {})[key] = val;
                     }
                     options = options || {};
-                    if (_.isUndefined(this.$attributes)) {
+                    if (Und.isUndefined(this.$attributes)) {
                         this.$attributes = {};
                     }
                     unset = options.unset;
@@ -501,16 +731,67 @@
                     return this;
                 },
                 removeBinding: function (attr, options) {
-                    return this.setBinding(attr, void 0, _.extend({}, options, { unset: true }));
+                    return this.setBinding(attr, void 0, Und.extend({}, options, { unset: true }));
+                },
+                /**
+         * Get model's embeded links.
+         *
+         * @param {string} name Link name.
+         * @param {function|null} collection A model collection constructor.
+         *
+         * @return Promise with (Collection|Model|Object|null)
+         * @see https://docs.angularjs.org/api/ng/service/$q
+         */
+                getLinked: function (name, collection) {
+                    return $q(function (_this) {
+                        return function (resolve, reject) {
+                            var obj;
+                            obj = Und.result(_this._links, name);
+                            if (!obj) {
+                                return resolve(null);
+                            } else if (collection) {
+                                return new collection().fetch({
+                                    url: obj.href,
+                                    success: function (store) {
+                                        return resolve(store);
+                                    },
+                                    error: function (xhr) {
+                                        return reject(xhr);
+                                    }
+                                });
+                            } else {
+                                return $http;
+                            }
+                        };
+                    }(this));
                 }
             });
         }
         return NgBackboneModel;
     }();
     angular.module('balltoro').factory('NgBackboneModel', [
+        '$q',
         '$rootScope',
+        '$http',
         'NgBackbone',
+        'Und',
         NgBackboneModel
+    ]);
+}.call(this));
+(function () {
+    var Index;
+    Index = function () {
+        function Index($scope, Matches, Match) {
+            new Matches().load($scope);
+            $scope.matches = $scope.store.$collection;
+        }
+        return Index;
+    }();
+    angular.module('balltoro').controller('indexController', [
+        '$scope',
+        'Matches',
+        'Match',
+        Index
     ]);
 }.call(this));
 /**
@@ -525,39 +806,74 @@
 (function () {
     var Main;
     Main = function () {
-        function Main($scope, $ionicModal, $timeout, $cordovaOauth) {
+        function Main($scope, $rootScope, $ionicModal, $timeout, $cordovaOauth) {
             this.scope = $scope;
+            this.rootScope = $rootScope;
             this.modal = $ionicModal;
             this.timeout = $timeout;
             this.oauth = $cordovaOauth;
-            this.setupLogin(this.scope);
+            $rootScope.IsLoggedIn = false;
+            this.setupLogin();
+            this.setupMenus();
+            this.setupCollapse();
         }
-        Main.prototype.setupLogin = function ($scope) {
-            $scope.loginData = {};
-            this.modal.fromTemplateUrl('templates/login.html', { scope: $scope }).then(function (modal) {
-                $scope.modal = modal;
-            });
-            $scope.closeLogin = function () {
-                return $scope.modal.hide();
-            };
-            $scope.login = function () {
-                return $scope.modal.show();
-            };
-            $scope.doLogin = function (_this) {
+        Main.prototype.setupLogin = function () {
+            this.scope.loginData = {};
+            this.modal.fromTemplateUrl('templates/user/login.html', { scope: this.scope }).then(function (_this) {
+                return function (modal) {
+                    _this.scope.modal = modal;
+                };
+            }(this));
+            this.scope.closeLogin = function (_this) {
                 return function () {
-                    console.log('Doing login', $scope.loginData);
-                    return _this.oauth.github('2aee92f1bde492399bf4', 'x', ['email'], { redirect_uri: 'http://d3c2cde1.ngrok.io' }).then(function (result) {
-                        return console.info(angular.toJson(result));
-                    }, function (error) {
-                        return console.log(angular.toJson(error));
-                    });
+                    return _this.scope.modal.hide();
                 };
             }(this);
+            this.scope.login = function (_this) {
+                return function () {
+                    return _this.scope.modal.show();
+                };
+            }(this);
+            this.scope.doLogin = function (_this) {
+                return function () {
+                    console.log('Doing login', _this.scope.loginData);
+                    _this.rootScope.IsLoggedIn = true;
+                    return _this.scope.closeLogin();
+                };
+            }(this);
+        };
+        Main.prototype.setupMenus = function () {
+            return this.scope.menus = {
+                leagues: [
+                    {
+                        text: 'Thai Premier League',
+                        link: ''
+                    },
+                    {
+                        text: 'English Premier League',
+                        link: ''
+                    }
+                ],
+                setting: [
+                    {
+                        text: 'USER SETTING',
+                        link: '/#/app/profile'
+                    },
+                    {
+                        text: 'GAME SETTING',
+                        link: '/#/app/account-profile-game'
+                    }
+                ]
+            };
+        };
+        Main.prototype.setupCollapse = function () {
+            return this.scope.active = true;
         };
         return Main;
     }();
     angular.module('balltoro').controller('mainController', [
         '$scope',
+        '$rootScope',
         '$ionicModal',
         '$timeout',
         '$cordovaOauth',
@@ -567,15 +883,96 @@
 (function () {
     var Match;
     Match = function () {
-        function Match($scope, Matches) {
-            new Matches().load($scope);
+        function Match($scope, Matches, Match) {
+            new Matches().load({
+                scope: $scope,
+                storeKey: 'store',
+                collectionKey: 'collection'
+            });
+            $scope.$watchCollection('collection', function (cs) {
+                var match, seasonId, _i, _len, _results;
+                if (!cs) {
+                    return;
+                }
+                $scope.matches = [];
+                seasonId = 0;
+                _results = [];
+                for (_i = 0, _len = cs.length; _i < _len; _i++) {
+                    match = cs[_i];
+                    if (seasonId !== match.season.id) {
+                        $scope.matches.push({
+                            season: match.season,
+                            items: []
+                        });
+                        seasonId = match.season.id;
+                    }
+                    _results.push($scope.matches[$scope.matches.length - 1].items.push(match));
+                }
+                return _results;
+            });
         }
         return Match;
     }();
     angular.module('balltoro').controller('matchController', [
         '$scope',
         'Matches',
+        'Match',
         Match
+    ]);
+}.call(this));
+(function () {
+    var MatchShow;
+    MatchShow = function () {
+        function MatchShow($scope, $stateParams, Matches, Activities) {
+            var promise;
+            promise = new Matches().find($stateParams.id, $scope);
+            promise.then(function (model) {
+                promise = model.getLinked('activities', Activities);
+                return promise.then(function (r) {
+                    return console.log(r);
+                });
+            });
+        }
+        return MatchShow;
+    }();
+    angular.module('balltoro').controller('matchShowController', [
+        '$scope',
+        '$stateParams',
+        'Matches',
+        'Activities',
+        MatchShow
+    ]);
+}.call(this));
+(function () {
+    var News;
+    News = function () {
+        function News($scope, NewsStore) {
+            new NewsStore().load($scope);
+        }
+        return News;
+    }();
+    angular.module('balltoro').controller('newsController', [
+        '$scope',
+        'NewsStore',
+        News
+    ]);
+}.call(this));
+(function () {
+    var NewsDetail;
+    NewsDetail = function () {
+        function NewsDetail($scope, $stateParams, NewsStore) {
+            new NewsStore().find($stateParams.newsId, {
+                scope: $scope,
+                key: 'r'
+            });
+        }
+        return NewsDetail;
+    }();
+    angular.module('balltoro').controller('newsDetailController', [
+        '$scope',
+        '$stateParams',
+        'NewsStore',
+        NewsDetail
     ]);
 }.call(this));
 (function () {
@@ -624,6 +1021,81 @@
         '$scope',
         Playlists
     ]);
+}.call(this));
+(function () {
+    var Register;
+    Register = function () {
+        function Register($scope) {
+            this.scope = $scope;
+            this.setupRegister();
+        }
+        Register.prototype.setupRegister = function () {
+            this.scope.registerData = {};
+            return this.scope.placeholder = {
+                email: 'Please enter your email',
+                password: 'Password',
+                repassword: 'Confirm-Password'
+            };
+        };
+        return Register;
+    }();
+    angular.module('balltoro').controller('registerController', [
+        '$scope',
+        Register
+    ]);
+}.call(this));
+(function () {
+    var FloatingButton;
+    FloatingButton = function () {
+        function FloatingButton(Und) {
+            return {
+                restrict: 'E',
+                transclude: true,
+                scope: {
+                    title: '@',
+                    icon: '@'
+                },
+                template: '<div class="ux-floating-button" ng-class="{open:clicked}">' + '<div class="item toggle" ng-click="open()" title="{{title}}">' + '<i class="icon ion-{{icon}}"></i>' + '</div>' + '<div class="menu" ng-class="{in:isIn, out:isOut}" ng-transclude>' + '</div>' + '</div>',
+                compile: function (element, attr) {
+                    if (Und.isUndefined(attr.icon)) {
+                        attr.icon = 'settings';
+                    }
+                },
+                controller: function ($scope) {
+                    $scope.clicked = false;
+                    $scope.isIn = false;
+                    $scope.isOut = false;
+                    return $scope.open = function () {
+                        $scope.clicked = !$scope.clicked;
+                        $scope.isIn = $scope.clicked;
+                        return $scope.isOut = !$scope.clicked;
+                    };
+                }
+            };
+        }
+        return FloatingButton;
+    }();
+    angular.module('balltoro').directive('floatingButton', [
+        'Und',
+        FloatingButton
+    ]);
+}.call(this));
+(function () {
+    var FloatingButtonItem;
+    FloatingButtonItem = function () {
+        function FloatingButtonItem() {
+            return {
+                restrict: 'E',
+                scope: {
+                    title: '@',
+                    icon: '@'
+                },
+                template: '<div class="item" title="{{title}}">' + '<i class="icon ion-{{icon}}"></i>' + '</div>'
+            };
+        }
+        return FloatingButtonItem;
+    }();
+    angular.module('balltoro').directive('floatingButtonItem', [FloatingButtonItem]);
 }.call(this));
 (function () {
     var LogLine;
@@ -708,64 +1180,154 @@
     angular.module('balltoro').factory('LogLine', [LogLine]);
 }.call(this));
 (function () {
-    var _;
-    _ = function () {
-        function _() {
-            return window._;
+    var Und;
+    Und = function () {
+        function Und() {
+            return window._.extend(window._, { isDefined: angular.isDefined });
         }
-        return _;
+        return Und;
     }();
-    angular.module('balltoro').factory('_', [_]);
+    angular.module('balltoro').factory('Und', [Und]);
 }.call(this));
+/**
+ * Country Model Collection
+ *
+ * @author liverbool <phaiboon@intbizth.com>
+ */
+(function () {
+    var Activities, Activity;
+    Activities = function () {
+        function Activities(NgBackboneCollection, Activity) {
+            return NgBackboneCollection.extend({
+                model: Activity,
+                alias: 'activities'
+            });
+        }
+        return Activities;
+    }();
+    /**
+   * Country Model
+   */
+    Activity = function () {
+        function Activity(CFG, NgBackboneModel) {
+            return NgBackboneModel.extend({});
+        }
+        return Activity;
+    }();
+    angular.module('balltoro').factory('Activities', [
+        'NgBackboneCollection',
+        'Activity',
+        Activities
+    ]).factory('Activity', [
+        'CFG',
+        'NgBackboneModel',
+        Activity
+    ]);
+}.call(this));
+/**
+ * Club Model Collection
+ *
+ * @author liverbool <phaiboon@intbizth.com>
+ */
 (function () {
     var Club, Clubs;
     Clubs = function () {
-        function Clubs(TORO, NgBackboneCollection, Club) {
+        function Clubs(NgBackboneCollection, Club) {
             return NgBackboneCollection.extend({
                 model: Club,
-                url: TORO.API('clubs/')
+                url: Club.prototype.url,
+                alias: 'clubs'
             });
         }
         return Clubs;
     }();
+    /**
+   * Club Model
+   */
     Club = function () {
-        function Club(NgBackboneModel, _) {
+        function Club(CFG, NgBackboneModel, Country, Und) {
             return NgBackboneModel.extend({
-                defaults: { _links: null },
-                getLogo: function (size) {
-                    var logo;
-                    logo = _.isUndefined(size) || _.isUndefined(this._links['logo_' + size]) ? this._links.logo : this._links['logo_' + size];
-                    return _.result(logo, 'href');
-                }
-            });
+                url: CFG.API.getPath('clubs/'),
+                relations: [{
+                        type: 'HasOne',
+                        key: 'country',
+                        relatedModel: Country
+                    }],
+                defaults: { _links: null }
+            });    /**
+       * Get club logo specify the size.
+       *
+       * @param {string} size The size of image eg. 70x70
+       *
+       * @return {string} Logo path
+       */
         }
         return Club;
     }();
     angular.module('balltoro').factory('Clubs', [
-        'TORO',
         'NgBackboneCollection',
         'Club',
         Clubs
     ]).factory('Club', [
+        'CFG',
         'NgBackboneModel',
-        '_',
+        'Country',
+        'Und',
         Club
+    ]);
+}.call(this));
+/**
+ * Country Model Collection
+ *
+ * @author liverbool <phaiboon@intbizth.com>
+ */
+(function () {
+    var Countries, Country;
+    Countries = function () {
+        function Countries(NgBackboneCollection, Country) {
+            return NgBackboneCollection.extend({
+                model: Country,
+                url: Country.prototype.url,
+                alias: 'countries'
+            });
+        }
+        return Countries;
+    }();
+    /**
+   * Country Model
+   */
+    Country = function () {
+        function Country(CFG, NgBackboneModel) {
+            return NgBackboneModel.extend({ url: CFG.API.getPath('countries/') });
+        }
+        return Country;
+    }();
+    angular.module('balltoro').factory('Countries', [
+        'NgBackboneCollection',
+        'Country',
+        Countries
+    ]).factory('Country', [
+        'CFG',
+        'NgBackboneModel',
+        Country
     ]);
 }.call(this));
 (function () {
     var Match, Matches;
     Matches = function () {
-        function Matches(TORO, NgBackboneCollection, Match) {
+        function Matches(NgBackboneCollection, Match) {
             return NgBackboneCollection.extend({
                 model: Match,
-                url: TORO.API('matches/')
+                url: Match.prototype.url,
+                alias: 'matches'
             });
         }
         return Matches;
     }();
     Match = function () {
-        function Match(NgBackboneModel, Club, Clubs) {
+        function Match(CFG, NgBackboneModel, Club) {
             return NgBackboneModel.extend({
+                url: CFG.API.getPath('matches/'),
                 relations: [
                     {
                         type: 'HasOne',
@@ -783,15 +1345,49 @@
         return Match;
     }();
     angular.module('balltoro').factory('Matches', [
-        'TORO',
         'NgBackboneCollection',
         'Match',
         Matches
     ]).factory('Match', [
+        'CFG',
         'NgBackboneModel',
         'Club',
-        'Clubs',
         Match
+    ]);
+}.call(this));
+/**
+ * News Model Collection
+ *
+ * @author beer <kannipa@intbizth.com>
+ */
+(function () {
+    var News, NewsStore;
+    NewsStore = function () {
+        function NewsStore(NgBackboneCollection, News) {
+            return NgBackboneCollection.extend({
+                model: News,
+                url: News.prototype.url + 'latest'
+            });
+        }
+        return NewsStore;
+    }();
+    /**
+   * News Model
+   */
+    News = function () {
+        function News(CFG, NgBackboneModel) {
+            return NgBackboneModel.extend({ url: CFG.API.getPath('news/') });
+        }
+        return News;
+    }();
+    angular.module('balltoro').factory('NewsStore', [
+        'NgBackboneCollection',
+        'News',
+        NewsStore
+    ]).factory('News', [
+        'CFG',
+        'NgBackboneModel',
+        News
     ]);
 }.call(this));
 (function () {
@@ -826,4 +1422,47 @@
         return ToroAuth;
     }();
     angular.module('balltoro').provider('toroAuthProvider', [ToroAuth]);
+}.call(this));
+(function () {
+    var HomeIndex;
+    HomeIndex = function () {
+        function HomeIndex($scope) {
+            $scope.shared = 'Hey, I am an abs.';
+        }
+        return HomeIndex;
+    }();
+    angular.module('balltoro').controller('homeIndexController', [
+        '$scope',
+        HomeIndex
+    ]);
+}.call(this));
+(function () {
+    var HomeMatches;
+    HomeMatches = function () {
+        function HomeMatches($scope, Matches) {
+            new Matches().load($scope);
+            $scope.quantity = 3;
+        }
+        return HomeMatches;
+    }();
+    angular.module('balltoro').controller('homeMatchesController', [
+        '$scope',
+        'Matches',
+        HomeMatches
+    ]);
+}.call(this));
+(function () {
+    var HomeNews;
+    HomeNews = function () {
+        function HomeNews($scope, NewsStore) {
+            new NewsStore().load($scope);
+            $scope.quantity = 3;
+        }
+        return HomeNews;
+    }();
+    angular.module('balltoro').controller('homeNewsController', [
+        '$scope',
+        'NewsStore',
+        HomeNews
+    ]);
 }.call(this));
