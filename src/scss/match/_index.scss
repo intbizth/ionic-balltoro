@@ -13,8 +13,7 @@ $league-header-text: #58595B;
     .date {
         font-size: 14px;
         color: inherit;
-        float: left;
-        padding-left: 50px;
+        text-align: center;
     }
     .prev {
         float: left;
@@ -54,11 +53,12 @@ $league-header-text: #58595B;
             margin-left: 5px;
         }
         .name {
-            margin-left: 5px;
+            margin-left: 2px;
+            text-align: center;
             position: absolute;
-            padding-top: 30px;
+            padding-top: 26px;
             font-size: 13px;
-            width: 25%;
+            width: 24%;
             white-space: normal;
         }
         .-right {

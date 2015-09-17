@@ -1,11 +1,17 @@
-ion-view(view-title='Match')
+ion-view(view-title='MatchShow')
     ion-tabs.tabs-top.tabs-dark
-        ion-tab(title="เกมทายผล", ui-sref="app.match-show.game-prediction")
+
+        ion-tab(title="เกมทายผล", ui-sref="app.match-show.game-prediction({id:r.id})")
             ion-tab-content
                 ion-content
                     div(ui-view="game-prediction")
 
-        ion-tab(title="สถิติ", ui-sref="app.match-show.statistic")
+        ion-tab(title="เกมทาย11ตัวจริง", ui-sref="app.match-show.game-soccer({id:r.id})")
+            ion-tab-content
+                ion-content
+                    div(ui-view="game-soccer")
+
+        ion-tab(title="สถิติ", ui-sref="app.match-show.statistic({id:r.id})")
             ion-tab-content
                 ion-content
                     div(ui-view="statistic")

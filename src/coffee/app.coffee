@@ -7,6 +7,8 @@ class App extends App then constructor: ->
         'templates'
         'ngCordovaOauth'
         'ngAnimate'
+        'ngTouch'
+        'angular-carousel'
     ]
 
 # TODO:

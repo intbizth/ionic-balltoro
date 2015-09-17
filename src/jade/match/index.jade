@@ -1,10 +1,12 @@
 ion-view(view-title="{{'ui.t.match.header.title'|trans}}")
     ion-content
         // current day
-        .match-header
-            button.prev(type="button") {{"<<10/01/10"}}
-            .date {{store.$collection[0].match_day|date:('dd/MM/yyyy')}}
-            button.next(type="button") {{"30/10/10>>"}}
+        .row.match-header
+            .col.col-25
+                button.prev(type="button") {{"<<10/01/10"}}
+            .col.col-50.date {{store.$collection[0].match_day|date:('dd/MM/yyyy')}}
+            .col.col-25
+                button.next(type="button") {{"30/10/10>>"}}
 
         ion-item.match-item(collection-repeat="item in matches")
             .league-header
@@ -12,7 +14,7 @@ ion-view(view-title="{{'ui.t.match.header.title'|trans}}")
                 .league {{item.season.name}}
 
             ion-item.match-item(ng-repeat="r in item.items")
-                a(ui-sref="app.matches-show.statistic({ id:r.id })")
+                a(ui-sref="app.matches-show.game-soccer({ id:r.id })")
                     .club
                         img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
                         span.name {{r.home_club.name}}
