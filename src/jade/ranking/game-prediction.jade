@@ -1,7 +1,7 @@
 .game-prediction-content(ng-repeat="gamePrediction in gamePredictions")
-    a.row(href="#")
+    a.row(ui-sref="app.ranking.game-prediction-show({id: gamePrediction.id})")
         .point
-            h5.pts Pts
+            .pts Pts
             .score
                 h3 {{gamePrediction.score}}
         .info

@@ -104,9 +104,9 @@ class Routing extends Config then constructor: (
                 templateUrl: 'templates/ranking/game-prediction.html'
 
     state 'app.ranking.game-prediction-show',
-        url: '/game-prediction/show/:rankingId'
+        url: '/game-prediction/show/:id'
         views:
-            'game-prediction-detail':
+            'game-prediction':
                 controller: 'gamePredictionDetailController'
                 templateUrl: 'templates/ranking/game-prediction-show.html'
 
