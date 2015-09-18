@@ -20,10 +20,13 @@ ion-side-menus(enable-menu-with-back-views='false')
                     | NEWS
                 ion-item(menu-close='', href='#/app/matches')
                     | MATCHES
-                ion-item.main(menu-close='')
-                    | LEAGUES
-                ion-item.sub(ng-repeat="menu in menus.leagues", menu-close='', href="{{menu.link}}")
-                    | {{menu.text}}
+                ion-item.expand-collapse.menu-collapse
+                    .main(ng-click!="active = !active", ng-class!="{'collapsed': active, 'expanded': !active}")
+                        | LEAGUES
+                        .caret
+                    .slides
+                        .sub(ng-hide="active", ng-repeat="menu in menus.leagues", menu-close='', href='#/app/matches')
+                            | {{menu.text}}
                 ion-item(menu-close='', href='#')
                     | PEOPLE RANKING
                 ion-item(menu-close='', ng-click='login()')
@@ -31,10 +34,13 @@ ion-side-menus(enable-menu-with-back-views='false')
                 ion-item(menu-close='', href='#/app/register')
                     | SIGN IN
             ion-list.list-menu(ng-show="IsLoggedIn")
-                ion-item.main(menu-close='')
-                    | SETTING
-                ion-item.sub(ng-repeat="menu in menus.setting", menu-close='', href="{{menu.link}}")
-                    | {{menu.text}}
+                ion-item.expand-collapse.menu-collapse
+                    .main(ng-click!="active1 = !active1", ng-class!="{'collapsed': active1, 'expanded': !active1}")
+                        | SETTING
+                        .caret
+                    .slides
+                        .sub(ng-hide="active1", ng-repeat="menu in menus.setting", menu-close='', href='#/app/matches')
+                            | {{menu.text}}
                 ion-item(menu-close='', href='#')
                     | MORE
                 ion-item(menu-close='', ng-click="")

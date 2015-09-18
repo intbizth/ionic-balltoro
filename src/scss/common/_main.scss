@@ -4,7 +4,9 @@
 $bar-header-bg: #549AF7;
 $bar-header-text: #fff;
 $bar-button-text: $bar-header-text;
-$list-menu-main: #F1F2F2;
+$menu-main-bg: #F1F2F2;
+$menu-sub-bg: #EEE8AA;
+$menu-sub-border: #ccc;
 
 .bar-header {
     background: $bar-header-bg !important;
@@ -16,14 +18,16 @@ $list-menu-main: #F1F2F2;
     }
 }
 
-.list-menu {
+.menu-collapse {
+    padding: 0 !important;
     .main {
-        background-color: $list-menu-main !important;
+        padding: 15px;
+        background: $menu-main-bg !important;
     }
     .sub {
-        border: 0;
-    }
-    .sub a {
-        padding: 10px 45px !important;
+        background: $menu-sub-bg;
+        padding: 15px;
+        font-size: 14px;
+        border-top: 1px $menu-sub-border solid;
     }
 }

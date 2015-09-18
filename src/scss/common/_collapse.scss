@@ -1,3 +1,5 @@
+$expand-collapse-caret: #fff;
+
 .expand-collapse {
     overflow: hidden;
     .item {
@@ -20,7 +22,7 @@
             top: 40%;
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
-            border-top: 10px solid #fff;
+            border-top: 10px solid $expand-collapse-caret;
         }
     }
     .expanded {
@@ -40,7 +42,7 @@
             top: 40%;
             border-left: 10px solid transparent;
             border-right: 10px solid transparent;
-            border-bottom: 10px solid #fff;
+            border-bottom: 10px solid $expand-collapse-caret;
         }
     }
     .content {
