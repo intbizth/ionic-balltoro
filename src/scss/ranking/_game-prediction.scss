@@ -1,7 +1,15 @@
-$game-prediction-text: #FFFFFF;
+$game-prediction-text: #fff;
+$game-prediction-bg: #213647;
+$row-border-color: #00b4ea;
+$pts-color: #FAAF40;
+$score-color-bg: #549AF7;
+$img-user-border-color: $game-prediction-text;
+$rating-border-color: $img-user-border-color;
+$count-color: $score-color-bg;
+$rating-color-bg: #4089C8;
 
 .game-prediction-content {
-    background: #213647;
+    background: $game-prediction-bg;
 
     a {
         text-decoration: none;
@@ -11,9 +19,7 @@ $game-prediction-text: #FFFFFF;
         margin-bottom: 2px;
     }
     .row {
-        border-bottom-style: solid;
-        border-bottom-width: 1px;
-        border-bottom-color: #00b4ea;
+        border-bottom: solid $row-border-color 1px;
     }
     .point {
         width: 120px;
@@ -24,7 +30,7 @@ $game-prediction-text: #FFFFFF;
         margin-top: 20px;
         margin-right: 10px;
         .pts {
-            color: #FAAF40;
+            color: $pts-color;
             position: relative;
             float: left;
             z-index: 3;
@@ -36,7 +42,7 @@ $game-prediction-text: #FFFFFF;
             width: 70px;
             height: 30px;
             border-radius: 5px;
-            background: #549AF7;
+            background: $score-color-bg;
             z-index: 2;
             position: relative;
             float: right;
@@ -58,18 +64,18 @@ $game-prediction-text: #FFFFFF;
             margin-right: 10px;
             width: 50px;
             height: 50px;
-            border: 2px #ffffff solid;
+            border: 2px $img-user-border-color solid;
             border-radius: 50%;
         }
         .rating {
             width: 20px;
             height: 20px;
-            border: 3px #ffffff solid;
+            border: 3px $rating-border-color solid;
             border-radius: 50%;
             position: absolute;
             margin-top: 37px;
             margin-left: 15px;
-            background: #4089C8;
+            background: $rating-color-bg;
             text-align: center;
             h3 {
                 margin: 1px;
@@ -85,7 +91,7 @@ $game-prediction-text: #FFFFFF;
         .count {
             color: $game-prediction-text;
             .color {
-                color: #549AF7;
+                color: $count-color;
                 font-size: small;
             }
         }
