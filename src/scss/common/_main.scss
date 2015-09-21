@@ -4,9 +4,11 @@
 $bar-header-bg: #549AF7;
 $bar-header-text: #fff;
 $bar-button-text: $bar-header-text;
+$bar-user-bg: #D1D3D4;
 $menu-main-bg: #F1F2F2;
-$menu-sub-bg: #EEE8AA;
-$menu-sub-border: #ccc;
+$menu-sub-setting-bg: #162A37;
+$menu-sub-setting-text: #fff;
+$menu-collapse-caret: $menu-sub-setting-bg;
 
 .bar-header {
     background: $bar-header-bg !important;
@@ -18,6 +20,39 @@ $menu-sub-border: #ccc;
     }
 }
 
+.bar-user {
+    background: $bar-user-bg !important;
+    padding: 5px 0 0 16px;
+    .icons {
+        width: 35px;
+        height: 35px;
+        margin-right: 10px;
+    }
+    .username {
+        font-size: 14px;
+        padding-top: 8px;
+    }
+}
+
+.list-menu {
+    vertical-align: middle;
+    .icons {
+        width: 35px;
+        height: 35px;
+        float: left;
+        margin-right: 10px;
+    }
+    .menus {
+        padding-top: 6px;
+    }
+    .main {
+        background: $menu-main-bg !important;
+        > a {
+            background: $menu-main-bg !important;
+        }
+    }
+}
+
 .menu-collapse {
     padding: 0 !important;
     .main {
@@ -25,9 +60,38 @@ $menu-sub-border: #ccc;
         background: $menu-main-bg !important;
     }
     .sub {
-        background: $menu-sub-bg;
-        padding: 15px;
+        padding: 10px 15px;
         font-size: 14px;
-        border-top: 1px $menu-sub-border solid;
+        .icons {
+            width: 25px;
+            height: 25px;
+        }
+        .menus {
+            padding-top: 0;
+        }
+    }
+    .setting {
+        background: $menu-sub-setting-bg;
+        color: $menu-sub-setting-text;
+    }
+    .collapsed {
+        .caret {
+            background-image: url("../img/sidebar/down_2x.png");
+            width: 70px;
+            height: 70px;
+            top: 8%;
+            border: 0;
+            right: 0;
+        }
+    }
+    .expanded {
+        .caret {
+            background-image: url("../img/sidebar/up_2x.png");
+            width: 70px;
+            height: 70px;
+            top: -8%;
+            border: 0;
+            right: 0;
+        }
     }
 }

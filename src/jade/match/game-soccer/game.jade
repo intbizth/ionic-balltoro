@@ -1,21 +1,26 @@
 .anfield-content
 
 md-tabs.player-tab
-    md-tab
-        label="All"
-    .row
-        .col.col-8
-            .position
-        .col.col-8
-            .avatar
-        .col.col-8
-            .nationality
-        .col.col-8
-        .col.col-44
-        .col.col-8
-        .col.col-8
-        .col.col-8
-            //TODO: edit me plz
+    md-tab(label="All")
+        md-content
+        ul.lists
+            li.position
+                .mf
+            li.avatar
+                item-avatar
+                    img.player(src="img/sidebar/league_game_2x.png")
+            li.nationality
+                img.flag
+            li.username AAAAAAAAAA BBBBBBBBBBBBB
+            li.yellow
+                .cards
+                span 1
+            li.red
+                .cards
+                span 1
+            li.total
+            li.watch
+
     md-tab
         label="GK"
     md-tab
