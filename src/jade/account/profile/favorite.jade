@@ -1,4 +1,21 @@
-ion-view(view-title='Team Favorite')
+ion-nav-view(view-title='Team Favorite')
+    //เปลี่ยนมาใช้ Angular content (md-content)
+    //-----content-----
+    md-content(flax, layout-padding)
+        div(layout='column', layout-fill, layout-align='top center', style='padding-top:50px')
 
-    ion-content
-        h1 waiting for style
+        p CONTENT.......
+
+        button.button.button-block(ng-click='toggleRight()') Toggle Right (ionic btn)
+        md-button(ng-click='toggleRight()', class='md-primary', hide-gt-md) Toggle Right (Angular btn)
+
+        h2 H2
+        p CONTENT.......
+
+    //-----Side menu here-----
+    md-sidenav(class='md-sidenav-right md-whiteframe-z2', md-component-id='Toggle_right', style='padding-top:44px')
+        md-toolbar(class='md-theme-light')
+            h1(class='md-toolbar-tools') SideNav Right
+        span ทดสอบๆ Lorem ipsum
+        button.button.button-block(ng-click='close()') Close right
+        //md-button(ng-click='close()', class='md-primary') Close right

@@ -114,6 +114,7 @@ class Routing extends Config then constructor: (
         url: '/account-profile-favorite'
         views:
             content:
+                controller: 'favoriteController'
                 templateUrl: 'templates/account/profile/favorite.html'
 
     # if none of the above states are matched, use this as the fallback

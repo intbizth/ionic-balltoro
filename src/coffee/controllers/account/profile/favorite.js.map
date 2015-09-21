@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "favorite.js",
+  "sourceRoot": "",
+  "sources": [
+    "favorite.coffee"
+  ],
+  "names": [],
+  "mappings": ";AAAA;AAAA,MAAA,QAAA;IAAA;;;EAAM;;;IACS,kBAAC,MAAD,EAAS,UAAT;MAEX,MAAM,CAAC,WAAP,GAAqB,SAAA;QACnB,OAAO,CAAC,GAAR,CAAY,KAAZ;QACA,UAAA,CAAW,cAAX,CAA0B,CAAC,MAA3B,CAAA;MAFmB;MAIrB,MAAM,CAAC,KAAP,GAAe,SAAA;eACb,UAAA,CAAW,cAAX,CAA0B,CAAC,KAA3B,CAAA;MADa;IANJ;;;;KADQ;AAAvB"
+}
