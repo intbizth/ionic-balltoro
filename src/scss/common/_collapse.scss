@@ -1,0 +1,77 @@
+$expand-collapse-caret: #fff;
+
+.expand-collapse {
+    overflow: hidden;
+    .item {
+        overflow: hidden;
+    }
+    .collapsed {
+        cursor: pointer;
+        position: relative;
+        > span {
+            position: absolute;
+            top: 25px;
+            right: 15px;
+            font-size: 20px;
+            line-height: 0;
+        }
+        .caret {
+            position: absolute;
+            z-index: 100;
+            right: 8%;
+            top: 40%;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid $expand-collapse-caret;
+        }
+    }
+    .expanded {
+        cursor: pointer;
+        position: relative;
+        > span {
+            position: absolute;
+            top: 25px;
+            right: 15px;
+            font-size: 20px;
+            line-height: 0;
+        }
+        .caret {
+            position: absolute;
+            z-index: 100;
+            right: 8%;
+            top: 40%;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid $expand-collapse-caret;
+        }
+    }
+    .content {
+        padding: 0;
+        margin: 0;
+    }
+    .slides {
+        overflow: hidden;
+        position: relative;
+        font-size: 12px;
+        &.ng-hide {
+            height: 0;
+            transition: height 0.35s ease;
+            overflow: hidden;
+            position: relative;
+        }
+        &.ng-hide-remove, &.ng-hide-add {
+            display: block !important;
+        }
+        &.ng-hide-add {
+            animation-name: hide;
+            animation-duration: .5s;
+            animation-timing-function: ease-in;
+        }
+
+        &.ng-hide-remove {
+            animation-name: show;
+            animation-duration: .5s;
+            animation-timing-function: ease-out;
+        }
+    }
+}

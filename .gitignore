@@ -12,3 +12,5 @@ www/js
 www/css
 www/lib
 www/translations
+
+package.json

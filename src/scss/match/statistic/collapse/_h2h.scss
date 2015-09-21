@@ -1,0 +1,30 @@
+$h2h-collapse-head-bg: red;
+$h2h-collapse-text: #fff;
+$h2h-collapse-title-bg: #383A3B;
+$h2h-collapse-odd: #213647;
+$h2h-collapse-even: #162A38;
+
+.h2h-collapse {
+    color: $h2h-collapse-text;
+    .header {
+        padding: 15px;
+        background: $h2h-collapse-head-bg;
+        font-size: 14px;
+        color: inherit;
+    }
+
+    .slides {
+        height: 200px;
+        color: inherit;
+        .titles {
+            background: $h2h-collapse-title-bg;
+            padding: 5px 10px;
+        }
+        .odd {
+            background: $h2h-collapse-odd;
+        }
+        .even {
+            background: $h2h-collapse-even;
+        }
+    }
+}

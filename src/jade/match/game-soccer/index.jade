@@ -1,0 +1,21 @@
+ion-item.match-info.row
+    .col.col-10
+        img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
+    .col.col-35
+        | {{r.home_club.name}}
+    .vs.col.col-10 VS
+    .col.col-35
+        | {{r.away_club.name}}
+    .col.col-10
+        img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
+
+.match-detail.row
+    .col.col-70.stadium
+        |{{r.stadium}}
+    .col.col-30.time
+        |เวลาที่เหลือ
+        span.total
+            |20 m
+
+include ./pattern
+include ./game

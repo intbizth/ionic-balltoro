@@ -15,13 +15,13 @@ class Main extends Controller
         @modal = $ionicModal
         @timeout = $timeout
         @oauth = $cordovaOauth
-
         # Login indicator state
         $rootScope.IsLoggedIn = no
 
         # Define login with in root scope to access on any childs.
         @setupLogin()
         @setupMenus()
+        @setupCollapse()
 
 # @param {object} $scope App root scope.
     setupLogin: ->
@@ -68,6 +68,12 @@ class Main extends Controller
             ]
 
             setting: [
-                {text: 'USER SETTING', link: ''}
-                {text: 'GAME SETTING', link: ''}
+                {text: 'USER SETTING', link: '/#/app/profile'}
+                {text: 'GAME SETTING', link: '/#/app/account-profile-game'}
             ]
+
+    setupCollapse: ->
+        @scope.active = true;
+        @scope.active1 = true;
+        @scope.active2 = true;
+        @scope.active3 = true;

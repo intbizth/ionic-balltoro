@@ -1,0 +1,49 @@
+$base-collapse-head-bg: #549AF7;
+$base-collapse-text: #fff;
+$base-collapse-title-bg: #383A3B;
+$base-collapse-odd: #213647;
+$base-collapse-even: #162A38;
+$base-collapse-up: #209E22;
+$base-collapse-down: #D62C2C;
+
+.home-collapse, .away-collapse, .league-collapse {
+    color: $base-collapse-text;
+    .header {
+        padding: 15px;
+        background: $base-collapse-head-bg;
+        font-size: 14px;
+        color: inherit;
+        border-bottom: 1px solid lightslategrey;
+    }
+
+    .slides {
+        color: inherit;
+        .titles {
+            background: $base-collapse-title-bg;
+            padding: 5px 10px;
+        }
+        .odd {
+            background: $base-collapse-odd;
+        }
+        .even {
+            background: $base-collapse-even;
+        }
+        .status{
+            margin-top: 7px;
+            .up {
+                width: 0;
+                height: 0;
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
+                border-bottom: 7px solid $base-collapse-up;
+            }
+            .down {
+                width: 0;
+                height: 0;
+                border-left: 7px solid transparent;
+                border-right: 7px solid transparent;
+                border-top: 7px solid $base-collapse-down;
+            }
+        }
+    }
+}

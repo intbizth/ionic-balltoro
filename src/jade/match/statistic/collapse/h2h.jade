@@ -1,0 +1,19 @@
+//TODO:h2h might be from another controller
+.expand-collapse.h2h-collapse
+    .header(ng-click!="active = !active", ng-class!="{'collapsed': active, 'expanded': !active}",
+            ng-animate="{'caret': active}")
+        .caret
+        | Head 2 Head สถิติการพบกันล่าสุด
+    .slides(ng-hide="active")
+        .content
+            .row.titles
+                .col.col-15 Pos
+                .col.col-25 Date
+                .col.col-45
+                .col.col-15 FT
+        .div(ng-repeat="w in r")
+            .row(ng-class-odd!="'odd'", ng-class-even!="'even'")
+                .col.col-15 ww
+                .col.col-25 ww
+                .col.col-45 ww
+                .col.col-15 ww

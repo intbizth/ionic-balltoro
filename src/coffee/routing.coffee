@@ -24,8 +24,12 @@ class Routing extends Config then constructor: (
                 controller: 'homeNewsController'
                 templateUrl: 'templates/home/news.html'
             'home-matches':
-                #controller: 'homeMatchesController'
+                controller: 'homeMatchesController'
                 templateUrl: 'templates/home/matches.html'
+            'home-ads':
+                templateUrl: 'templates/home/ads.html'
+            'home-matchtalk':
+                templateUrl: 'templates/home/matchtalk.html'
 
     state 'app.matches',
         url: '/matches'
@@ -35,11 +39,33 @@ class Routing extends Config then constructor: (
                 templateUrl: 'templates/match/index.html'
 
     state 'app.matches-show',
-        url: '/matches/:id'
+        url: '/matches-show'
+        abstract: true
         views:
             content:
                 controller: 'matchShowController'
                 templateUrl: 'templates/match/show.html'
+
+    state 'app.matches-show.game-prediction',
+        url: '/:id/game-prediction'
+        views:
+            'game-prediction':
+                controller: 'matchShowController'
+                templateUrl: 'templates/match/game-prediction/index.html'
+
+    state 'app.matches-show.game-soccer',
+        url: '/:id/game-soccer'
+        views:
+            'game-soccer':
+                controller: 'matchShowController'
+                templateUrl: 'templates/match/game-soccer/index.html'
+
+    state 'app.matches-show.statistic',
+        url: '/:id/statistic'
+        views:
+            'statistic':
+                controller: 'matchShowController'
+                templateUrl: 'templates/match/statistic/index.html'
 
     state 'app.search',
         url: '/search'
@@ -74,7 +100,7 @@ class Routing extends Config then constructor: (
                 controller: 'newsController'
                 templateUrl: 'templates/news/index.html'
 
-    state 'app.news_show',
+    state 'app.news-show',
         url: '/news/show/:newsId'
         views:
             content:
@@ -88,6 +114,29 @@ class Routing extends Config then constructor: (
                 controller: 'registerController'
                 templateUrl: 'templates/user/register.html'
 
+    state 'app.profile',
+        url: '/profile'
+        views:
+            content:
+                templateUrl: 'templates/user/profile/index.html'
+
+    state 'app.profile-edit',
+        url: '/profile-edit'
+        views:
+            content:
+                templateUrl: 'templates/user/profile/edit.html'
+
+    state 'app.account-profile-game',
+        url: '/account-profile-game'
+        views:
+            content:
+                templateUrl: 'templates/account/profile/game.html'
+
+    state 'app.account-profile-favorite',
+        url: '/account-profile-favorite'
+        views:
+            content:
+                templateUrl: 'templates/account/profile/favorite.html'
 
     # if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise '/app/home/index'

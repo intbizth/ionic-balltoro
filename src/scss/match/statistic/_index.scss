@@ -1,0 +1,35 @@
+$statistic-status-bg: #213647;
+$statistic-status-text: #fff;
+$statistic-status-w: #39B54A;
+$statistic-status-d: #F5D620;
+$statistic-status-l: #FF3B30;
+
+.statistic-status {
+    padding: 15px;
+    overflow: hidden;
+    margin: 0 auto;
+    background: $statistic-status-bg;
+    .status {
+        text-align: center;
+        width: 20px;
+        height: 20px;
+        float: left;
+        margin: 0 3px;
+        color: $statistic-status-text;
+        &.-w {
+            background: $statistic-status-w;
+        }
+        &.-d {
+            background: $statistic-status-d;
+        }
+        &.-l {
+            background: $statistic-status-l;
+        }
+    }
+}
+
+.statistic-share {
+    background: #213647;
+    margin: 0 auto;
+    width: 199%;
+}
