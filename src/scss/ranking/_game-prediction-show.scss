@@ -7,16 +7,22 @@ $border-info-color: #0079FF;
 $pts-color: #FAAF40;
 $score-color-bg: #549AF7;
 $subhead-color-bg: #418AC9;
+$bar-color-bg: #EEEDED;
+$bar-color: #213647;
+$point-bar-color-bg: $game-predict-detail-text;
+$point-bar-color: $bar-color;
+$point-color: $username-color;
 
 .game-predict-detail {
     background: $game-predict-detail-bg;
+    color: $game-predict-detail-text;
     .row {
-        padding: 0px;
+        padding: 8px;
     }
     .bg {
         position: absolute;
         width: 100%;
-        height: 18%;
+        height: 15%;
         overflow: inherit;
     }
     .point {
@@ -95,28 +101,70 @@ $subhead-color-bg: #418AC9;
     .border {
         border-left: solid $border-info-color 3px;
     }
-    
     .subhead {
         background: $subhead-color-bg;
         position: relative;
-        padding-bottom: 12px;
         img {
             position: absolute;
         }
         h3 {
             font-size: 20px;
-            margin-left: 30px;
+            color: $game-predict-detail-text;
             margin-top: -2px;
             margin-bottom: 0px;
-            padding-top: 5px;
-            padding-top: 5px;
-            color: $game-predict-detail-text;
+            padding: 9px 0 9px 30px;
         }
         .small {
             font-size: small;
         }
     }
-    .pointbar {
-        background: #EEEDED;
+    .title {
+        font-size: 18px;
+        color: $game-predict-detail-text;
+        padding: 10px 0 10px 30px;
+        position: relative;
+    }
+    .bar {
+        background: $bar-color-bg;
+        padding: 5px 0;
+        height: inherit;
+        position: relative;
+        p {
+            color: $bar-color;
+            text-align: center;
+            margin: 0px;
+        }
+        .col {
+            padding: 0px;
+        }
+    }
+    .point-bar {
+        background: $point-bar-color-bg;
+        position: relative;
+        padding: 5px 0;
+        height: inherit;
+        text-align: center;
+        span {
+            color: $point-bar-color;
+            padding-left: 10px;
+        }
+        small {
+            color: $point-bar-color;
+        }
+        h4 {
+            margin-top: 10px;
+            margin-bottom: 0px;
+        }
+        .col {
+            border-right: solid #939598 1px;
+            p {
+                color: $point-bar-color;
+                margin: 10px 0;
+            }
+        }
+    }
+    .line {
+        background: #549AF7;
+        padding: 5px;
     }
 }
