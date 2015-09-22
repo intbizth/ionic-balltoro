@@ -1,21 +1,27 @@
-ion-nav-view(view-title='Team Favorite')
+ion-nav-view(view-title='Team Favorite', class='fav')
     //เปลี่ยนมาใช้ Angular content (md-content)
-    //-----content-----
-    md-content(flax, layout-padding)
+    //-------content-------//
+    md-content(flax, layout-padding, class='fav')
         div(layout='column', layout-fill, layout-align='top center', style='padding-top:50px')
 
-        p CONTENT.......
-
-        button.button.button-block(ng-click='toggleRight()') Toggle Right (ionic btn)
+        button.button.button-block.button-positive(ng-click='toggleRight()') Toggle Right (ionic btn)
         md-button(ng-click='toggleRight()', class='md-primary', hide-gt-md) Toggle Right (Angular btn)
 
-        h2 H2
-        p CONTENT.......
+        div(class='list')
+            a(ng-href='#', class='item fav listTeam', ng-repeat="team in myTeam")
+                span(class='menu-right label') {{team.name}}
 
-    //-----Side menu here-----
-    md-sidenav(class='md-sidenav-right md-whiteframe-z2', md-component-id='Toggle_right', style='padding-top:44px')
-        md-toolbar(class='md-theme-light')
-            h1(class='md-toolbar-tools') SideNav Right
-        span ทดสอบๆ Lorem ipsum
-        button.button.button-block(ng-click='close()') Close right
+    //-----Side menu here-----//
+    md-sidenav(class='md-sidenav-right md-whiteframe-z2', md-component-id='Toggle_right', style='padding-top:44px; background-color: #192837;', class='menu-right')
+        button.button.button-block.button-positive(ng-click='close()', class='icon ion-close') Close right
+
+        div(class='list menu-right')
+            a(ng-href='#', class='item menu-right', ng-repeat="team in teamList")
+                img(ng-src='{{team.imgURL}}', class="menu-right teamlogo")
+                span(class='menu-right label') {{team.name}}
+        hr(class='menu-right endBorder')
+
+        div(class='bottom-label')
+            p ท่านสามารถเลือกทีมโปรดของท่านได้ทั้ง 6 ลีกชั้นนำ ลักละ 1 ทีม ร่วมเล่นเกมทายผล และเกมทาย 11 ตัวจริงที่คาดว่าลงสนาม ก่อนเริ่มการแข่งขัน
+            p ผู้ทายถูกจะได้รับแต้ม เพื่อใช้แต้มร่วมสนุกกับกิจกรรมต่างๆ ของ balltoro
         //md-button(ng-click='close()', class='md-primary') Close right

@@ -1,0 +1,54 @@
+.fav {
+  background-color: #0F171E;
+  color: #fff;
+  font-weight: bold;
+
+  .head {
+    background-color: #111F28;
+
+    font-size: 18px;
+    margin-top: 44px;
+  }
+
+  .listTeam {
+    border-style: solid none solid;
+    border-color: #1A3253;
+    vertical-align: middle;
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .activated {
+     background-color: #255a74;
+   }
+}
+//-------[right menu]--------//
+.menu-right {
+  background: none;
+  border-style: none;
+  vertical-align: middle;
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  .label {
+    margin-left: 16px;
+    color: #FFF;
+  }
+  .teamlogo {
+    width: 32px;
+    margin-left: 10px;
+  }
+  .endBorder {
+    border-bottom-style: solid;
+    border-color: #1D3656;
+  }
+  .activated {
+    background-color: #255a74;
+  }
+}
+
+//-------[buttom text]-------//
+.bottom-label {
+  color: #185D85;
+  padding: 12px 14px; //T, L
+  font-size: 11px;
+}
