@@ -3,23 +3,26 @@
 md-tabs.player-tab
     md-tab(label="All")
         md-content
-        ul.lists
-            li.position
-                .mf
-            li.avatar
-                item-avatar
-                    img.player(src="img/sidebar/league_game_2x.png")
-            li.nationality
-                img.flag
-            li.username AAAAAAAAAA BBBBBBBBBBBBB
-            li.yellow
-                .cards
-                span 1
-            li.red
-                .cards
-                span 1
-            li.total
-            li.watch
+            .lists(layout="row")
+                .position(flex)
+                    .mf
+                .avatar(flex)
+                    img
+                .nationality(flex)
+                    img
+                .username(flex="35")
+                    .name AAAAAAAA  SSSSS ssffglh;dslsd;g
+                .yellow(flex)
+                    .cards
+                    span 5
+                .red(flex)
+                    .cards
+                    span 5
+                .total(flex)
+                    img(src="img/sidebar/match_2x.png")
+                    .ball
+                    span 5
+                .watch(flex)
 
     md-tab
         label="GK"

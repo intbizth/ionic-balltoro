@@ -4,6 +4,7 @@ $match-list-vs: #549AF7;
 $match-list-vs-text: $match-header-text;
 $league-header-bg: #E6E7E8;
 $league-header-text: #58595B;
+$match-item-name-item: #000;
 
 .match-header {
     background: $match-header-bg;
@@ -60,6 +61,7 @@ $league-header-text: #58595B;
             font-size: 13px;
             width: 24%;
             white-space: normal;
+            color: $match-item-name-item;
         }
         .-right {
             float: right !important;

@@ -21,8 +21,8 @@ ion-view(view-title="{{'ui.t.match.header.title'|trans}}")
                     .vs {{r.result}}
                         p.time {{r.start_time|date:('HH:MM')}}
                     .club
-                        img.logo(ng-src!="{{r.away_club.getLogo('70x70')}}")
                         span.name {{r.away_club.name}}
+                        img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
 
         ion-infinite-scroll(
             ng-if="store.hasMorePage()"
