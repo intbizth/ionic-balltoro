@@ -8,10 +8,24 @@ $pts-color: #FAAF40;
 $score-color-bg: #549AF7;
 $subhead-color-bg: #418AC9;
 $bar-color-bg: #EEEDED;
-$bar-color: #213647;
+$bar-color: $game-predict-detail-bg;
 $point-bar-color-bg: $game-predict-detail-text;
 $point-bar-color: $bar-color;
+$point-border-color: #939598;
 $point-color: $username-color;
+$precisely-color-bg: $point-bar-color-bg;
+$precisely-color: $point-bar-color;
+$percent-color: #4188C7;
+$total-color-bg: $bar-color-bg;
+$total-color: $precisely-color;
+$sum-color: #F7941E;
+$date-color-bg: $total-color-bg;
+$date-color: $total-color;
+$match-color-bg: $point-bar-color-bg;
+$match-color: $date-color;
+$handicap-color: $score-color-bg;
+$score-color: $point-color;
+$history-color: $match-color-bg;
 
 .game-predict-detail {
     background: $game-predict-detail-bg;
@@ -22,8 +36,8 @@ $point-color: $username-color;
     .bg {
         position: absolute;
         width: 100%;
-        height: 15%;
         overflow: inherit;
+        height: 5%;
     }
     .point {
         width: 120px;
@@ -95,7 +109,7 @@ $point-color: $username-color;
             margin-bottom: 0px;
             margin-top: 5px;
             float: left;
-            margin-left: 10px;
+            margin-left: 8px;
         }
     }
     .border {
@@ -104,6 +118,7 @@ $point-color: $username-color;
     .subhead {
         background: $subhead-color-bg;
         position: relative;
+        margin-top: 10px;
         img {
             position: absolute;
         }
@@ -112,7 +127,7 @@ $point-color: $username-color;
             color: $game-predict-detail-text;
             margin-top: -2px;
             margin-bottom: 0px;
-            padding: 9px 0 9px 30px;
+            padding: 9px 0 9px 35px;
         }
         .small {
             font-size: small;
@@ -121,7 +136,7 @@ $point-color: $username-color;
     .title {
         font-size: 18px;
         color: $game-predict-detail-text;
-        padding: 10px 0 10px 30px;
+        padding: 10px 0 10px 35px;
         position: relative;
     }
     .bar {
@@ -154,17 +169,126 @@ $point-color: $username-color;
         h4 {
             margin-top: 10px;
             margin-bottom: 0px;
+            color: $point-bar-color;
         }
         .col {
-            border-right: solid #939598 1px;
+            padding: 0px;
             p {
                 color: $point-bar-color;
-                margin: 10px 0;
+                padding: 5px 0;
+                margin: 0px;
+                font-weight: 700;
+            }
+            .color {
+                color: $point-color;
+                padding: 5px 0;
+                font-weight: 700;
+            }
+        }
+        .point-border {
+            border-right: solid $point-border-color 1px;
+            margin-bottom: -5px;
+        }
+    }
+
+    .line {
+        background: #549AF7;
+        padding: 3px;
+    }
+    .precisely {
+        background: $precisely-color-bg;
+        position: relative;
+        .col-50 {
+            float: left;
+            h4 {
+                color: $precisely-color;
+                margin-top: 0px;
+                margin-bottom: 0px;
+            }
+            .h5 {
+                color: $precisely-color;
+                font-weight: 800;
+            }
+            .percent {
+                color: $percent-color;
+                font-size: 30px;
+                font-weight: 700;
+                float: left;
+                margin-left: 50%;
             }
         }
     }
-    .line {
-        background: #549AF7;
-        padding: 5px;
+    .total {
+        background: $total-color-bg;
+        position: relative;
+        .col-50 {
+            float: left;
+            h4 {
+                color: $total-color;
+                margin-top: 0px;
+                margin-bottom: 0px;
+            }
+            .h5 {
+                color: $total-color;
+                font-weight: 800;
+            }
+            .sum {
+                color: $sum-color;
+                font-size: 30px;
+                font-weight: 700;
+                float: left;
+                margin-left: 50%;
+            }
+        }
+    }
+    .date {
+        background: $date-color-bg;
+        position: relative;
+        font-size: 14px;
+        color: $date-color;
+        padding: 5px 0 5px 25px;
+        margin: 0px;
+    }
+    .match {
+        background: $match-color-bg;
+        padding: 5px 0;
+        position: relative;
+        height: inherit;
+        .col-37 {
+            padding: 0px;
+            margin-left: 15px;
+            .focus {
+                background-color: #F8EC7D;
+                padding: 0 8px;
+                color: $match-color;
+            }
+            p {
+                font-size: 14px;
+                color: $match-color;
+                margin: 0px;
+            }
+            span {
+                padding-left: 5px ;
+            }
+        }
+        .col {
+            padding: 0px;
+            .handicap {
+                font-size: 14px;
+                color: $handicap-color;
+                margin: 0px;
+                text-align: center;
+            }
+            .score {
+                font-size: 14px;
+                color: $score-color;
+                margin: 0px;
+                text-align: center;
+            }
+        }
+        p {
+            margin: 5px 0 5px 60px;
+            color: $match-color;
+        }
     }
 }

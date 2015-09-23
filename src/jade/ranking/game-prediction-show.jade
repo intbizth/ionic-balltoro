@@ -6,39 +6,18 @@
         .border.col-50
             img(ng-src="./img/ranking/icon-chonburi.png")
             p ChonburiFC
-    img.bg(ng-src="./img/ranking/bg-point-user.png")
-    .row
-        .point
-            .pts Pts
-            .score
-                h3 0
-        .col-50
-            h4 เกมทายผลทายสกอร์
-            small Ranking
-        .col-20
-            h2 0
-    img.bg(ng-src="./img/ranking/bg-point-user2.png")
-    .row
-        .point
-            .pts Pts
-            .score
-                h3 0
-        .col-50
-            h4 เกมทายสกอร์
-            small Ranking
-        .col-20
-            h2 0
-    img.bg(ng-src="./img/ranking/bg-point-user3.png")
-    .row
-        .point
-            .pts Pts
-            .score
-                h3 0
-        .col-50
-            h4 เกมทาย 11 ตัวจริง
-            small Ranking
-        .col-20
-            h2 0
+    .pointUser(ng-repeat="pointUser in pointUsers")
+        img.bg(ng-src="{{pointUser.bg}}")
+        .row
+            .point
+                .pts Pts
+                .score
+                    h3 {{pointUser.score}}
+            .col-50
+                h4 {{pointUser.game}}
+                small {{pointUser.gameEn}}
+            .col-20
+                h2 {{pointUser.point}}
     .subhead
         img(ng-src="./img/ranking/subhead.png")
         h3 Season Points
@@ -74,13 +53,237 @@
         .col
             p คะแนน
     .row.point-bar
-        .col
+        .col.point-border
             p 15
-        .col
+        .col.point-border
             p 14
-        .col
+        .col.point-border
             p 1
         .col
-            p 45
+            .color 45
     .line
-
+    .row.precisely
+        .col-50
+            h4 ความแม่นยำ
+        .col-50
+            .percent 92
+                span.h5  %
+    .title  เกมทายสกอร์
+    .row.bar
+        .col
+            p จำนวน
+        .col
+            p ถูก
+        .col
+            p เฉียด
+        .col
+            p ผิด
+        .col
+            p คะแนน
+    .row.point-bar
+        .col.point-border
+            p 15
+        .col.point-border
+            p 15
+        .col.point-border
+            p 15
+        .col.point-border
+            p 15
+        .col
+            .color 15
+    .line
+    .row.precisely
+        .col-50
+            h4 ความแม่นยำ
+        .col-50
+            .percent 75
+                span.h5  %
+    .row.total
+        .col-50
+            h4 คะแนนรวม
+        .col-50
+            .sum 79
+                span.h5  คะแนน
+    .subhead
+        img(ng-src="./img/ranking/subhead.png")
+        h3 Mouth Points
+            span.small   คะแนนรวมประจำเดือน เมษายน
+    .title  เกมทายผล
+    .row.bar
+        .col-33
+            p เจ้าบ้าน
+        .col-33
+            p เสมอ
+        .col-33
+            p ทีมเยือน
+    .row.point-bar
+        .col-33
+            h4 9
+                span  3
+            small คะแนน  ·  นัด
+        .col-33
+            h4 3
+                span  1
+            small คะแนน  ·  นัด
+        .col-33
+            h4  0
+                span  1
+            small คะแนน  ·  นัด
+    .row.bar
+        .col
+            p จำนวน
+        .col
+            p ถูก
+        .col
+            p ผิด
+        .col
+            p คะแนน
+    .row.point-bar
+        .col.point-border
+            p 5
+        .col.point-border
+            p 4
+        .col.point-border
+            p 1
+        .col
+            .color 12
+    .line
+    .title เกมทายสกอร์
+    .row.bar
+        .col
+            p จำนวน
+        .col
+            p ถูก
+        .col
+            p เฉียด
+        .col
+            p ผิด
+        .col
+            p คะแนน
+    .row.point-bar
+        .col.point-border
+            p 5
+        .col.point-border
+            p 1
+        .col.point-border
+            p 4
+        .col.point-border
+            p 0
+        .col
+            .color 7
+    .line
+    .row.total
+        .col-50
+            h4 คะแนนรวม
+        .col-50
+            .sum 79
+                span.h5  คะแนน
+    .subhead
+        img(ng-src="./img/ranking/subhead.png")
+        h3 Lasted Match
+            span.small   คะแนน 5 นัดล่าสุด
+    .title เกมทายผล
+    .lastedMatch(ng-repeat="lastedPrediction in lastedPredictions")
+        .date {{lastedPrediction.date}}
+        .row.match
+            .col-37
+                p(ng-class="{focus : lastedPrediction.scoreHome > lastedPrediction.scoreAway}")
+                    | {{lastedPrediction.homeClub}}
+                    span {{lastedPrediction.scoreHome}}
+            .col
+                .handicap {{lastedPrediction.handicap}}
+            .col-37
+                p(ng-class="{focus : lastedPrediction.scoreAway > lastedPrediction.scoreHome}")
+                    | {{lastedPrediction.scoreAway}}
+                    span  {{lastedPrediction.awayClub}}
+            .col
+                .score {{lastedPrediction.score}} คะแนน
+    .line
+    .row.total
+        .col-50
+            h4 คะแนนรวม
+        .col-50
+            .sum 14
+                span.h5  คะแนน
+    .title เกมทายสกอร์
+    .date 09/02/15
+    .row.match
+        .col-37
+            .focus Chonburi FC
+                span 4
+        .col
+            .handicap - 1.50
+        .col-37
+            p 1
+                span  Suphanburi FC
+        .col
+            .score 1 คะแนน
+    .row.match
+        p สกอร์จริง 4 - 2
+    .date 17/01/15
+    .row.match
+        .col-37
+            p Chonburi FC
+                span 2
+        .col
+            .handicap + 1.00
+        .col-37
+            .focus 2
+                span  Suphanburi FC
+        .col
+            .score 1 คะแนน
+    .row.match
+        p สกอร์จริง 1 - 2
+    .date 08/10/14
+    .row.match
+        .col-37
+            p Chonburi FC
+                span 1
+        .col
+            .handicap - 1.25
+        .col-37
+            .focus 1
+                span  Suphanburi FC
+        .col
+            .score 3 คะแนน
+    .row.match
+        p สกอร์จริง 1 - 1
+    .date 20/10/14
+    .row.match
+        .col-37
+            p Chonburi FC
+                span 2
+        .col
+            .handicap - 0.25
+        .col-37
+            .focus 1
+                span  Suphanburi FC
+        .col
+            .score 1 คะแนน
+    .row.match
+        p สกอร์จริง 2 - 0
+    .date 12/10/14
+    .row.match
+        .col-37
+            p Chonburi FC
+                span 3
+        .col
+            .handicap - 0.25
+        .col-37
+            .focus 1
+                span  Suphanburi FC
+        .col
+            .score 1 คะแนน
+    .row.match
+        p สกอร์จริง 2 - 0
+    .line
+    .row.total
+        .col-50
+            h4 คะแนนรวม
+        .col-50
+            .sum 7
+                span.h5  คะแนน
+    .line
+    .row.history
+        .col.col-center
+            p History ประวัติการทายผลทั้งหมด
