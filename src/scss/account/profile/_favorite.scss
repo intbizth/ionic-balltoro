@@ -1,54 +1,56 @@
-.fav {
-  background-color: #0F171E;
-  color: #fff;
-  font-weight: bold;
+$background-content: #0F171E;
+$background-menu: #192837;
+$split-line: #1A3253;
+$listview-active: #255a74;
 
-  .head {
-    background-color: #111F28;
+.favorite-form {
+    background-color: $background-content;
+    color: #fff;
+    font-weight: bold;
+    padding-top: 38px;
+    .listview {
+        border-style: solid none solid;
+        border-color: $split-line;
+        vertical-align: middle;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    .activated {
+        background-color: $listview-active;
+    }
+}
 
-    font-size: 18px;
-    margin-top: 44px;
-  }
-
-  .listTeam {
-    border-style: solid none solid;
-    border-color: #1A3253;
+//-------[right menu]-------//
+.favorite-menu {
+    background-color: $background-menu;
+    border-style: none;
     vertical-align: middle;
-    padding-top: 8px;
-    padding-bottom: 8px;
-  }
-  .activated {
-     background-color: #255a74;
-   }
-}
-//-------[right menu]--------//
-.menu-right {
-  background: none;
-  border-style: none;
-  vertical-align: middle;
-  padding-top: 5px;
-  padding-bottom: 5px;
-
-  .label {
-    margin-left: 16px;
-    color: #FFF;
-  }
-  .teamlogo {
-    width: 32px;
-    margin-left: 10px;
-  }
-  .endBorder {
-    border-bottom-style: solid;
-    border-color: #1D3656;
-  }
-  .activated {
-    background-color: #255a74;
-  }
-}
-
-//-------[buttom text]-------//
-.bottom-label {
-  color: #185D85;
-  padding: 12px 14px; //T, L
-  font-size: 11px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    .list {
+        margin-top: 50px;
+        background: none;
+    }
+    .content {
+        background: none;
+        margin-left: 16px;
+        color: #FFF;
+        border-style: solid;
+        font-weight: normal;
+    }
+    .icon {
+        width: 24px;
+        margin-left: 10px;
+    }
+    .footer {
+        color: #185D85;
+        padding: 12px 14px; //T, L
+        font-size: 11px;
+        border-style: solid none none;
+        border-width: thin;
+        border-color: $split-line;
+    }
+    .activated {
+        background-color: $listview-active;
+    }
 }

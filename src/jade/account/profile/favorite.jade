@@ -1,27 +1,19 @@
-ion-nav-view(view-title='Team Favorite', class='fav')
-    //เปลี่ยนมาใช้ Angular content (md-content)
+ion-view(view-title='Team Favorite', class='favorite-form')
     //-------content-------//
-    md-content(flax, layout-padding, class='fav')
-        div(layout='column', layout-fill, layout-align='top center', style='padding-top:50px')
-
-        button.button.button-block.button-positive(ng-click='toggleRight()') Toggle Right (ionic btn)
+    md-content(flax, layout-padding, class='favorite-form')
+        div(layout='column', layout-fill, layout-align='top center')
         md-button(ng-click='toggleRight()', class='md-primary', hide-gt-md) Toggle Right (Angular btn)
-
         div(class='list')
-            a(ng-href='#', class='item fav listTeam', ng-repeat="team in myTeam")
-                span(class='menu-right label') {{team.name}}
+            a(ng-href='#', class='item favorite-form listview', ng-repeat="team in myTeam")
+                span {{team.name}}
 
-    //-----Side menu here-----//
-    md-sidenav(class='md-sidenav-right md-whiteframe-z2', md-component-id='Toggle_right', style='padding-top:44px; background-color: #192837;', class='menu-right')
-        button.button.button-block.button-positive(ng-click='close()', class='icon ion-close') Close right
-
-        div(class='list menu-right')
-            a(ng-href='#', class='item menu-right', ng-repeat="team in teamList")
-                img(ng-src='{{team.imgURL}}', class="menu-right teamlogo")
-                span(class='menu-right label') {{team.name}}
-        hr(class='menu-right endBorder')
-
-        div(class='bottom-label')
+    //-----Side menu-----//
+    md-sidenav(class='md-sidenav-right', md-component-id='Toggle_right', class='favorite-menu')
+        div(class='list favorite-menu')
+            a(ng-href='#', class='item favorite-menu', ng-repeat="team in teamList")
+                img(ng-src='{{team.imgURL}}', class="favorite-menu icon")
+                span(class='favorite-menu content') {{team.name}}
+        md-button(ng-click='close()', class='md-primary') X Close
+        div(class='favorite-menu footer')
             p ท่านสามารถเลือกทีมโปรดของท่านได้ทั้ง 6 ลีกชั้นนำ ลักละ 1 ทีม ร่วมเล่นเกมทายผล และเกมทาย 11 ตัวจริงที่คาดว่าลงสนาม ก่อนเริ่มการแข่งขัน
             p ผู้ทายถูกจะได้รับแต้ม เพื่อใช้แต้มร่วมสนุกกับกิจกรรมต่างๆ ของ balltoro
-        //md-button(ng-click='close()', class='md-primary') Close right
