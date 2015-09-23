@@ -1,0 +1,72 @@
+$match-events-bg: #0056a2;
+$match-events-dot-normal: #fff;
+$match-events-dot-hafttime: red;
+$match-events-dot-large: $match-events-dot-normal;
+$match-events-line-bg: $match-events-dot-normal;
+$match-events-empty-text: $match-events-line-bg;
+$match-events-name-text: $match-events-empty-text;
+$match-events-time-text: orange;
+
+.match-events {
+    padding: 6px 0;
+    background-color: $match-events-bg;
+    position: relative;
+    height: auto;
+    overflow: hidden;
+    .line {
+        height: 94%;
+        margin-left: 49.8%;
+        position: absolute;
+        background: $match-events-line-bg;
+        width: 1px;
+        top: 15px;
+    }
+    .empty {
+        .text {
+            font-size: 14px;
+            font-weight: bold;
+            color: $match-events-empty-text;
+            text-align: center;
+        }
+    }
+
+    .wrap {
+        padding: 0;
+    }
+
+    .name {
+        margin: 0 2px;
+        font-size: 14px;
+        color: $match-events-name-text;
+    }
+
+    .image {
+        margin: 0 2px;
+        width: 15px;
+        height: 15px;
+    }
+
+    .dot {
+        position: relative;
+        &.-normal {
+            font-size: 8px;
+            color: $match-events-dot-normal;
+        }
+
+        &.-halftime {
+            font-size: 8px;
+            color: $match-events-dot-hafttime;
+        }
+
+        &.-large {
+            font-size: 20px;
+            color: $match-events-dot-large;
+        }
+    }
+
+    .time, .description {
+        margin: 0 2px;
+        font-size: 14px;
+        color: $match-events-time-text;
+    }
+}

@@ -6,3 +6,4 @@ class MatchShow extends Controller then constructor: (
         promise = model.getLinked 'activities', Activities
         promise.then (r) ->
             console.log r
+

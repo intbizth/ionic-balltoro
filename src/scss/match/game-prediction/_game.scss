@@ -1,0 +1,83 @@
+$game-collapse-btn-border: #549AF7;
+$game-collapse-btn-bg: #fff;
+$game-collapse-btn-text: $game-collapse-btn-border;
+$game-collapse-btn-focus-bg: $game-collapse-btn-text;
+$game-collapse-btn-focus-text: $game-collapse-btn-bg;
+$game-collapse-container-bg: #213647;
+$game-collapse-border: #000111;
+$game-collapse-desc-text: $game-collapse-btn-bg;
+$game-collapse-input-text: $game-collapse-desc-text;
+$game-collapse-input-bg: $game-collapse-btn-border;
+$game-collapse-slide-bg: #162A38;
+$prediction-submit-text: $game-collapse-desc-text;
+$prediction-submit-border: $prediction-submit-text;
+
+.game-collapse {
+    width: 100%;
+    text-align: center;
+    overflow: hidden;
+    margin: 0 auto;
+    border-top: 2px $game-collapse-border solid;
+    border-bottom: 2px $game-collapse-border solid;
+    .container {
+        width: 100%;
+        background: $game-collapse-container-bg;
+        padding: 15px;
+        overflow: hidden;
+        .section {
+            width: 33%;
+            float: left;
+            display: block;
+            text-align: center;
+            .select {
+                display: inline-block;
+                border: 3px $game-collapse-btn-border solid;
+                border-radius: 50%;
+                height: 90px;
+                width: 90px;
+                padding-top: 35px;
+                background: $game-collapse-btn-bg;
+                color: $game-collapse-btn-text;
+                font-size: 14px;
+                font-weight: bold;
+                &:focus {
+                    background: $game-collapse-btn-focus-bg;
+                    color: $game-collapse-btn-focus-text;
+                }
+            }
+        }
+    }
+    .desc {
+        color: $game-collapse-desc-text;
+    }
+    .-clear {
+        clear: both;
+    }
+    .slides {
+        background: $game-collapse-slide-bg;
+        .prediction-form {
+            padding: 15px;
+            .home, .away {
+                font-size: 150px;
+                text-align: center;
+                width: 100%;
+                input[type=number] {
+                    font-size: 100px;
+                    height: 150px;
+                    background: $game-collapse-input-bg;
+                    padding-left: 30%;
+                    color: $game-collapse-input-text;
+                }
+            }
+        }
+    }
+}
+
+.prediction-submit {
+    background: transparent;
+    padding: 15px;
+    margin: 10px;
+    font-size: 18px;
+    color: $prediction-submit-text;
+    border: $prediction-submit-border 2px solid;
+}

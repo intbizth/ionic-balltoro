@@ -11,6 +11,9 @@ ion-item.match-item
             img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
             span.name {{r.away_club.name}}
 .handicap-bar Handicap
-        span.title {{r.handicap}}
+    span.title {{r.handicap}}
 
-include ./collapse/game
+include ./timeline
+include ./game
+include ./statistic
+include ../share

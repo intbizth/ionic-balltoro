@@ -50,7 +50,7 @@ class Routing extends Config then constructor: (
         url: '/:id/game-prediction'
         views:
             'game-prediction':
-                controller: 'matchShowController'
+                controller: 'matchPredictionController'
                 templateUrl: 'templates/match/game-prediction/index.html'
 
     state 'app.matches-show.game-soccer',

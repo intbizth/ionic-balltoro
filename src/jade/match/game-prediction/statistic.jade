@@ -1,0 +1,41 @@
+.statistic-status.row
+    .col.col-50
+        .status.-w w
+        .status.-d d
+        .status.-l l
+        .status.-w w
+        .status.-w w
+    .col.col-50
+        .status.-w w
+        .status.-d d
+        .status.-l l
+        .status.-w w
+        .status.-w w
+
+.league-table
+    .header League Table
+    .row.titles
+        .col Pos
+        .col.col-50 Team
+        .col P
+        .col GD
+        .col Pts
+        .col
+    .row.home
+        .col {{r.home_club.id}}
+        .col.col-50 {{r.home_club.name}}
+        .col 1
+        .col 1
+        .col 1
+        .col
+            .status
+                .up
+    .row.away
+        .col {{r.home_club.id}}
+        .col.col-50 {{r.away_club.name}}
+        .col 1
+        .col 1
+        .col 1
+        .col
+            .status
+                .down

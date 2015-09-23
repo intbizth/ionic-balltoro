@@ -1,0 +1,27 @@
+.expand-collapse.game-collapse
+    .container
+        .section
+            .select(ng-click!="active = !active", ng-class!="{'collapsed': active, 'expanded': !active}")
+                | select
+        .section
+            .select(ng-click!="active = !active", ng-class!="{'collapsed': active, 'expanded': !active}")
+                | select
+
+        .section
+            .select(ng-click!="active = !active", ng-class!="{'collapsed': active, 'expanded': !active}")
+                | select
+        .row.desc
+            .col.col-33.text-center {{r.home_club.name}}
+            .col.col-33.text-center Draw
+            .col.col-33.text-center {{r.away_club.name}}
+
+    .slides.-clear(ng-hide="active")
+        .content
+        .prediction-form(layout="row")
+            md-input-container.home(flex)
+                input.point(type="number", required maxlength="20", minlength="0")
+            md-input-container.away(flex)
+                input.point(type="number",required maxlength="20", minlength="0")
+
+        button.prediction-submit(type="submit" ng-click="")
+            .text ส่งผลเกมส์ทายผลและทายสกอร์
