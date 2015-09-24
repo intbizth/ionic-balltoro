@@ -1,9 +1,6 @@
 div.match-events(id="event")
-    .line(id="event-line")
     .empty(ng-if="events.items.length == 0")
-        .row
-            .col.col-center
-                .text Has no event.
+    .line(id="event-line")
     div(ng-repeat="event in events.items")
         div.row.row-center.wrap
 
@@ -30,3 +27,13 @@ div.match-events(id="event")
                     img.image(ng-show="event.icon", ng-src="./img/match-events/{{event.icon}}.png",
                     srcset="./img/match-events/{{event.icon}}@2x.png 2x")
                     span.name(ng-show="event.name") {{event.name}}
+
+.event-description
+    .event(layout="row") สิ้นสุดการแข่งขัน
+        span.point 1 - 1
+    .event(layout="row") ทายผลการแข่งขัน
+        span.point 0
+        | คะแนน
+    .event(layout="row") ทายผลสกอร์
+        span.point 0
+        | คะแนน

@@ -1,4 +1,4 @@
-$match-events-bg: #0056a2;
+$match-events-bg: #213647;
 $match-events-dot-normal: #fff;
 $match-events-dot-hafttime: red;
 $match-events-dot-large: $match-events-dot-normal;
@@ -6,6 +6,9 @@ $match-events-line-bg: $match-events-dot-normal;
 $match-events-empty-text: $match-events-line-bg;
 $match-events-name-text: $match-events-empty-text;
 $match-events-time-text: orange;
+$event-description-bg: #383A3B;
+$event-description-border: #303132;
+$event-description-point: $match-events-dot-normal;
 
 .match-events {
     padding: 6px 0;
@@ -68,5 +71,22 @@ $match-events-time-text: orange;
         margin: 0 2px;
         font-size: 14px;
         color: $match-events-time-text;
+    }
+}
+
+.event-description {
+    background: $event-description-bg;
+    padding: 10px 3px;
+    overflow: hidden;
+    text-align: center;
+    font-size: 12px;
+    border-top: 2px solid $event-description-border;
+    border-bottom: 2px solid $event-description-border;
+    .event {
+        color: orange;
+    }
+    .point {
+        color: $event-description-point;
+        margin: 0 5px;
     }
 }

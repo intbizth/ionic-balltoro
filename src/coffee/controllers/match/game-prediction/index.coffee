@@ -1,11 +1,6 @@
 class MatchPrediction extends Controller then constructor: (
-    $scope, $stateParams, Matches, Activities, $timeout, Und, Chance
+    $scope, $timeout, Und, Chance
 ) ->
-    promise = new Matches().find $stateParams.id, $scope
-    promise.then (model) ->
-        promise = model.getLinked 'activities', Activities
-        promise.then (r) ->
-            console.log r
 
     $scope.events =
         items: [],
@@ -16,7 +11,7 @@ class MatchPrediction extends Controller then constructor: (
         loadData: ->
             items = this.fakeItems()
             this.items =  items
-            console.log('events:loadData', this.items.length, JSON.stringify(this.items))
+#            console.log('events:loadData', this.items.length, JSON.stringify(this.items))
             return
         doRefresh: ->
             console.log 'events:doRefresh'
@@ -92,3 +87,5 @@ class MatchPrediction extends Controller then constructor: (
             return items
 
     $scope.events.loadData()
+
+    $scope.finishMatch = true

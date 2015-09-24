@@ -1,5 +1,5 @@
 class Match extends Controller then constructor: (
-    $scope, Matches, Match
+    $scope, Matches, Match, $ionicHistory, $timeout, Und, Chance
 ) ->
     new Matches().load
         scope: $scope

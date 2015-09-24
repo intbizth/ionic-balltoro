@@ -8,7 +8,10 @@ $game-collapse-border: #000111;
 $game-collapse-desc-text: $game-collapse-btn-bg;
 $game-collapse-input-text: $game-collapse-desc-text;
 $game-collapse-input-bg: $game-collapse-btn-border;
-$game-collapse-slide-bg: #162A38;
+$prediction-content-bg: #162A38;
+$prediction-content-header: $game-collapse-btn-border;
+$prediction-content-arrow: $game-collapse-container-bg;
+$game-collapse-box-shadow: #141414;
 $prediction-submit-text: $game-collapse-desc-text;
 $prediction-submit-border: $prediction-submit-text;
 
@@ -17,8 +20,6 @@ $prediction-submit-border: $prediction-submit-text;
     text-align: center;
     overflow: hidden;
     margin: 0 auto;
-    border-top: 2px $game-collapse-border solid;
-    border-bottom: 2px $game-collapse-border solid;
     .container {
         width: 100%;
         background: $game-collapse-container-bg;
@@ -50,27 +51,75 @@ $prediction-submit-border: $prediction-submit-text;
     .desc {
         color: $game-collapse-desc-text;
     }
-    .-clear {
-        clear: both;
-    }
-    .slides {
-        background: $game-collapse-slide-bg;
-        .prediction-form {
-            padding: 15px;
-            .home, .away {
-                font-size: 150px;
-                text-align: center;
-                width: 100%;
-                input[type=number] {
-                    font-size: 100px;
-                    height: 150px;
-                    background: $game-collapse-input-bg;
-                    padding-left: 30%;
-                    color: $game-collapse-input-text;
-                }
-            }
+}
+
+.prediction-content {
+    background: $prediction-content-bg;
+    .header {
+        height: 40px;
+        background: $prediction-content-header;
+        position: relative;
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 15px solid $prediction-content-arrow;
+            position: absolute;
+            left: 47%;
+        }
+        .text {
+            color: #fff;
+            font-size: 16px;
+            position: absolute;
+            left: 42%;
+            top: 15px;
         }
     }
+
+    .prediction-form {
+        padding: 0 15px;
+        margin: 0;
+        overflow: hidden;
+        box-shadow: inset 10px 10px 100px 10px $game-collapse-box-shadow;
+        .home, .away {
+            padding: 0 !important;
+        }
+        input[type=number] {
+            box-shadow: inset 0 10px 80px -10px $game-collapse-box-shadow,
+            inset 0 -10px 80px -10px $game-collapse-box-shadow;
+            font-size: 100px;
+            height: 150px;
+            width: 85%;
+            margin: 0 auto;
+            background: $game-collapse-input-bg;
+            color: $game-collapse-input-text;
+            text-align: center;
+        }
+        .score {
+            color: darkred;
+            font-size: 20px;
+            padding-top: 70px;
+        }
+    }
+    .result {
+        padding: 35px;
+        text-align: center;
+        overflow: hidden;
+        .score {
+            font-size: 72px;
+            color: #fff;
+        }
+        .text {
+            font-size: 20px;
+            color: darkred;
+            margin-top: 40px;
+        }
+    }
+}
+
+.-clear {
+    clear: both;
 }
 
 .prediction-submit {

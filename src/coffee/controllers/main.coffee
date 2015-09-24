@@ -22,6 +22,7 @@ class Main extends Controller
         @setupLogin()
         @setupMenus()
         @setupCollapse()
+        @setupCurrentTime()
 
 # @param {object} $scope App root scope.
     setupLogin: ->
@@ -73,9 +74,12 @@ class Main extends Controller
             ]
 
     setupCollapse: ->
-        @scope.active = true;
-        @scope.active1 = true;
-        @scope.active2 = true;
-        @scope.active3 = true;
-        @scope.leaguesactive = true;
-        @scope.settingactive = true;
+        @scope.active = true
+        @scope.active1 = true
+        @scope.active2 = true
+        @scope.active3 = true
+        @scope.leaguesactive = true
+        @scope.settingactive = true
+
+    setupCurrentTime: ->
+        @scope.currentTime = new Date()

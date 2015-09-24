@@ -2,8 +2,8 @@ ion-item.match-item
     .club
         img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
         span.name {{r.home_club.name}}
-    .vs VS
-        p.time {{r.start_time|date:('HH:MM')}}
+    .vs.-live VS
+        .time {{r.start_time|date:('HH:MM')}}
     .club
         img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
         span.name {{r.away_club.name}}

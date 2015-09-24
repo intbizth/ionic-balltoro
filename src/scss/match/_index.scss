@@ -1,10 +1,18 @@
+@charset "UTF-8";
+
 $match-header-bg: #111F28;
 $match-header-text: #fff;
-$match-list-vs: #549AF7;
-$match-list-vs-text: $match-header-text;
+$match-item-live-vs: #549AF7;
+$match-item-live-vs-text: $match-header-text;
 $league-header-bg: #E6E7E8;
 $league-header-text: #58595B;
 $match-item-name-item: #000;
+$match-header-button-border: $match-header-text;
+$match-header-button-text: $match-header-button-border;
+$match-item-fulltime-text: $match-header-button-text;
+$match-item-nextmatch-text: $match-item-name-item;
+$match-vs-ft: $match-item-live-vs;
+$match-vs-ft-color: #fff;
 
 .match-header {
     background: $match-header-bg;
@@ -17,10 +25,25 @@ $match-item-name-item: #000;
         text-align: center;
     }
     .prev {
-        float: left;
+        background: transparent;
+        border: 2px solid $match-header-button-border;
+        color: $match-header-button-text;
+        &::before {
+            content: " \003c \003c ";
+        }
     }
     .next {
-        float: right;
+        background: transparent;
+        border: 2px solid $match-header-button-border;
+        color: $match-header-button-text;
+        width: 100%;
+        position: relative;
+        padding-left: 5px;
+        text-align: left;
+        &::after {
+            position: absolute;
+            content: " \003e \003e";
+        }
     }
 }
 
@@ -69,19 +92,41 @@ $match-item-name-item: #000;
     }
 
     .vs {
-        width: 18%;
+        width: 20%;
         text-align: center;
         min-height: 85px;
-        background: $match-list-vs;
-        color: $match-list-vs-text;
-        font-weight: bold;
         padding-top: 20px;
-        margin: 0 2px;
-        font-size: 1.8em;
         float: left;
+        margin: 0 auto;
+        &.-live {
+            background: $match-item-live-vs;
+            color: $match-item-live-vs-text;
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        &.-fulltime, &.-nextmatch {
+            font-size: 1.5em;
+            color: $match-item-fulltime-text;
+            font-weight: bold;
+        }
+        &.-nextmatch {
+            color: $match-item-nextmatch-text;
+            padding-top: 30px;
+            font-size: 1em;
+        }
         .time {
-            color: inherit;
-            margin-top: 5px;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+        .ft {
+            background: $match-vs-ft;
+            color: $match-vs-ft-color;
+            width: 50%;
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: normal;
+            margin-left: 13px;
+            border-radius: 4px;
         }
     }
 }
