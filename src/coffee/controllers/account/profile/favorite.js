@@ -8,9 +8,8 @@
     extend(Favorite, superClass);
 
     function Favorite($scope, $mdSidenav) {
-      $scope.toggleRight = function() {
-        console.log('Tog');
-        $mdSidenav('Toggle_right').toggle();
+      $scope.open = function() {
+        $mdSidenav('Toggle_right').open();
       };
       $scope.close = function() {
         return $mdSidenav('Toggle_right').close();

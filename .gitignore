@@ -10,3 +10,4 @@ www/css
 www/lib
 
 .idea/
+.idea/codeStyleSettings.xml

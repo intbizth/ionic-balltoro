@@ -1,7 +1,11 @@
 $background-content: #0F171E;
 $background-menu: #192837;
-$split-line: #1A3253;
+$favorite-menu-footer-border: #1A3253;
 $listview-active: #255a74;
+
+ion-view.bgColor {
+    background-color: $background-content;
+}
 
 .favorite-form {
     background-color: $background-content;
@@ -10,10 +14,11 @@ $listview-active: #255a74;
     padding-top: 38px;
     .listview {
         border-style: solid none solid;
-        border-color: $split-line;
+        border-color: $favorite-menu-footer-border;
         vertical-align: middle;
         padding-top: 8px;
         padding-bottom: 8px;
+        background-color: transparent;
     }
     .activated {
         background-color: $listview-active;
@@ -41,6 +46,7 @@ $listview-active: #255a74;
     .icon {
         width: 24px;
         margin-left: 10px;
+        background: none;
     }
     .footer {
         color: #185D85;
@@ -48,7 +54,7 @@ $listview-active: #255a74;
         font-size: 11px;
         border-style: solid none none;
         border-width: thin;
-        border-color: $split-line;
+        border-color: $favorite-menu-footer-border;
     }
     .activated {
         background-color: $listview-active;

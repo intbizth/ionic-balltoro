@@ -1,19 +1,19 @@
 ion-view(view-title='Team Favorite', class='favorite-form')
     //-------content-------//
-    md-content(flax, layout-padding, class='favorite-form')
+    md-content.favorite-form(flax, layout-padding)
         div(layout='column', layout-fill, layout-align='top center')
-        md-button(ng-click='toggleRight()', class='md-primary', hide-gt-md) Toggle Right (Angular btn)
+        md-button.md-primary(ng-click='open()', hide-gt-md) Toggle Right (Angular btn)
         div(class='list')
-            a(ng-href='#', class='item favorite-form listview', ng-repeat="team in myTeam")
+            a.item.favorite-form.listview(ng-href='#', ng-repeat="team in myTeam")
                 span {{team.name}}
 
     //-----Side menu-----//
-    md-sidenav(class='md-sidenav-right', md-component-id='Toggle_right', class='favorite-menu')
-        div(class='list favorite-menu')
-            a(ng-href='#', class='item favorite-menu', ng-repeat="team in teamList")
-                img(ng-src='{{team.imgURL}}', class="favorite-menu icon")
-                span(class='favorite-menu content') {{team.name}}
-        md-button(ng-click='close()', class='md-primary') X Close
-        div(class='favorite-menu footer')
-            p ท่านสามารถเลือกทีมโปรดของท่านได้ทั้ง 6 ลีกชั้นนำ ลักละ 1 ทีม ร่วมเล่นเกมทายผล และเกมทาย 11 ตัวจริงที่คาดว่าลงสนาม ก่อนเริ่มการแข่งขัน
-            p ผู้ทายถูกจะได้รับแต้ม เพื่อใช้แต้มร่วมสนุกกับกิจกรรมต่างๆ ของ balltoro
+    md-sidenav.md-sidenav-right.favorite-menu(md-component-id='Toggle_right')
+        div.list.favorite-menu
+            a.item.favorite-menu(ng-href='#', ng-repeat="team in teamList")
+                img.favorite-menu.icon(ng-src='{{team.imgURL}}')
+                span.favorite-menu.content {{team.name}}
+        md-button.md-primary(ng-click='close()') X Close
+        div.favorite-menu.footer
+            p {{ 'ui.t.favorite.sidemenu.info_1'|trans}}
+            p {{ 'ui.t.favorite.sidemenu.info_2'|trans}}

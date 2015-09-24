@@ -1,9 +1,8 @@
 class Favorite extends Controller
   constructor: ($scope, $mdSidenav) ->
 
-    $scope.toggleRight = ->
-      console.log 'Tog'
-      $mdSidenav('Toggle_right').toggle()
+    $scope.open = ->
+      $mdSidenav('Toggle_right').open()
       return
     $scope.close = ->
       $mdSidenav('Toggle_right').close()
