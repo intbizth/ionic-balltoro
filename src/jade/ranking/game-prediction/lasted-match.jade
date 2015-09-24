@@ -1,0 +1,54 @@
+.lasted-match
+    .subhead
+        .row
+            .halfcircle
+            .col-90
+                .title Lasted Match
+                    span.titleth   คะแนน 5 นัดล่าสุด
+    .subtitle เกมทายผล
+    .lastedMatch(ng-repeat="lastedPrediction in lastedPredictions")
+        .date {{lastedPrediction.date}}
+        .row.match
+            .col-37
+                .club(ng-class="{focus : lastedPrediction.scoreHome > lastedPrediction.scoreAway}")
+                    | {{lastedPrediction.homeClub}}
+                    span {{lastedPrediction.scoreHome}}
+            .col
+                .handicap {{lastedPrediction.handicap}}
+            .col-37
+                .club(ng-class="{focus : lastedPrediction.scoreAway > lastedPrediction.scoreHome}")
+                    | {{lastedPrediction.scoreAway}}
+                    span  {{lastedPrediction.awayClub}}
+            .col
+                .scorecolor {{lastedPrediction.scoreWinner}} คะแนน
+    .line
+    .row.total
+        .col-50
+            .resultname คะแนนรวม
+        .col-50
+            .sum 14
+                span.resultunit  คะแนน
+    .subtitle เกมทายสกอร์
+    .lastedMatch(ng-repeat="lastedPrediction in lastedPredictions")
+        .date {{lastedPrediction.date}}
+        .row.match
+            .col-37
+                .club {{lastedPrediction.homeClub}}
+                    span {{lastedPrediction.scoreHome}}
+            .col
+                .handicap {{lastedPrediction.handicap}}
+            .col-37
+                .club {{lastedPrediction.scoreAway}}
+                    span  {{lastedPrediction.awayClub}}
+            .col
+                .scorecolor {{lastedPrediction.scoreLine}} คะแนน
+        .row.match
+            .scorereal สกอร์จริง {{lastedPrediction.scoreReal}}
+    .line
+    .row.total
+        .col-50
+            .resultname คะแนนรวม
+        .col-50
+            .sum 7
+                span.resultunit  คะแนน
+    .line

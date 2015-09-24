@@ -28,6 +28,9 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 @import "user/register";
 @import "ranking/game-prediction";
 @import "ranking/game-prediction-show";
+@import "ranking/game-prediction/season-points";
+@import "ranking/game-prediction/mouth-points";
+@import "ranking/game-prediction/lasted_match";
 
 .loading-container {
     .loading {

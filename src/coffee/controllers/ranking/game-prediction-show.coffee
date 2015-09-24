@@ -27,7 +27,9 @@ class GamePredictionDetail extends Controller
             awayClub: "Suphanburi FC"
             scoreAway: 1
             handicap: "- 1.50"
-            score: 5
+            scoreWinner: 5
+            scoreLine: 1
+            scoreReal: "4 - 2"
         ,
             date: "17/01/15"
             homeClub: "Chonburi FC"
@@ -35,7 +37,9 @@ class GamePredictionDetail extends Controller
             awayClub: "Suphanburi FC"
             scoreAway: 2
             handicap: "+ 1.00"
-            score: 0
+            scoreWinner: 0
+            scoreLine: 1
+            scoreReal: "1 - 2"
         ,
             date: "08/10/14"
             homeClub: "Chonburi FC"
@@ -43,7 +47,9 @@ class GamePredictionDetail extends Controller
             awayClub: "Suphanburi FC"
             scoreAway: 1
             handicap: "+ 1.25"
-            score: 5
+            scoreWinner: 5
+            scoreLine: 3
+            scoreReal: "1 - 1"
         ,
             date: "20/10/14"
             homeClub: "Chonburi FC"
@@ -51,7 +57,9 @@ class GamePredictionDetail extends Controller
             awayClub: "Suphanburi FC"
             scoreAway: 1
             handicap: "- 0.25"
-            score: 0
+            scoreWinner: 0
+            scoreLine: 1
+            scoreReal: "2 - 0"
         ,
             date: "12/10/14"
             homeClub: "Chonburi FC"
@@ -59,5 +67,7 @@ class GamePredictionDetail extends Controller
             awayClub: "Suphanburi FC"
             scoreAway: 1
             handicap: "- 0.25"
-            score: 5
+            scoreWinner: 5
+            scoreLine: 1
+            scoreReal: "2 - 0"
         ];

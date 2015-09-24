@@ -1,0 +1,142 @@
+$season-points-bg: #213647;
+$subhead-color-bg: #418AC9;
+$title-color: #fff;
+$halfCircle-color-bg: $season-points-bg;
+$bar-color-bg: #EEEDED;
+$bar-color: $halfCircle-color-bg;
+$subtitle-color: $title-color;
+$titlebar-color: $bar-color;
+$point-bar-color-bg: $subtitle-color;
+$point-bar-color: $titlebar-color;
+$score-color: $point-bar-color;
+$scorecolor-color: #F2A83B;
+$point-border-color: #939598;
+$point-color: $scorecolor-color;
+$line-color-bg: #549AF7;
+$resultname-color: $score-color;
+$resultunit-color: $resultname-color;
+$precisely-color-bg: $point-bar-color-bg;
+$precisely-color: $resultunit-color;
+$percent-color: #4188C7;
+$total-color-bg: $bar-color-bg;
+$total-color: $precisely-color;
+$sum-color: #F7941E;
+
+.season-points {
+    background: $season-points-bg;
+    .row {
+        padding: 0px;
+    }
+    .subhead {
+        background: $subhead-color-bg;
+        position: relative;
+        margin: 5px 0 0 5px;
+        .halfcircle {
+            height:40px;
+            width:20px;
+            border-radius: 0 20px 20px 0;
+            background:$halfCircle-color-bg;
+        }
+        .title {
+            font-size: 20px;
+            color: $title-color;
+            padding: 8px 0 8px 10px;
+        }
+        .titleth {
+            font-size: small;
+        }
+    }
+    .subtitle {
+        font-size: 18px;
+        color: $subtitle-color;
+        padding: 10px 0 10px 35px;
+        position: relative;
+    }
+    .bar {
+        background: $bar-color-bg;
+        padding: 5px 0;
+        height: inherit;
+        position: relative;
+        .col {
+            padding: 0px;
+        }
+    }
+    .titlebar {
+        color: $titlebar-color;
+        text-align: center;
+    }
+    .score {
+        font-size: 18px;
+        font-weight: bold;
+        margin-top: 5px;
+        color: $score-color;
+    }
+    .scorecolor {
+        color: $scorecolor-color;
+        padding: 5px 0;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .point-bar {
+        background: $point-bar-color-bg;
+        position: relative;
+        padding: 5px 0;
+        height: inherit;
+        text-align: center;
+        span {
+            padding-left: 15px;
+        }
+        .unit {
+            color: $point-bar-color;
+        }
+        .point-border {
+            border-right: solid $point-border-color 1px;
+            margin-bottom: -5px;
+        }
+    }
+    .line {
+        background: $line-color-bg;
+        height: 5px;
+    }
+    .precisely {
+        background: $precisely-color-bg;
+        position: relative;
+        .col-50 {
+            float: left;
+            .percent {
+                color: $percent-color;
+                font-size: 30px;
+                font-weight: bold;
+                float: left;
+                margin-left: 43%;
+                padding: 10px;
+            }
+        }
+    }
+    .resultname {
+        color: $resultname-color;
+        font-size: 20px;
+        font-weight: bold;
+        margin: 10px 0 10px 25px;
+    }
+    .resultunit {
+        color: $resultunit-color;
+        font-weight: bold;
+        font-size: 18px;
+    }
+    .total {
+        background: $total-color-bg;
+        position: relative;
+        .col-50 {
+            float: left;
+            .sum {
+                color: $sum-color;
+                font-size: 30px;
+                font-weight: 700;
+                float: left;
+                margin-left: 43%;
+                padding: 10px;
+            }
+        }
+    }
+}
