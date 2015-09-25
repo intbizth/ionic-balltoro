@@ -1,6 +1,16 @@
-//.pane {
-//    // TODO: handle other platforms.
-//    &.has-header {
-//        top: 44px !important;
-//    }
-//}
+$player-position-md-active-bg: #549AF7;
+$player-position-md-active-text: #fff;
+
+.pane {
+    // TODO: handle other platforms.
+    &.has-header {
+        top: 44px !important;
+    }
+}
+
+.player-position {
+    .md-active {
+        background: $player-position-md-active-bg;
+        color: $player-position-md-active-text !important;
+    }
+}

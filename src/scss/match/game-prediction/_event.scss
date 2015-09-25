@@ -76,10 +76,9 @@ $event-description-point: $match-events-dot-normal;
 
 .event-description {
     background: $event-description-bg;
-    padding: 10px 3px;
+    padding: 8px 15px;
     overflow: hidden;
     text-align: center;
-    font-size: 12px;
     border-top: 2px solid $event-description-border;
     border-bottom: 2px solid $event-description-border;
     .event {

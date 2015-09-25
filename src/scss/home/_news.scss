@@ -1,5 +1,6 @@
 $news-header-bg: #111F28;
 $news-header-text: #fff;
+$news-header-views: $news-header-text;
 
 .news-header {
     background: $news-header-bg;
@@ -12,5 +13,8 @@ $news-header-text: #fff;
         font-size: 14px;
         font-weight: normal;
         color: inherit;
+        text-decoration: none;
+        border: 2px solid $news-header-views;
+        padding: 0 5px;
     }
 }

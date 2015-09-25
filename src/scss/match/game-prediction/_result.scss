@@ -1,7 +1,9 @@
+$prediction-result-bg: #000011;
+
 .prediction-result {
     padding: 35px;
     text-align: center;
     width: 100%;
     overflow: hidden;
-    background: #000011;
+    background: $prediction-result-bg;
 }

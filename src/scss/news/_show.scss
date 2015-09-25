@@ -4,8 +4,9 @@ $news-show-date: #6E6D72;
 $news-show-divider: $news-show-date;
 $news-show-author: $news-show-divider;
 $news-show-content: #22A9E1;
-$news-show-subhead: #231F20;
-$news-show-desc: #3c3c3c;
+$news-show-subhead: #252122;
+$news-show-desc: #939498;
+$news-show-detail: $news-show-desc;
 
 .news-show {
     background: $news-show-bg;
@@ -37,22 +38,37 @@ $news-show-desc: #3c3c3c;
     }
     .content {
         margin: 30px 0;
+        font-size: 16px;
         &:before, &:after {
             content: "//////////";
             color: $news-show-content;
-            font-size: 24px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        .headline {
+            margin: 15px 0;
+        }
+        .subhead {
+            color: $news-show-subhead;
+        }
+        .desc {
+            margin-top: 10px;
+            color: $news-show-desc;
+        }
+        .highlight {
+            margin: 15px 0;
+            &:before, &:after {
+                content: "//////////";
+                color: $news-show-content;
+                font-size: 10px;
+                font-weight: bold;
+            }
+        }
+        .detail {
+            color: $news-show-detail;
+            margin-bottom: 15px;
         }
     }
-    .headline {
-        margin: 15px 0;
-    }
-    .subhead {
-        color: $news-show-subhead;
-    }
-    .desc {
-        color: $news-show-desc;
-    }
-
 }
 
 .-clearfix {

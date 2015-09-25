@@ -16,14 +16,14 @@
     .header League Table
     .row.titles
         .col Pos
-        .col.col-50 Team
+        .col(flex="40") Team
         .col P
         .col GD
         .col Pts
         .col
     .row.home
         .col {{r.home_club.id}}
-        .col.col-50 {{r.home_club.name}}
+        .col(flex="40") {{r.home_club.name}}
         .col 1
         .col 1
         .col 1
@@ -32,7 +32,7 @@
                 .up
     .row.away
         .col {{r.home_club.id}}
-        .col.col-50 {{r.away_club.name}}
+        .col(flex="40") {{r.away_club.name}}
         .col 1
         .col 1
         .col 1

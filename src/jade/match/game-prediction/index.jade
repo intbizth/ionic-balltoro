@@ -1,15 +1,28 @@
 .league-header
     .logo
     .league {{r.season.name}}
-ion-item.match-item
+
+ion-item.match-item.match-statistic
     .club
         img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
         span.name {{r.home_club.name}}
-    .vs.-live VS
+    .vs.-live(ng-if="r.is_live")
+        | {{r.result}}
+        //TODO: time must be live timestamp
         .time {{r.start_time|date:('HH:MM')}}
+
+    .vs.-fulltime(ng-if="r.is_full_time")
+        | {{r.result}}
+        .ft FT
+
+    .vs.-nextmatch(ng-if="!r.is_full_time && !r.is_live")
+        | VS
+        div {{r.start_time|date:('HH:MM')}}
+
     .club
         img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
         span.name {{r.away_club.name}}
+
 .handicap-bar Handicap
     span.title {{r.handicap}}
 

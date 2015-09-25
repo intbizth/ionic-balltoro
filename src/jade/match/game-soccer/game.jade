@@ -1,34 +1,103 @@
 .anfield-content
 
-md-tabs.player-tab
+md-tabs.player-position
     md-tab(label="All")
         md-content
-            .lists(layout="row")
-                .position(flex)
+            .lists(layout="row", ng-repeat="a in r")
+                .position
                     .mf
-                .avatar(flex)
-                    img
-                .nationality(flex)
-                    img
-                .username(flex="35")
-                    .name AAAAAAAA  SSSSS ssffglh;dslsd;g
-                .yellow(flex)
+                .avatar
+                .nationality
+                .username(flex="30")
+                    .name AAAAAAAA  SSSSS
+                .yellow
                     .cards
                     span 5
-                .red(flex)
+                .red
                     .cards
                     span 5
-                .total(flex)
-                    img(src="img/sidebar/match_2x.png")
+                .total
                     .ball
                     span 5
-                .watch(flex)
-
-    md-tab
-        label="GK"
-    md-tab
-        label="DF"
-    md-tab
-        label="MF"
-    md-tab
-        label="CF"
+                .watch
+                    i.ion-ios-eye
+    md-tab(label="GK")
+        md-content
+            .lists(layout="row", ng-repeat="a in r")
+                .position
+                    .gk
+                .avatar
+                .nationality
+                .username(flex="30")
+                    .name AAAAAAAA  SSSSS
+                .yellow
+                    .cards
+                    span 5
+                .red
+                    .cards
+                    span 5
+                .total
+                    .ball
+                    span 5
+                .watch
+                    i.ion-ios-eye
+    md-tab(label="DF")
+        md-content
+            .lists(layout="row", ng-repeat="a in r")
+                .position
+                    .df
+                .avatar
+                .nationality
+                .username(flex="30")
+                    .name AAAAAAAA  SSSSS
+                .yellow
+                    .cards
+                    span 5
+                .red
+                    .cards
+                    span 5
+                .total
+                    .ball
+                    span 5
+                .watch
+                    i.ion-ios-eye
+    md-tab(label="MF")
+        md-content
+            .lists(layout="row", ng-repeat="a in r")
+                .position
+                    .mf
+                .avatar
+                .nationality
+                .username(flex="30")
+                    .name AAAAAAAA  SSSSS
+                .yellow
+                    .cards
+                    span 5
+                .red
+                    .cards
+                    span 5
+                .total
+                    .ball
+                    span 5
+                .watch
+                    i.ion-ios-eye
+    md-tab(label="CF")
+        md-content
+            .lists(layout="row", ng-repeat="a in r")
+                .position
+                    .cf
+                .avatar
+                .nationality
+                .username(flex="30")
+                    .name AAAAAAAA  SSSSS
+                .yellow
+                    .cards
+                    span 5
+                .red
+                    .cards
+                    span 5
+                .total
+                    .ball
+                    span 5
+                .watch
+                    i.ion-ios-eye

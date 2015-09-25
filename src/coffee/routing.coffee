@@ -67,31 +67,12 @@ class Routing extends Config then constructor: (
                 controller: 'matchShowController'
                 templateUrl: 'templates/match/statistic/index.html'
 
-    state 'app.search',
-        url: '/search'
+    state 'app.leagues',
+        url: '/leagues'
         views:
             content:
-                templateUrl: 'templates/search.html'
-
-    state 'app.browse',
-        url: '/browse'
-        views:
-            content:
-                templateUrl: 'templates/browse.html'
-
-    state 'app.playlists',
-        url: '/playlists'
-        views:
-            content:
-                controller: 'playlistsController'
-                templateUrl: 'templates/playlists.html'
-
-    state 'app.single',
-        url: '/playlists/:playlistId'
-        views:
-            content:
-                controller: 'playlistController'
-                templateUrl: 'templates/playlist.html'
+                controller: 'leaguesController'
+                templateUrl: 'templates/league/index.html'
 
     state 'app.news',
         url: '/news'

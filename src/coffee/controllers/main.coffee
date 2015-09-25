@@ -22,7 +22,6 @@ class Main extends Controller
         @setupLogin()
         @setupMenus()
         @setupCollapse()
-        @setupCurrentTime()
 
 # @param {object} $scope App root scope.
     setupLogin: ->
@@ -64,8 +63,8 @@ class Main extends Controller
     setupMenus: ->
         @scope.menus =
             leagues: [
-                {text: 'Thai Premier League', link: '', logo: ''}
-                {text: 'English Premier League', link: '', logo: ''}
+                {text: 'Thai Premier League', link: 'app.leagues', logo: ''}
+                {text: 'English Premier League', link: 'app.leagues', logo: ''}
             ]
 
             setting: [
@@ -80,6 +79,3 @@ class Main extends Controller
         @scope.active3 = true
         @scope.leaguesactive = true
         @scope.settingactive = true
-
-    setupCurrentTime: ->
-        @scope.currentTime = new Date()
