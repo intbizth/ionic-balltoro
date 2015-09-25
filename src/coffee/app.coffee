@@ -9,6 +9,7 @@ class App extends App then constructor: ->
         'ngAnimate'
         'ngTouch'
         'angular-carousel'
+        'ngIOS9UIWebViewPatch'
     ]
 
 # TODO:
