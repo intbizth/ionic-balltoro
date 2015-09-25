@@ -1,34 +1,31 @@
 $lasted-match-bg: #213647;
 $subhead-color-bg: #418AC9;
 $title-color: #fff;
-$halfcircle-color-bg: $lasted-match-bg;
-$bar-color-bg: #EEEDED;
-$bar-color: $halfcircle-color-bg;
 $subtitle-color: $title-color;
-$titlebar-color: $bar-color;
-$point-bar-color-bg: $subtitle-color;
-$point-bar-color: $titlebar-color;
+$halfcircle-color-bg: $lasted-match-bg;
+$date-color-bg: #EEEDED;
+$date-color: $halfcircle-color-bg;
+$match-color: $date-color;
+$match-color-bg: $subtitle-color;
+$handicap-color: #549AF7;
+$line-color-bg: $handicap-color;
 $scorecolor-color: #F2A83B;
-$scorereal-color: $point-bar-color;
-$point-border-color: #939598;
-$line-color-bg: #549AF7;
+$scorereal-color: $match-color;
 $resultname-color: $scorereal-color;
 $resultunit-color: $resultname-color;
-$total-color-bg: $bar-color-bg;
-$total-color: $precisely-color;
+$total-color-bg: $date-color-bg;
 $sum-color: #F7941E;
+$focus-color-bg: #F8EC7D;
 
 .lasted-match {
     background: $lasted-match-bg;
+    margin-top: 5px;
     .row {
         padding: 0px;
     }
     .subhead {
         background: $subhead-color-bg;
-        position: relative;
-        margin-left: 5px;
         .halfcircle {
-            height:40px;
             width:20px;
             border-radius: 0 20px 20px 0;
             background:$halfcircle-color-bg;
@@ -46,7 +43,6 @@ $sum-color: #F7941E;
         font-size: 18px;
         color: $subtitle-color;
         padding: 10px 0 10px 35px;
-        position: relative;
     }
     .line {
         background: $line-color-bg;
@@ -75,32 +71,24 @@ $sum-color: #F7941E;
     }
     .total {
         background: $total-color-bg;
-        position: relative;
-        .col-50 {
+        .sum {
+            color: $sum-color;
+            font-size: 30px;
+            font-weight: 700;
             float: left;
-            .sum {
-                color: $sum-color;
-                font-size: 30px;
-                font-weight: 700;
-                float: left;
-                margin-left: 43%;
-                padding: 10px;
-            }
+            margin-left: 43%;
+            padding: 10px;
         }
     }
     .date {
         background: $date-color-bg;
-        position: relative;
         font-size: 14px;
         color: $date-color;
         padding: 5px 0 5px 25px;
-        margin: 0px;
     }
     .match {
         background: $match-color-bg;
         padding: 5px 0;
-        position: relative;
-        height: inherit;
         .col-37 {
             padding: 0px;
             margin-left: 15px;
@@ -119,7 +107,7 @@ $sum-color: #F7941E;
         text-align: center;
     }
     .focus {
-        background-color: #F8EC7D;
+        background-color: $focus-color-bg;
         padding: 0 8px;
         color: $match-color;
     }

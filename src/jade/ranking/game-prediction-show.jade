@@ -1,28 +1,29 @@
 .game-predict-detail
     .row
         .col-50
-            img.user.img-circle(ng-src="./img/ranking/display_null.png")
-            p Liverpool 2015
-        .border.col-50
-            img(ng-src="./img/ranking/icon-chonburi.png")
-            p ChonburiFC
-    .pointUser(ng-repeat="pointUser in pointUsers")
-        img.bg(ng-src="{{pointUser.bg}}")
-        .row
-            .point
-                .pts Pts
-                .score
-                    h3 {{pointUser.score}}
-            .col-50
-                h4 {{pointUser.game}}
-                small {{pointUser.gameEn}}
-            .col-20
-                h2 {{pointUser.point}}
+            img.image.user(ng-src="./img/ranking/display_null.png")
+            .name Liverpool 2015
+        .infoborder.col-50
+            img.image(ng-src="./img/ranking/icon-chonburi.png")
+            .name Chonburi FC
+    .bg
+        .pointUser(ng-repeat="pointUser in pointUsers" ng-class="{bg2 : pointUser.game == 'เกมทายสกอร์'}")
+            .row
+                .point
+                    .pts Pts
+                    .scorebd
+                        .score {{pointUser.score}}
+                .col-50
+                    .game {{pointUser.game}}
+                    .gameEn {{pointUser.gameEn}}
+                .col-20
+                    .tally {{pointUser.point}}
 
     include ./game-prediction/season-points
-    include ./game-prediction/mouth-points
+    include ./game-prediction/month-points
     include ./game-prediction/lasted-match
 
-    .row.history
-            p History ประวัติการทายผลทั้งหมด
+    .row
+        .history History ประวัติการทายผลทั้งหมด
     .line
+    .footer

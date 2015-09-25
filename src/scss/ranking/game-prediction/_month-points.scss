@@ -1,7 +1,7 @@
-$mouth-points-bg: #213647;
+$month-points-bg: #213647;
 $subhead-color-bg: #418AC9;
 $title-color: #fff;
-$halfcircle-color-bg: $mouth-points-bg;
+$halfcircle-color-bg: $month-points-bg;
 $bar-color-bg: #EEEDED;
 $bar-color: $halfcircle-color-bg;
 $subtitle-color: $title-color;
@@ -16,20 +16,17 @@ $line-color-bg: #549AF7;
 $resultname-color: $score-color;
 $resultunit-color: $resultname-color;
 $total-color-bg: $bar-color-bg;
-$total-color: $precisely-color;
 $sum-color: #F7941E;
 
-.mouth-points {
-    background: $mouth-points-bg;
+.month-points {
+    background: $month-points-bg;
+    margin-top: 5px;
     .row {
         padding: 0px;
     }
     .subhead {
         background: $subhead-color-bg;
-        position: relative;
-        margin-left: 5px;
         .halfcircle {
-            height:40px;
             width:20px;
             border-radius: 0 20px 20px 0;
             background:$halfcircle-color-bg;
@@ -47,7 +44,6 @@ $sum-color: #F7941E;
         font-size: 18px;
         color: $subtitle-color;
         padding: 10px 0 10px 35px;
-        position: relative;
     }
     .bar {
         background: $bar-color-bg;
@@ -76,9 +72,7 @@ $sum-color: #F7941E;
     }
     .point-bar {
         background: $point-bar-color-bg;
-        position: relative;
         padding: 5px 0;
-        height: inherit;
         text-align: center;
         span {
             padding-left: 15px;
@@ -108,17 +102,12 @@ $sum-color: #F7941E;
     }
     .total {
         background: $total-color-bg;
-        position: relative;
-        .col-50 {
-            float: left;
-            .sum {
-                color: $sum-color;
-                font-size: 30px;
-                font-weight: 700;
-                float: left;
-                margin-left: 43%;
-                padding: 10px;
-            }
+        .sum {
+            color: $sum-color;
+            font-size: 30px;
+            font-weight: 700;
+            margin-left: 43%;
+            padding: 10px;
         }
     }
 }

@@ -1,110 +1,128 @@
-$game-predict-detail-bg: #213647;
-$game-predict-detail-text: #fff;
-$username-color: #F2A83B;
-$img-user-border: $game-predict-detail-text;
+$game-predict-detail: #213647;
+$name-color: #F2A83B;
+$img-user-border: #fff;
 $border-info-color: #0079FF;
 $pts-color: #FAAF40;
-$score-color-bg: #549AF7;
-$subhead-color-bg: #418AC9;
-$bar-color-bg: #EEEDED;
-$bar-color: $game-predict-detail-bg;
-$point-bar-color-bg: $game-predict-detail-text;
-$point-bar-color: $bar-color;
-$point-border-color: #939598;
-$point-color: $username-color;
-$line-color-bg: #549AF7;
-$history-color: $match-color-bg;
+$scorebd-color-bg: #549AF7;
+$score-color: $img-user-border;
+$game-color: $score-color;
+$tally-color: $game-color;
+$line-color-bg: #418AC9;
+$gradientbg-color: $game-predict-detail;
+$gradientbg2-color: $score-color;
+$history-color: $gradientbg2-color;
+$history-border: $history-color;
+$footer-color-bg: #294051;
 
 .game-predict-detail {
-    background: $game-predict-detail-bg;
-    color: $game-predict-detail-text;
+    background: $game-predict-detail;
     .row {
-        padding: 8px;
+        padding: 10px 0;
+    }
+    .name {
+        color: $name-color;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .user {
+        width: 70px;
+        height: 70px;
+        border: 3px $img-user-border solid;
+        border-radius: 50%;
+    }
+    .image {
+        margin: 0 auto;
+        display: block;
+    }
+    .infoborder {
+        border-left: solid $border-info-color 3px;
+    }
+    .game {
+        color: $game-color;
+        margin-left: 20px;
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .gameEn {
+        color: $game-color;
+        margin-left: 20px;
+        font-size: small;
     }
     .bg {
-        position: absolute;
+        position: relative;
+        height: inherit;
         width: 100%;
-        overflow: inherit;
-        height: 4%;
+        background: -moz-linear-gradient(150deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
+        background: -webkit-gradient(linear, left top, right bottom, color-stop(50%, $gradientbg-color), color-stop(55%,
+                    $gradientbg-color), color-stop(100%, $gradientbg2-color));
+        background: -webkit-linear-gradient(150deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
+        background: -o-linear-gradient(150deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
+        background: -ms-linear-gradient(150deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
+        background: linear-gradient(300deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$gradientbg-color',
+                endColorstr='$gradientbg2-color',GradientType=1 );
+    }
+    .bg2{
+        background: $gradientbg-color;
+        position: relative;
+        height: inherit;
+        width: 100%;
     }
     .point {
         width: 120px;
-        float: right;
-        z-index: 5;
         position: absolute;
         right: 3%;
-        margin-top: 15px;
+        margin-top: 10px;
         margin-right: 10px;
         .pts {
             color: $pts-color;
-            position: relative;
             float: left;
-            z-index: 3;
-            text-align: center;
-            margin-top: 8px;
-            margin-left: 25px;
+            margin-top: 5px;
+            margin-left: 15px;
+            font-weight: bold;
+            font-size: 18px;
+
         }
-        .score {
+        .scorebd {
             width: 70px;
             height: 30px;
             border-radius: 5px;
-            background: $score-color-bg;
-            z-index: 2;
-            position: relative;
+            background: $scorebd-color-bg;
             float: right;
             text-align: center;
-            padding: 3px;
-            h3 {
-                color: $game-predict-detail-text;
-                margin: 0;
+            padding: 4px;
+            .score {
+                color: $score-color;
+                margin: 0 auto;
                 font-size: 20px;
+                font-weight: bold;
             }
         }
     }
-    .col-50 {
-        z-index: 2;
-        p {
-            color: $username-color;
-            text-align: center;
-            margin-top: 10px;
-            margin-bottom: 10px;
-        }
-        .user {
-            width: 70px;
-            height: 70px;
-            border: 3px $img-user-border solid;
-            border-radius: 50%;
-        }
-        img {
-            display: block;
-            margin: 0 auto;
-        }
-        small {
-            color: $game-predict-detail-text;
-            margin-left: 20px;
-        }
-        h4 {
-            color: $game-predict-detail-text;
-            margin-left: 20px;
-            margin-bottom: 10px;
-        }
-    }
-    .col-20 {
-        position: relative;
-        text-align: center;
-        h2 {
-            color: $game-predict-detail-text;
-            margin-bottom: 0px;
-            margin-top: 5px;
-            float: left;
-            margin-left: 8px;
-        }
-    }
-    .border {
-        border-left: solid $border-info-color 3px;
+    .tally {
+        color: $tally-color;
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+        font-size: 30px;
+        font-weight: bold;
     }
     .line {
         background: $line-color-bg;
         height: 5px;
+    }
+    .history {
+        color: $history-color;
+        padding: 10px 50px;
+        border: solid $history-border 3px;
+        font-size: 18px;
+        margin: 5px auto;
+
+    }
+    .footer {
+        background: $footer-color-bg;
+        height: 20px;
+        margin-top: 10px;
     }
 }

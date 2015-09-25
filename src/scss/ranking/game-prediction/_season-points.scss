@@ -1,9 +1,9 @@
 $season-points-bg: #213647;
 $subhead-color-bg: #418AC9;
+$halfcircle-color-bg: $season-points-bg;
 $title-color: #fff;
-$halfCircle-color-bg: $season-points-bg;
 $bar-color-bg: #EEEDED;
-$bar-color: $halfCircle-color-bg;
+$bar-color: $halfcircle-color-bg;
 $subtitle-color: $title-color;
 $titlebar-color: $bar-color;
 $point-bar-color-bg: $subtitle-color;
@@ -29,13 +29,10 @@ $sum-color: #F7941E;
     }
     .subhead {
         background: $subhead-color-bg;
-        position: relative;
-        margin: 5px 0 0 5px;
         .halfcircle {
-            height:40px;
             width:20px;
             border-radius: 0 20px 20px 0;
-            background:$halfCircle-color-bg;
+            background:$halfcircle-color-bg;
         }
         .title {
             font-size: 20px;
@@ -50,7 +47,6 @@ $sum-color: #F7941E;
         font-size: 18px;
         color: $subtitle-color;
         padding: 10px 0 10px 35px;
-        position: relative;
     }
     .bar {
         background: $bar-color-bg;
@@ -79,9 +75,7 @@ $sum-color: #F7941E;
     }
     .point-bar {
         background: $point-bar-color-bg;
-        position: relative;
         padding: 5px 0;
-        height: inherit;
         text-align: center;
         span {
             padding-left: 15px;
@@ -100,14 +94,12 @@ $sum-color: #F7941E;
     }
     .precisely {
         background: $precisely-color-bg;
-        position: relative;
         .col-50 {
             float: left;
             .percent {
                 color: $percent-color;
                 font-size: 30px;
                 font-weight: bold;
-                float: left;
                 margin-left: 43%;
                 padding: 10px;
             }
@@ -118,6 +110,7 @@ $sum-color: #F7941E;
         font-size: 20px;
         font-weight: bold;
         margin: 10px 0 10px 25px;
+        float: left;
     }
     .resultunit {
         color: $resultunit-color;
@@ -126,17 +119,12 @@ $sum-color: #F7941E;
     }
     .total {
         background: $total-color-bg;
-        position: relative;
-        .col-50 {
-            float: left;
-            .sum {
-                color: $sum-color;
-                font-size: 30px;
-                font-weight: 700;
-                float: left;
-                margin-left: 43%;
-                padding: 10px;
-            }
+        .sum {
+            color: $sum-color;
+            font-size: 30px;
+            font-weight: 700;
+            margin-left: 43%;
+            padding: 10px;
         }
     }
 }

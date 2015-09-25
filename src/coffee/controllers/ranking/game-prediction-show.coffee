@@ -1,19 +1,16 @@
 class GamePredictionDetail extends Controller
     constructor: ($scope) ->
         $scope.pointUsers = [
-            bg: "./img/ranking/bg-point-user.png"
             game: "เกมทายผลทายสกอร์"
             gameEn: "Ranking"
             point: 0
             score: 0
         ,
-            bg: "./img/ranking/bg-point-user2.png"
             game: "เกมทายสกอร์"
             gameEn: "Ranking"
             point: 0
             score: 0
         ,
-            bg: "./img/ranking/bg-point-user3.png"
             game: "เกมทาย 11 ตัวจริง"
             gameEn: "Ranking"
             point: 0
