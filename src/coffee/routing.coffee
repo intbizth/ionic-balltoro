@@ -95,6 +95,7 @@ class Routing extends Config then constructor: (
                 controller: 'registerController'
                 templateUrl: 'templates/user/register.html'
 
+
     state 'app.profile',
         url: '/profile'
         views:
@@ -118,6 +119,41 @@ class Routing extends Config then constructor: (
         views:
             content:
                 templateUrl: 'templates/account/profile/favorite.html'
+
+    state 'app.ranking',
+        url: '/ranking'
+        abstract: yes
+        views:
+            content:
+                controller: 'rankingIndexController'
+                templateUrl: 'templates/ranking/index.html'
+
+    state 'app.ranking.game-prediction',
+        url: '/game-prediction'
+        views:
+            'game-prediction':
+                controller: 'gamePredictionController'
+                templateUrl: 'templates/ranking/game-prediction.html'
+
+    state 'app.ranking.game-prediction-show',
+        url: '/game-prediction/show/:id'
+        views:
+            'game-prediction':
+                controller: 'gamePredictionDetailController'
+                templateUrl: 'templates/ranking/game-prediction-show.html'
+
+    state 'app.ranking.game-score',
+        url: '/game-score'
+        views:
+            'game-score':
+                templateUrl: 'templates/ranking/game-score.html'
+
+    state 'app.ranking.game-player',
+        url: '/game-player'
+        views:
+            'game-player':
+                controller: 'gamePlayerController'
+                templateUrl: 'templates/ranking/game-player.html'
 
     # if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise '/app/home/index'

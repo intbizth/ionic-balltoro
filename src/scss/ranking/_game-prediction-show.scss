@@ -1,0 +1,128 @@
+$game-predict-detail: #213647;
+$name-color: #F2A83B;
+$img-user-border: #fff;
+$border-info-color: #0079FF;
+$pts-color: #FAAF40;
+$scorebd-color-bg: #549AF7;
+$score-color: $img-user-border;
+$game-color: $score-color;
+$tally-color: $game-color;
+$line-color-bg: #418AC9;
+$gradientbg-color: $game-predict-detail;
+$gradientbg2-color: $score-color;
+$history-color: $gradientbg2-color;
+$history-border: $history-color;
+$footer-color-bg: #294051;
+
+.game-predict-detail {
+    background: $game-predict-detail;
+    .row {
+        padding: 10px 0;
+    }
+    .name {
+        color: $name-color;
+        text-align: center;
+        margin-top: 10px;
+    }
+    .user {
+        width: 70px;
+        height: 70px;
+        border: 3px $img-user-border solid;
+        border-radius: 50%;
+    }
+    .image {
+        margin: 0 auto;
+        display: block;
+    }
+    .infoborder {
+        border-left: solid $border-info-color 3px;
+    }
+    .game {
+        color: $game-color;
+        margin-left: 20px;
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: bold;
+    }
+    .gameEn {
+        color: $game-color;
+        margin-left: 20px;
+        font-size: small;
+    }
+    .bg {
+        position: relative;
+        height: inherit;
+        width: 100%;
+        background: -moz-linear-gradient(150deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
+        background: -webkit-gradient(linear, left top, right bottom, color-stop(50%, $gradientbg-color), color-stop(55%,
+                    $gradientbg-color), color-stop(100%, $gradientbg2-color));
+        background: -webkit-linear-gradient(150deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
+        background: -o-linear-gradient(150deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
+        background: -ms-linear-gradient(150deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
+        background: linear-gradient(300deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
+        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$gradientbg-color',
+                endColorstr='$gradientbg2-color',GradientType=1 );
+    }
+    .bg2{
+        background: $gradientbg-color;
+        position: relative;
+        height: inherit;
+        width: 100%;
+    }
+    .point {
+        width: 120px;
+        position: absolute;
+        right: 3%;
+        margin-top: 10px;
+        margin-right: 10px;
+        .pts {
+            color: $pts-color;
+            float: left;
+            margin-top: 5px;
+            margin-left: 15px;
+            font-weight: bold;
+            font-size: 18px;
+
+        }
+        .scorebd {
+            width: 70px;
+            height: 30px;
+            border-radius: 5px;
+            background: $scorebd-color-bg;
+            float: right;
+            text-align: center;
+            padding: 4px;
+            .score {
+                color: $score-color;
+                margin: 0 auto;
+                font-size: 20px;
+                font-weight: bold;
+            }
+        }
+    }
+    .tally {
+        color: $tally-color;
+        margin-top: 10px;
+        margin-left: 10px;
+        float: left;
+        font-size: 30px;
+        font-weight: bold;
+    }
+    .line {
+        background: $line-color-bg;
+        height: 5px;
+    }
+    .history {
+        color: $history-color;
+        padding: 10px 50px;
+        border: solid $history-border 3px;
+        font-size: 18px;
+        margin: 5px auto;
+
+    }
+    .footer {
+        background: $footer-color-bg;
+        height: 20px;
+        margin-top: 10px;
+    }
+}

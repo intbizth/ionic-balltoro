@@ -52,6 +52,7 @@ ion-side-menus(enable-menu-with-back-views='false')
             ion-list.list-menu(ng-hide="IsLoggedIn")
                 ion-item.main(menu-close='', ng-click='login()')
                     | {{'ui.t.main.menus.login'|trans}}
+
                 ion-item.main(menu-close='', ui-sref='app.register')
                     | {{'ui.t.main.menus.signin'|trans}}
 
