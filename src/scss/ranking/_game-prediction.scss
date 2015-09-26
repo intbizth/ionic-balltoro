@@ -1,6 +1,6 @@
 $game-prediction-text: #fff;
 $game-prediction-bg: #213647;
-$row-border-color: #00b4ea;
+$row-border-color: #4089C8;
 $pts-color: #FAAF40;
 $score-color-bg: #549AF7;
 $img-user-border-color: $game-prediction-text;
@@ -13,12 +13,51 @@ $rating-color-bg: #4089C8;
     a {
         text-decoration: none;
     }
-    h4,h5,h6 {
-        margin-top: 0px;
-        margin-bottom: 2px;
-    }
     .row {
         border-bottom: solid $row-border-color 1px;
+    }
+    .info {
+        padding: 10px;
+        width: 100%;
+        position: relative;
+        .user {
+            float: left;
+            margin-right: 10px;
+            width: 50px;
+            height: 50px;
+            border: 2px $img-user-border-color solid;
+            border-radius: 50%;
+        }
+        .rating {
+            width: 20px;
+            height: 20px;
+            border: 2px $rating-border-color solid;
+            border-radius: 50%;
+            position: absolute;
+            margin-top: 37px;
+            margin-left: 15px;
+            background: $rating-color-bg;
+            text-align: center;
+            h3 {
+                margin: 1px;
+                font-size: 12px;
+                color: $game-prediction-text;
+            }
+        }
+        .username {
+            width: 70%;
+            color: $game-prediction-text;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        .count {
+            font-size: 12px;
+            color: $game-prediction-text;
+            .color {
+                color: $count-color;
+                font-size: small;
+            }
+        }
     }
     .point {
         width: 120px;
@@ -54,47 +93,4 @@ $rating-color-bg: #4089C8;
             }
         }
     }
-    .info {
-        padding: 10px;
-        width: 100%;
-        position: relative;
-        .user {
-            float: left;
-            margin-right: 10px;
-            width: 50px;
-            height: 50px;
-            border: 2px $img-user-border-color solid;
-            border-radius: 50%;
-        }
-        .rating {
-            width: 20px;
-            height: 20px;
-            border: 3px $rating-border-color solid;
-            border-radius: 50%;
-            position: absolute;
-            margin-top: 37px;
-            margin-left: 15px;
-            background: $rating-color-bg;
-            text-align: center;
-            h3 {
-                margin: 1px;
-                font-size: 8px;
-                color: $game-prediction-text;
-            }
-        }
-        .username {
-            color: $game-prediction-text;
-            margin-top: 5px;
-            font-size: 15px;
-        }
-        .count {
-            color: $game-prediction-text;
-            .color {
-                color: $count-color;
-                font-size: small;
-            }
-        }
-    }
 }
-
-

@@ -5,14 +5,14 @@
             ng-animate="{'caret': active}"
             )
         .caret
-        | Head 2 Head สถิติการพบกันล่าสุด
+        | {{"ui.t.match.statistic.h2h.header"|trans}}
     .slides(ng-hide="active")
         .content
             .row.titles
-                .col Pos
-                .col(flex=25) Date
+                .col {{"ui.t.match.statistic.h2h.pos"|trans}}
+                .col(flex=25) {{"ui.t.match.statistic.date"|trans}}
                 .col(flex=45)
-                .col FT
+                .col {{"ui.t.match.statistic.ft"|trans}}
         .div(ng-repeat="w in r")
             .row(ng-class-odd!="'odd'", ng-class-even!="'even'")
                 .col ww

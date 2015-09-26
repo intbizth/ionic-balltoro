@@ -1,18 +1,26 @@
-ion-view(view-title='MatchShow')
+ion-view(view-title='{{r.home_club.name}} - {{r.away_club.name}} ')
     ion-tabs.tabs-top.tabs-dark
 
         ion-tab(
-        title="เกมทายผล", ui-sref="app.matches-show.game-prediction({id: matchId})")
+                title!="{{'ui.t.match.tab.prediction'|trans}}",
+                ui-sref="app.matches-show.game-prediction({id: matchId})"
+                )
             ion-tab-content
                 ion-content
                     div(ui-view="game-prediction")
 
-        ion-tab(title="เกมทาย11ตัวจริง", ui-sref="app.matches-show.game-soccer({id: matchId})")
+        ion-tab(
+                title!="{{'ui.t.match.tab.soccer'|trans}}",
+                ui-sref="app.matches-show.game-soccer({id: matchId})"
+                )
             ion-tab-content
                 ion-content
                     div(ui-view="game-soccer")
 
-        ion-tab(title="สถิติ", ui-sref="app.matches-show.statistic({id: matchId})")
+        ion-tab(
+                title!="{{'ui.t.match.tab.statistic'|trans}}",
+                ui-sref="app.matches-show.statistic({id: matchId})"
+                )
             ion-tab-content
                 ion-content
                     div(ui-view="statistic")

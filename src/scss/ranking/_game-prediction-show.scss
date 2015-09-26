@@ -41,7 +41,7 @@ $footer-color-bg: #294051;
         color: $game-color;
         margin-left: 20px;
         margin-bottom: 10px;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
     }
     .gameEn {
@@ -53,15 +53,7 @@ $footer-color-bg: #294051;
         position: relative;
         height: inherit;
         width: 100%;
-        background: -moz-linear-gradient(150deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
-        background: -webkit-gradient(linear, left top, right bottom, color-stop(50%, $gradientbg-color), color-stop(55%,
-                    $gradientbg-color), color-stop(100%, $gradientbg2-color));
-        background: -webkit-linear-gradient(150deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
-        background: -o-linear-gradient(150deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
-        background: -ms-linear-gradient(150deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
         background: linear-gradient(300deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$gradientbg-color',
-                endColorstr='$gradientbg2-color',GradientType=1 );
     }
     .bg2{
         background: $gradientbg-color;
@@ -116,9 +108,8 @@ $footer-color-bg: #294051;
         color: $history-color;
         padding: 10px 50px;
         border: solid $history-border 3px;
-        font-size: 18px;
+        font-size: 14px;
         margin: 5px auto;
-
     }
     .footer {
         background: $footer-color-bg;

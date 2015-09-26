@@ -21,17 +21,17 @@ $focus-color-bg: #F8EC7D;
     background: $lasted-match-bg;
     margin-top: 5px;
     .row {
-        padding: 0px;
+        padding: 0;
     }
     .subhead {
         background: $subhead-color-bg;
         .halfcircle {
-            width:20px;
+            width: 18px;
             border-radius: 0 20px 20px 0;
-            background:$halfcircle-color-bg;
+            background: $halfcircle-color-bg;
         }
         .title {
-            font-size: 20px;
+            font-size: 18px;
             color: $title-color;
             padding: 8px 0 8px 10px;
         }
@@ -40,7 +40,7 @@ $focus-color-bg: #F8EC7D;
         }
     }
     .subtitle {
-        font-size: 18px;
+        font-size: 16px;
         color: $subtitle-color;
         padding: 10px 0 10px 35px;
     }
@@ -50,23 +50,23 @@ $focus-color-bg: #F8EC7D;
     }
     .resultname {
         color: $resultname-color;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: bold;
         margin: 10px 0 10px 25px;
     }
     .resultunit {
         color: $resultunit-color;
         font-weight: bold;
-        font-size: 18px;
+        font-size: 16px;
     }
     .scorecolor {
         color: $scorecolor-color;
-        font-size: 16px;
+        font-size: 14px;
         text-align: center;
     }
     .scorereal {
         color: $scorereal-color;
-        margin-left: 50px;
+        margin-left: 8px;
 
     }
     .total {
@@ -89,21 +89,18 @@ $focus-color-bg: #F8EC7D;
     .match {
         background: $match-color-bg;
         padding: 5px 0;
-        .col-37 {
-            padding: 0px;
-            margin-left: 15px;
-            span {
-                padding-left: 5px ;
-            }
+        .col-33 {
+            padding: 0;
+            margin-left: 2px;
         }
         .col {
-            padding: 0px;
+            padding: 0;
         }
     }
     .handicap {
         font-size: 14px;
         color: $handicap-color;
-        margin: 0px;
+        margin: 0;
         text-align: center;
     }
     .focus {
@@ -112,8 +109,8 @@ $focus-color-bg: #F8EC7D;
         color: $match-color;
     }
     .club {
-        font-size: 14px;
+        font-size: 12px;
         color: $match-color;
-        margin: 0px;
+        margin-left: 5px;
     }
 }

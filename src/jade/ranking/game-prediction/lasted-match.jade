@@ -8,13 +8,13 @@
     .lastedMatch(ng-repeat="lastedPrediction in lastedPredictions")
         .date {{lastedPrediction.date}}
         .row.match
-            .col-37
+            .col-33
                 .club(ng-class="{focus : lastedPrediction.scoreHome > lastedPrediction.scoreAway}")
                     | {{lastedPrediction.homeClub}}
                     span {{lastedPrediction.scoreHome}}
-            .col
+            .col-15
                 .handicap {{lastedPrediction.handicap}}
-            .col-37
+            .col-33
                 .club(ng-class="{focus : lastedPrediction.scoreAway > lastedPrediction.scoreHome}")
                     | {{lastedPrediction.scoreAway}}
                     span  {{lastedPrediction.awayClub}}
@@ -27,16 +27,17 @@
         .col-50
             .sum 14
                 span.resultunit  คะแนน
+
     .subtitle เกมทายสกอร์
     .lastedMatch(ng-repeat="lastedPrediction in lastedPredictions")
         .date {{lastedPrediction.date}}
         .row.match
-            .col-37
+            .col-33
                 .club {{lastedPrediction.homeClub}}
                     span {{lastedPrediction.scoreHome}}
-            .col
+            .col-15
                 .handicap {{lastedPrediction.handicap}}
-            .col-37
+            .col-33
                 .club {{lastedPrediction.scoreAway}}
                     span  {{lastedPrediction.awayClub}}
             .col

@@ -1,14 +1,15 @@
 .game-prediction-content(ng-repeat="gamePrediction in gamePredictions")
     a.row(ui-sref="app.ranking.game-prediction-show({id: gamePrediction.id})")
-        .point
-            .pts Pts
-            .score
-                h3 {{gamePrediction.score}}
         .info
             img.user.img-circle(ng-src="{{gamePrediction.image}}")
             .rating
                 h3 {{gamePrediction.rating}}
             .username {{gamePrediction.username}}
-            small.count เกมทาย
+            .count
+                span เกมทาย
                 span.color  {{gamePrediction.count}}
                 span  ครั้ง
+        .point
+            .pts Pts
+            .score
+                h3 {{gamePrediction.score}}

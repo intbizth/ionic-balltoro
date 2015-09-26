@@ -1,0 +1,9 @@
+ui.t:
+    account:
+        game-setting:
+            title: Game Setting
+            header: Team Favorite
+            choose: Choose Team
+            submit: Submit
+        favorite:
+            title: Team Favorite

@@ -15,3 +15,5 @@ ui.t:
             setting: Setting
             more: More
 
+    share:
+        title: Share

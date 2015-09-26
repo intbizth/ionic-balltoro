@@ -8,7 +8,7 @@ ion-item.match-item
         img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
         span.name {{r.away_club.name}}
 
-.handicap-bar Handicap
+.handicap-bar {{'ui.t.match.handicap'|trans}}
     span.title {{r.handicap}}
 
 include ./status
@@ -18,7 +18,7 @@ include ./collapse/away
 include ./collapse/league
 
 .social-share.statistic-share
-    .title Share
+    .title {{"ui.t.share.title"|trans}}
     a.button.button-icon.icon.ion-android-share-alt
     a.button.button-icon.icon.ion-social-facebook
     a.button.button-icon.icon.ion-social-twitter

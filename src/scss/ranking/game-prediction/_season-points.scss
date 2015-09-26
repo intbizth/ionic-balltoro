@@ -25,7 +25,7 @@ $sum-color: #F7941E;
 .season-points {
     background: $season-points-bg;
     .row {
-        padding: 0px;
+        padding: 0;
     }
     .subhead {
         background: $subhead-color-bg;
@@ -35,7 +35,7 @@ $sum-color: #F7941E;
             background:$halfcircle-color-bg;
         }
         .title {
-            font-size: 20px;
+            font-size: 18px;
             color: $title-color;
             padding: 8px 0 8px 10px;
         }
@@ -44,7 +44,7 @@ $sum-color: #F7941E;
         }
     }
     .subtitle {
-        font-size: 18px;
+        font-size: 16px;
         color: $subtitle-color;
         padding: 10px 0 10px 35px;
     }
@@ -54,7 +54,7 @@ $sum-color: #F7941E;
         height: inherit;
         position: relative;
         .col {
-            padding: 0px;
+            padding: 0;
         }
     }
     .titlebar {
@@ -62,7 +62,7 @@ $sum-color: #F7941E;
         text-align: center;
     }
     .score {
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
         margin-top: 5px;
         color: $score-color;
@@ -71,7 +71,7 @@ $sum-color: #F7941E;
         color: $scorecolor-color;
         padding: 5px 0;
         font-weight: bold;
-        font-size: 18px;
+        font-size: 16px;
     }
     .point-bar {
         background: $point-bar-color-bg;
@@ -98,7 +98,7 @@ $sum-color: #F7941E;
             float: left;
             .percent {
                 color: $percent-color;
-                font-size: 30px;
+                font-size: 26px;
                 font-weight: bold;
                 margin-left: 43%;
                 padding: 10px;
@@ -107,7 +107,7 @@ $sum-color: #F7941E;
     }
     .resultname {
         color: $resultname-color;
-        font-size: 20px;
+        font-size: 18px;
         font-weight: bold;
         margin: 10px 0 10px 25px;
         float: left;
@@ -115,13 +115,13 @@ $sum-color: #F7941E;
     .resultunit {
         color: $resultunit-color;
         font-weight: bold;
-        font-size: 18px;
+        font-size: 16px;
     }
     .total {
         background: $total-color-bg;
         .sum {
             color: $sum-color;
-            font-size: 30px;
+            font-size: 26px;
             font-weight: 700;
             margin-left: 43%;
             padding: 10px;
