@@ -1,25 +1,27 @@
 //TODO:h2h might be from another controller
 .expand-collapse.league-collapse
-    .header(ng-click!="active3 = !active3", ng-class!="{'collapsed': active3, 'expanded': !active3}")
+    .header(ng-click!="active3 = !active3",
+            ng-class!="{'collapsed': active3, 'expanded': !active3}"
+            )
         .caret
         | League Table
     .slides(ng-hide="active3")
         .content
             .row.titles
-                .col.col-15 Pos
-                .col.col-43 Team
-                .col.col-10 P
-                .col.col-12 GD
-                .col.col-12 Pts
-                .col.col-8
+                .col Pos
+                .col(flex="45") Team
+                .col P
+                .col GD
+                .col Pts
+                .col
         .div(ng-repeat="w in r")
             .row(ng-class-odd!="'odd'", ng-class-even!="'even'")
-                .col.col-15 Pos
-                .col.col-43 Mans
-                .col.col-10 P
-                .col.col-12 GD
-                .col.col-12 Pts
-                .col.col-8
+                .col.col-15 1
+                .col(flex="45") aaaa
+                .col 1
+                .col 1
+                .col 1
+                .col
                     .status
                         .up
                         //.down

@@ -1,11 +1,5 @@
 $handicap-bar-bg: #383A3B;
 $handicap-bar-text: #fff;
-$game-collapse-btn-border: #549AF7;
-$game-collapse-btn-bg: #fff;
-$game-collapse-btn-text: $game-collapse-btn-border;
-$game-collapse-btn-focus-bg: $game-collapse-btn-text;
-$game-collapse-btn-focus-text: $game-collapse-btn-bg;
-$game-collapse-container-bg: #213647;
 
 .handicap-bar {
     padding: 15px;
@@ -16,51 +10,5 @@ $game-collapse-container-bg: #213647;
     .title {
         color: $handicap-bar-text;
         margin-left: 10px;
-    }
-}
-
-.game-collapse {
-    width: 100%;
-    text-align: center;
-    overflow: hidden;
-    margin: 0 auto;
-    .container {
-        width: 100%;
-        background: $game-collapse-container-bg;
-        padding: 15px;
-        overflow: hidden;
-        .section {
-            width: 33%;
-            float: left;
-            display: block;
-            text-align: center;
-            .select {
-                display: inline-block;
-                border: 3px $game-collapse-btn-border solid;
-                border-radius: 50%;
-                height: 100px;
-                width: 100px;
-                padding-top: 35px;
-                background: $game-collapse-btn-bg;
-                color: $game-collapse-btn-text;
-                font-size: 14px;
-                font-weight: bold;
-                &:focus {
-                    background: $game-collapse-btn-focus-bg;
-                    color: $game-collapse-btn-focus-text;
-                }
-            }
-        }
-        @media (min-width: 320px) {
-            .home, .draw, .away {
-                .buttonss {
-                    height: 80px;
-                    width: 80px;
-                }
-            }
-        }
-    }
-    .-clear {
-        clear: both;
     }
 }

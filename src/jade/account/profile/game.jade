@@ -1,4 +1,4 @@
-ion-view(view-title='Game Setting')
+ion-view(view-title='{{"ui.t.account.game-setting.title"|trans}}')
 
     ion-content
         .game-setting
@@ -8,7 +8,9 @@ ion-view(view-title='Game Setting')
                 .fullname AAA ISMYUSER
                 .email aaa@aaaa.com
             .team-choosen
-                .header Team Favorite
+                .header {{"ui.t.account.game-setting.header"|trans}}
                 .logo
-            a.button.button-block(ng-href="#/app/account-profile-favorite") Choose Team
-            button.button.button-block(type='submit') Submit
+            a.button.button-block(ng-href="#/app/account-profile-favorite")
+                |{{"ui.t.account.game-setting.choose"|trans}}
+            button.button.button-block(type='submit')
+                |{{"ui.t.account.game-setting.submit"|trans}}

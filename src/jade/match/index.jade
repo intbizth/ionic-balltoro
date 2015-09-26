@@ -1,12 +1,12 @@
 ion-view(view-title="{{'ui.t.match.header.title'|trans}}")
     ion-content
         // current day
-        .row.match-header
-            .col.col-25
-                button.prev(type="button") {{"<<10/01/10"}}
-            .col.col-50.date {{store.$collection[0].match_day|date:('dd/MM/yyyy')}}
-            .col.col-25
-                button.next(type="button") {{"30/10/10>>"}}
+        .match-header(layout="row")
+            .col
+                button.prev(type="button") {{"10/01/10"}}
+            .col.col-30.date {{store.$collection[0].match_day|date:('dd/MM/yyyy')}}
+            .col
+                button.next(type="button") {{"30/10/10"}}
 
         ion-item.match-item(collection-repeat="item in matches")
             .league-header
@@ -14,15 +14,7 @@ ion-view(view-title="{{'ui.t.match.header.title'|trans}}")
                 .league {{item.season.name}}
 
             ion-item.match-item(ng-repeat="r in item.items")
-                a(ui-sref="app.matches-show.game-soccer({ id:r.id })")
-                    .club
-                        img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
-                        span.name {{r.home_club.name}}
-                    .vs {{r.result}}
-                        p.time {{r.start_time|date:('HH:MM')}}
-                    .club
-                        img.logo(ng-src!="{{r.away_club.getLogo('70x70')}}")
-                        span.name {{r.away_club.name}}
+                include ../common/matches
 
         ion-infinite-scroll(
             ng-if="store.hasMorePage()"
@@ -30,4 +22,3 @@ ion-view(view-title="{{'ui.t.match.header.title'|trans}}")
             distance="5%"
             spinner="{{$spinnerIcon}}"
         )
-//TODO: This teamplate might be change style

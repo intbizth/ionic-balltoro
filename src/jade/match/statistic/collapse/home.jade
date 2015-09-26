@@ -1,18 +1,20 @@
 //TODO:h2h might be from another controller
 .expand-collapse.home-collapse
-    .header(ng-click!="active1 = !active1", ng-class!="{'collapsed': active1, 'expanded': !active1}")
+    .header(ng-click!="active1 = !active1",
+            ng-class!="{'collapsed': active1, 'expanded': !active1}"
+            )
         .caret
         | Home Team
     .slides(ng-hide="active1")
         .content
             .row.titles
-                .col.col-15 Pos
-                .col.col-25 Date
-                .col.col-45
-                .col.col-15 FT
+                .col Pos
+                .col(flex=25) Date
+                .col(flex=45)
+                .col FT
         .div(ng-repeat="w in r")
             .row(ng-class-odd!="'odd'", ng-class-even!="'even'")
-                .col.col-15 ww
-                .col.col-25 ww
-                .col.col-45 ww
-                .col.col-15 ww
+                .col ww
+                .col(flex=25) ww
+                .col(flex=45) ww
+                .col ww

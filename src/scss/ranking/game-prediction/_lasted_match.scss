@@ -1,0 +1,116 @@
+$lasted-match-bg: #213647;
+$subhead-color-bg: #418AC9;
+$title-color: #fff;
+$subtitle-color: $title-color;
+$halfcircle-color-bg: $lasted-match-bg;
+$date-color-bg: #EEEDED;
+$date-color: $halfcircle-color-bg;
+$match-color: $date-color;
+$match-color-bg: $subtitle-color;
+$handicap-color: #549AF7;
+$line-color-bg: $handicap-color;
+$scorecolor-color: #F2A83B;
+$scorereal-color: $match-color;
+$resultname-color: $scorereal-color;
+$resultunit-color: $resultname-color;
+$total-color-bg: $date-color-bg;
+$sum-color: #F7941E;
+$focus-color-bg: #F8EC7D;
+
+.lasted-match {
+    background: $lasted-match-bg;
+    margin-top: 5px;
+    .row {
+        padding: 0;
+    }
+    .subhead {
+        background: $subhead-color-bg;
+        .halfcircle {
+            width: 18px;
+            border-radius: 0 20px 20px 0;
+            background: $halfcircle-color-bg;
+        }
+        .title {
+            font-size: 18px;
+            color: $title-color;
+            padding: 8px 0 8px 10px;
+        }
+        .titleth {
+            font-size: small;
+        }
+    }
+    .subtitle {
+        font-size: 16px;
+        color: $subtitle-color;
+        padding: 10px 0 10px 35px;
+    }
+    .line {
+        background: $line-color-bg;
+        height: 5px;
+    }
+    .resultname {
+        color: $resultname-color;
+        font-size: 18px;
+        font-weight: bold;
+        margin: 10px 0 10px 25px;
+    }
+    .resultunit {
+        color: $resultunit-color;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .scorecolor {
+        color: $scorecolor-color;
+        font-size: 14px;
+        text-align: center;
+    }
+    .scorereal {
+        color: $scorereal-color;
+        margin-left: 8px;
+
+    }
+    .total {
+        background: $total-color-bg;
+        .sum {
+            color: $sum-color;
+            font-size: 30px;
+            font-weight: 700;
+            float: left;
+            margin-left: 43%;
+            padding: 10px;
+        }
+    }
+    .date {
+        background: $date-color-bg;
+        font-size: 14px;
+        color: $date-color;
+        padding: 5px 0 5px 25px;
+    }
+    .match {
+        background: $match-color-bg;
+        padding: 5px 0;
+        .col-33 {
+            padding: 0;
+            margin-left: 2px;
+        }
+        .col {
+            padding: 0;
+        }
+    }
+    .handicap {
+        font-size: 14px;
+        color: $handicap-color;
+        margin: 0;
+        text-align: center;
+    }
+    .focus {
+        background-color: $focus-color-bg;
+        padding: 0 8px;
+        color: $match-color;
+    }
+    .club {
+        font-size: 12px;
+        color: $match-color;
+        margin-left: 5px;
+    }
+}

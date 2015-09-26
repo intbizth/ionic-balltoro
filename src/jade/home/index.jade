@@ -1,6 +1,6 @@
-ion-view(view-title="Home")
-    ion-pane.has-header
-        ion-content
+ion-view(view-title='{{"ui.t.home.title"|trans}}')
+    ion-pane
+        ion-content.has-header
             div(ui-view="home-matches")
             div(ui-view="home-news")
             div(ui-view="home-ads")

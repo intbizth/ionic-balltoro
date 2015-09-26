@@ -3,6 +3,10 @@ $statistic-status-text: #fff;
 $statistic-status-w: #39B54A;
 $statistic-status-d: #F5D620;
 $statistic-status-l: #FF3B30;
+$match-statistic-vs-bg: #549AF7;
+$match-statistic-text: #fff;
+$match-statistic-ft: orange;
+$statistic-share-bg: #213647;
 
 .statistic-status {
     padding: 15px;
@@ -29,7 +33,26 @@ $statistic-status-l: #FF3B30;
 }
 
 .statistic-share {
-    background: #213647;
+    background: $statistic-share-bg;
     margin: 0 auto;
     width: 199%;
+}
+
+.match-statistic {
+    .vs {
+        background: $match-statistic-vs-bg;
+        &.-nextmatch {
+            color: $match-statistic-text;
+            padding-top: 15px;
+            font-size: 30px;
+        }
+        &.-fulltime {
+            color: $match-statistic-text;
+        }
+        .ft {
+            color: $match-statistic-ft;
+            border: none;
+            background: none;
+        }
+    }
 }

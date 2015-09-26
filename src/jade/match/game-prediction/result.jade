@@ -1,9 +1,8 @@
-.expand-collapse.game-collapse
+.game-collapse
     .container
         .section
             .select(ng-click!="active = !active", ng-class!="{'collapsed': active, 'expanded': !active}")
                 | select
-
         .section
             .select(ng-click!="active = !active", ng-class!="{'collapsed': active, 'expanded': !active}")
                 | select
@@ -11,8 +10,15 @@
         .section
             .select(ng-click!="active = !active", ng-class!="{'collapsed': active, 'expanded': !active}")
                 | select
+        .row.desc
+            .col.col-33.text-center {{r.home_club.name}}
+            .col.col-33.text-center Draw
+            .col.col-33.text-center {{r.away_club.name}}
 
-    .slides.-clear(ng-hide="active")
-        .content
-        md-input-container
-            input
+.prediction-content
+    .header(layout="row")
+        .arrow
+        .text ทายสกอร์
+    .result
+        .score 2 - 1
+        .text Score

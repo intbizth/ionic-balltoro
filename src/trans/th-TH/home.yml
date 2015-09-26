@@ -1,0 +1,5 @@
+ui.t:
+    home:
+        title: Home Feed
+        matchtalk:
+            title: Matchtalk

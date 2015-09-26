@@ -1,0 +1,7 @@
+ui.t:
+    ranking:
+        game-setting:
+            title: Game Setting
+            header: Team Favorite
+            choose: Choose Team
+            submit: Submit

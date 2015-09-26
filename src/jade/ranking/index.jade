@@ -1,0 +1,16 @@
+ion-view(view-title='Rankings')
+    ion-tabs.tabs-top.tabs-dark
+        ion-tab(title="เกมทายผล" ui-sref="app.ranking.game-prediction")
+            ion-tab-content
+                ion-content
+                    div(ui-view="game-prediction")
+
+        ion-tab(title="เกมทายสกอร์" ui-sref="app.ranking.game-score")
+            ion-tab-content
+                ion-content
+                    div(ui-view="game-score")
+
+        ion-tab(title="เกมทาย 11 ตัวจริง" ui-sref="app.ranking.game-player")
+            ion-tab-content
+                ion-content
+                    div(ui-view="game-player")

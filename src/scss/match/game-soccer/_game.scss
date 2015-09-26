@@ -1,0 +1,124 @@
+$anfield-content-bg: #213647;
+$player-position-bg: #003F68;
+$player-position-list-bg: #213647;
+$player-position-list-text: #fff;
+$player-position-list-border: #354B59;
+$player-position-position-text: $player-position-list-text;
+$player-position-position-mf: green;
+$player-position-position-gk: #991C23;
+$player-position-position-df: green;
+$player-position-position-cf: #549AF7;
+$player-position-red-card: red;
+$player-position-yellow-card: yellow;
+$player-position-list-active: #549AF7;
+
+
+.anfield-content {
+    width: 100%;
+    min-height: 350px;
+    background: $anfield-content-bg;
+    height: 380px;
+    overflow: hidden;
+}
+
+.player-position {
+    overflow: hidden;
+    background: $player-position-bg;
+    .lists {
+        background: $player-position-list-bg;
+        color: $player-position-list-text;
+        border-top: 1px solid $player-position-list-border;
+        overflow: hidden;
+        padding: 5px 0;
+        width: 100%;
+        .position {
+            padding: 8px 3px;
+            .mf, .gk, .df, .cf {
+                border-radius: 3px;
+                padding: 1px 8px;
+                text-align: center;
+                &:before {
+                    color: $player-position-position-text;
+                    font-weight: bold;
+                }
+            }
+            .mf {
+                background: $player-position-position-mf;
+                &:before {
+                    content: ' M ';
+                }
+            }
+            .gk {
+                background: $player-position-position-gk;
+                &:before {
+                    content: ' G ';
+                }
+            }
+            .df {
+                background: $player-position-position-df;
+                &:before {
+                    content: ' D ';
+                }
+            }
+            .cf {
+                background: $player-position-position-cf;
+                &:before {
+                    content: ' C ';
+                }
+            }
+        }
+        .avatar {
+            margin-right: 3px;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+        }
+        .nationality {
+            margin: 10px 2px 0 2px;
+            width: 25px;
+            height: 20px;
+        }
+        .username {
+            padding-top: 10px;
+            font-size: 14px;
+            margin-left: 3px;
+        }
+        .red, .yellow {
+            margin-top: 2px;
+            padding: 8px 2px;
+            .cards {
+                background: $player-position-red-card;
+                width: 8px;
+                height: 15px;
+                float: left;
+                margin-right: 5px;
+                border-radius: 2px;
+            }
+        }
+        .yellow {
+            .cards {
+                background: $player-position-yellow-card;
+            }
+        }
+        .total {
+            margin-top: 2px;
+            padding: 8px 2px;
+            .ball {
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                margin-right: 5px;
+                float: left;
+            }
+        }
+        .watch {
+            .ion-ios-eye {
+                font-size: 37px;
+                margin-left: 5px;
+            }
+        }
+        &:active, &:focus {
+            background: $player-position-list-active;
+        }
+    }
+}

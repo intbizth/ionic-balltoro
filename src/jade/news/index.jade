@@ -1,6 +1,6 @@
 ion-view(view-title='News')
     ion-content
-        div.news-thumbnail(collection-repeat="r in store.$collection")
+        .news-thumbnail(collection-repeat="r in store.$collection")
             a(href='#/app/news/show/{{r.id}}')
                 img.cover(ng-src="{{r.cover}}")
                 .info

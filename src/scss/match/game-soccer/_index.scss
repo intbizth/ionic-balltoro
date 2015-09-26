@@ -1,10 +1,10 @@
 $match-info-vs-bg: #549AF7;
 $match-info-vs-text: #fff;
-$match-detial-bg: #111F28;
-$match-detial-text: $match-info-vs-text;
-$match-detial-time-text: orange;
-$match-detial-detail-text: #fff;
-$pattern-slide-bg: #111F28;
+$match-detail-bg: #111F28;
+$match-detail-text: $match-info-vs-text;
+$match-detail-time-text: orange;
+$match-detail-detail-text: $match-info-vs-text;
+$pattern-slide-bg: $match-detail-bg;
 $pattern-slide-list-text: #549AF7;
 $rn-carousel-control: $pattern-slide-list-text;
 $anfield-content-bg: #213647;
@@ -26,18 +26,18 @@ $anfield-content-bg: #213647;
 
 .match-detail {
     padding: 15px !important;
-    background: $match-detial-bg;
+    background: $match-detail-bg;
     overflow: hidden;
-    color: $match-detial-text;
+    color: $match-detail-text;
     .stadium {
         float: left;
     }
     .time {
         text-align: right;
-        color: $match-detial-time-text;
+        color: $match-detail-time-text;
         .total {
             margin-left: 10px;
-            color: $match-detial-detail-text;
+            color: $match-detail-detail-text;
         }
     }
 }
@@ -63,11 +63,4 @@ $anfield-content-bg: #213647;
         opacity: 10 !important;
         font-weight: bold;
     }
-}
-
-.anfield-content {
-    width: 100%;
-    min-height: 350px;
-    background: $anfield-content-bg;
-    overflow: hidden;
 }

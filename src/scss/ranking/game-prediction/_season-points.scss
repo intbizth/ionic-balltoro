@@ -1,0 +1,130 @@
+$season-points-bg: #213647;
+$subhead-color-bg: #418AC9;
+$halfcircle-color-bg: $season-points-bg;
+$title-color: #fff;
+$bar-color-bg: #EEEDED;
+$bar-color: $halfcircle-color-bg;
+$subtitle-color: $title-color;
+$titlebar-color: $bar-color;
+$point-bar-color-bg: $subtitle-color;
+$point-bar-color: $titlebar-color;
+$score-color: $point-bar-color;
+$scorecolor-color: #F2A83B;
+$point-border-color: #939598;
+$point-color: $scorecolor-color;
+$line-color-bg: #549AF7;
+$resultname-color: $score-color;
+$resultunit-color: $resultname-color;
+$precisely-color-bg: $point-bar-color-bg;
+$precisely-color: $resultunit-color;
+$percent-color: #4188C7;
+$total-color-bg: $bar-color-bg;
+$total-color: $precisely-color;
+$sum-color: #F7941E;
+
+.season-points {
+    background: $season-points-bg;
+    .row {
+        padding: 0;
+    }
+    .subhead {
+        background: $subhead-color-bg;
+        .halfcircle {
+            width:20px;
+            border-radius: 0 20px 20px 0;
+            background:$halfcircle-color-bg;
+        }
+        .title {
+            font-size: 18px;
+            color: $title-color;
+            padding: 8px 0 8px 10px;
+        }
+        .titleth {
+            font-size: small;
+        }
+    }
+    .subtitle {
+        font-size: 16px;
+        color: $subtitle-color;
+        padding: 10px 0 10px 35px;
+    }
+    .bar {
+        background: $bar-color-bg;
+        padding: 5px 0;
+        height: inherit;
+        position: relative;
+        .col {
+            padding: 0;
+        }
+    }
+    .titlebar {
+        color: $titlebar-color;
+        text-align: center;
+    }
+    .score {
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 5px;
+        color: $score-color;
+    }
+    .scorecolor {
+        color: $scorecolor-color;
+        padding: 5px 0;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .point-bar {
+        background: $point-bar-color-bg;
+        padding: 5px 0;
+        text-align: center;
+        span {
+            padding-left: 15px;
+        }
+        .unit {
+            color: $point-bar-color;
+        }
+        .point-border {
+            border-right: solid $point-border-color 1px;
+            margin-bottom: -5px;
+        }
+    }
+    .line {
+        background: $line-color-bg;
+        height: 5px;
+    }
+    .precisely {
+        background: $precisely-color-bg;
+        .col-50 {
+            float: left;
+            .percent {
+                color: $percent-color;
+                font-size: 26px;
+                font-weight: bold;
+                margin-left: 43%;
+                padding: 10px;
+            }
+        }
+    }
+    .resultname {
+        color: $resultname-color;
+        font-size: 18px;
+        font-weight: bold;
+        margin: 10px 0 10px 25px;
+        float: left;
+    }
+    .resultunit {
+        color: $resultunit-color;
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .total {
+        background: $total-color-bg;
+        .sum {
+            color: $sum-color;
+            font-size: 26px;
+            font-weight: 700;
+            margin-left: 43%;
+            padding: 10px;
+        }
+    }
+}

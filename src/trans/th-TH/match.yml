@@ -2,7 +2,18 @@ ui.t:
     match:
         day: วันที่แข่งขัน
         time: เวลาแข่งขัน
+        handicap: Handicap
         header:
             title: โปรแกรมการแข่งขัน
             lasted: Lasted Match
             view: Veiw all
+        tab:
+            prediction: เกมทายผล
+            soccer: เกมทาย 11 ตัวจริง
+            statistic: สถิติ
+        statistic:
+            h2h:
+                header: Head 2 Head สถิติการพบกันล่าสุด
+                pos: Pos
+                date: Date
+                ft: FT
