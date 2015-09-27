@@ -40,7 +40,7 @@ class Routing extends Config then constructor: (
 
     state 'app.matches-show',
         url: '/matches-show/:id'
-        abstract: true
+        #abstract: true
         views:
             content:
                 controller: 'matchShowController'
@@ -49,21 +49,21 @@ class Routing extends Config then constructor: (
     state 'app.matches-show.game-prediction',
         url: '/game-prediction'
         views:
-            'game-prediction':
-                controller: 'matchPredictionController'
+            'match-game-prediction':
+                controller: 'matchGamePredictionController'
                 templateUrl: 'templates/match/game-prediction/index.html'
 
     state 'app.matches-show.game-soccer',
         url: '/game-soccer'
         views:
-            'game-soccer':
-                controller: 'matchShowController'
+            'match-game-soccer':
+                controller: 'matchGameSoccerController'
                 templateUrl: 'templates/match/game-soccer/index.html'
 
     state 'app.matches-show.statistic',
         url: '/statistic'
         views:
-            'statistic':
+            'match-statistic':
                 controller: 'matchShowController'
                 templateUrl: 'templates/match/statistic/index.html'
 

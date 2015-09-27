@@ -2,6 +2,7 @@
     .logo
     .league {{r.season.name}}
 
+// FIXME: NO `ion-item` JUST `div`
 ion-item.match-item.match-statistic
     .club
         img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")

@@ -1,26 +1,18 @@
 ion-view(view-title='{{r.home_club.name}} - {{r.away_club.name}} ')
-    ion-tabs.tabs-top.tabs-dark
+    ion-pane.has-header.match-show
+        // TODO: css: .match-show > md-tabs {height: 100%}
+        md-tabs(
+            md-selected="tabSelectedIndex"
+            md-border-bottom
+            )
+            md-tab(label!="{{'ui.t.match.tab.prediction'|trans}}" ui-sref="app.matches-show.game-prediction({id: matchId})")
+                md-content(flex)
+                    div(ui-view="match-game-prediction")
 
-        ion-tab(
-                title!="{{'ui.t.match.tab.prediction'|trans}}",
-                ui-sref="app.matches-show.game-prediction({id: matchId})"
-                )
-            ion-tab-content
-                ion-content
-                    div(ui-view="game-prediction")
+            md-tab(label!="{{'ui.t.match.tab.soccer'|trans}}" ui-sref="app.matches-show.game-soccer({id: matchId})")
+                md-content(flex)
+                    div(ui-view="match-game-soccer")
 
-        ion-tab(
-                title!="{{'ui.t.match.tab.soccer'|trans}}",
-                ui-sref="app.matches-show.game-soccer({id: matchId})"
-                )
-            ion-tab-content
-                ion-content
-                    div(ui-view="game-soccer")
-
-        ion-tab(
-                title!="{{'ui.t.match.tab.statistic'|trans}}",
-                ui-sref="app.matches-show.statistic({id: matchId})"
-                )
-            ion-tab-content
-                ion-content
-                    div(ui-view="statistic")
+            md-tab(label!="{{'ui.t.match.tab.statistic'|trans}}" ui-sref="app.matches-show.statistic({id: matchId})")
+                md-content(flex)
+                    div(ui-view="match-statistic")

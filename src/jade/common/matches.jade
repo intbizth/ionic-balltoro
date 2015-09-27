@@ -1,3 +1,4 @@
+// TODO: REMOVE THIS FILE.
 a(ui-sref="app.matches-show.game-prediction({ id:r.id })")
     .club
         img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
@@ -13,7 +14,7 @@ a(ui-sref="app.matches-show.game-prediction({ id:r.id })")
         .ft FT
 
     .vs.-nextmatch(ng-if="!r.is_full_time && !r.is_live")
-        | {{r.start_time|date:('HH:MM')}}
+        | {{r.start_time|date:('HH:MM')}} {{r.id}}
 
     .club
         span.name {{r.away_club.name}}

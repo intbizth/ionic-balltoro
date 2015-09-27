@@ -1,24 +1,47 @@
 ion-view(view-title="{{'ui.t.match.header.title'|trans}}")
     ion-content
-        // current day
-        .match-header(layout="row")
-            .col
-                button.prev(type="button") {{"10/01/10"}}
-            .col.col-30.date {{store.$collection[0].match_day|date:('dd/MM/yyyy')}}
-            .col
-                button.next(type="button") {{"30/10/10"}}
+        ion-refresher(
+            on-refresh="loadNextDayMatches()"
+            spinner="{{$spinnerIcon}}"
+        )
 
-        ion-item.match-item(collection-repeat="item in matches")
-            .league-header
-                .logo
-                .league {{item.season.name}}
+        ion-list
+            ion-item.match-item(collection-repeat="item in items")
+                // FIXME: change css name to: date
+                .match-header(ng-if="item.type == 'date'")
+                    | {{item.value}}
 
-            ion-item.match-item(ng-repeat="r in item.items")
-                include ../common/matches
+                // FIXME: change css name to: league
+                .league-header(ng-if="item.type == 'league'")
+                    .logo
+                    .league {{item.value.name}}
+
+                // FIXME: change css name to: match
+                .match-item(ng-if="item.type == 'match'")
+                    a(ui-sref="app.matches-show.game-prediction({ id: item.value.id })")
+                        .club
+                            img.logo(ng-src!="{{item.value.home_club.getLogo('70x70')}}")
+                            span.name {{item.value.home_club.name}}
+
+                        .vs.-live(ng-if="item.value.is_live")
+                            | {{item.value.result}}
+                            //TODO: time must be live timestamp
+                            .time {{item.value.start_time|date:('HH:MM')}}
+
+                        .vs.-fulltime(ng-if="item.value.is_full_time")
+                            | {{item.value.result}}
+                            .ft FT
+
+                        .vs.-nextmatch(ng-if="!item.value.is_full_time && !item.value.is_live")
+                            | {{item.value.start_time|date:('HH:MM')}}
+
+                        .club
+                            span.name {{item.value.away_club.name}}
+                            img.logo.-right(ng-src!="{{item.value.away_club.getLogo('70x70')}}")
 
         ion-infinite-scroll(
-            ng-if="store.hasMorePage()"
-            on-infinite="store.getNextPage()"
+            ng-if="hasMorePage"
+            on-infinite="loadPrevDayMatches()"
             distance="5%"
             spinner="{{$spinnerIcon}}"
         )
