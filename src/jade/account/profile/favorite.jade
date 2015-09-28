@@ -1,4 +1,20 @@
+ion-view(view-title='Team Favorite', class='favorite-form')
+    //-------content-------//
+    md-content.favorite-form(flax, layout-padding)
+        div(layout='column', layout-fill, layout-align='top center')
+        md-button.md-primary(ng-click='open()', hide-gt-md) Toggle Right (Angular btn)
+        div(class='list')
+            a.item.favorite-form.listview(ng-href='#', ng-repeat="team in myTeam")
+                span {{team.name}}
 ion-view(view-title='{{"ui.t.account.favorite.title"|trans}}')
 
-    ion-content
-        h1 waiting for style
+    //-----Side menu-----//
+    md-sidenav.md-sidenav-right.favorite-menu(md-component-id='Toggle_right')
+        div.list.favorite-menu
+            a.item.favorite-menu(ng-href='#', ng-repeat="team in teamList")
+                img.favorite-menu.icon(ng-src='{{team.imgURL}}')
+                span.favorite-menu.content {{team.name}}
+        md-button.md-primary(ng-click='close()') X Close
+        div.favorite-menu.footer
+            p {{ 'ui.t.favorite.sidemenu.info_1'|trans}}
+            p {{ 'ui.t.favorite.sidemenu.info_2'|trans}}
