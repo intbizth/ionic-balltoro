@@ -12,8 +12,14 @@ ui.t:
             soccer: เกมทาย 11 ตัวจริง
             statistic: สถิติ
         statistic:
-            h2h:
-                header: Head 2 Head สถิติการพบกันล่าสุด
-                pos: Pos
-                date: Date
-                ft: FT
+            league: League Table
+            header: Head 2 Head สถิติการพบกันล่าสุด
+            pos: Pos
+            date: Date
+            ft: FT
+            team: Team
+            p: P
+            gd: GD
+            pts: Pts
+        soccer:
+            timeleft: เวลาที่เหลือ

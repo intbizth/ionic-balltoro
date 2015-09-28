@@ -8,11 +8,11 @@
     .slides(ng-hide="active3")
         .content
             .row.titles
-                .col Pos
-                .col(flex="45") Team
-                .col P
-                .col GD
-                .col Pts
+                .col {{"ui.t.match.statistic.pos"|trans}}
+                .col(flex="45") {{"ui.t.match.statistic.team"|trans}}
+                .col {{"ui.t.match.statistic.p"|trans}}
+                .col {{"ui.t.match.statistic.gd"|trans}}
+                .col {{"ui.t.match.statistic.pts"|trans}}
                 .col
         .div(ng-repeat="w in r")
             .row(ng-class-odd!="'odd'", ng-class-even!="'even'")

@@ -4,14 +4,14 @@
             ng-class!="{'collapsed': active1, 'expanded': !active1}"
             )
         .caret
-        | Home Team
+        | {{r.home_club.name}}
     .slides(ng-hide="active1")
         .content
             .row.titles
-                .col Pos
-                .col(flex=25) Date
+                .col {{"ui.t.match.statistic.pos"|trans}}
+                .col(flex=25) {{"ui.t.match.statistic.date"|trans}}
                 .col(flex=45)
-                .col FT
+                .col {{"ui.t.match.statistic.ft"|trans}}
         .div(ng-repeat="w in r")
             .row(ng-class-odd!="'odd'", ng-class-even!="'even'")
                 .col ww

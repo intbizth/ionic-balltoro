@@ -1,16 +1,22 @@
-ion-view(view-title='Rankings')
+ion-view(view-title='{{"ui.t.ranking.title"|trans}}')
     ion-tabs.tabs-top.tabs-dark
-        ion-tab(title="เกมทายผล" ui-sref="app.ranking.game-prediction")
+        ion-tab(title!="{{'ui.t.ranking.tab.prediction'|trans}}"
+                        ui-sref="app.ranking.game-prediction"
+                        )
             ion-tab-content
                 ion-content
                     div(ui-view="game-prediction")
 
-        ion-tab(title="เกมทายสกอร์" ui-sref="app.ranking.game-score")
+        ion-tab(title!="{{'ui.t.ranking.tab.soccer'|trans}}"
+                ui-sref="app.ranking.game-score"
+                )
             ion-tab-content
                 ion-content
                     div(ui-view="game-score")
 
-        ion-tab(title="เกมทาย 11 ตัวจริง" ui-sref="app.ranking.game-player")
+        ion-tab(title!="{{'ui.t.ranking.tab.score'|trans}}"
+                ui-sref="app.ranking.game-player"
+                )
             ion-tab-content
                 ion-content
                     div(ui-view="game-player")
