@@ -1,0 +1,4 @@
+{
+  "ui.t.hello": "สวัสดี, {{displayName}}!!",
+  "ui.t.save": "Save"
+}

@@ -118,6 +118,7 @@ class Routing extends Config then constructor: (
         url: '/account-profile-favorite'
         views:
             content:
+                controller: 'favoriteController'
                 templateUrl: 'templates/account/profile/favorite.html'
 
     state 'app.ranking',
