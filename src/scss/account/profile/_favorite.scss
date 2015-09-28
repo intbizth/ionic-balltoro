@@ -1,62 +1,61 @@
-$background-content: #0F171E;
-$background-menu: #192837;
-$favorite-menu-footer-border: #1A3253;
-$listview-active: #255a74;
-
-ion-view.bgColor {
-    background-color: $background-content;
-}
+$favorite-form-bg: #0F171E;
+$favorite-menu-bg: #192837;
+$favorite-pain-border: #1A3253;
+$favorite-pain-active: #255a74;
+$favorite-pain-text: #fff;
+$favorite-menu-footer: #185D85;
 
 .favorite-form {
-    background-color: $background-content;
-    color: #fff;
-    font-weight: bold;
-    padding-top: 38px;
+    color: $favorite-pain-text;
+    overflow: hidden;
     .listview {
-        border-style: solid none solid;
-        border-color: $favorite-menu-footer-border;
-        vertical-align: middle;
-        padding-top: 8px;
-        padding-bottom: 8px;
-        background-color: transparent;
+        background-color: $favorite-form-bg;
+        margin-top: 64px;
+        .item {
+            background-color: $favorite-form-bg;
+            border-style: solid none solid;
+            border-color: $favorite-pain-border;
+            &:focus {
+                background-color: $favorite-pain-active;
+            }
+        }
     }
     .activated {
-        background-color: $listview-active;
+        background-color: $favorite-pain-active;
     }
 }
 
-//-------[right menu]-------//
 .favorite-menu {
-    background-color: $background-menu;
-    border-style: none;
-    vertical-align: middle;
-    padding-top: 4px;
-    padding-bottom: 4px;
-    .list {
-        margin-top: 50px;
-        background: none;
+    background-color: $favorite-menu-bg;
+    overflow: hidden;
+    .item {
+        background-color: inherit;
+        border-style: solid none solid;
+        border-color: $favorite-pain-border;
+        padding: 10px;
+        &:focus {
+            background-color: $favorite-pain-active;
+        }
     }
     .content {
-        background: none;
         margin-left: 16px;
-        color: #FFF;
+        color: $favorite-pain-text;
         border-style: solid;
-        font-weight: normal;
     }
     .icon {
         width: 24px;
         margin-left: 10px;
-        background: none;
     }
     .footer {
-        color: #185D85;
-        padding: 12px 14px; //T, L
-        font-size: 11px;
+        color: $favorite-menu-footer;
+        padding: 15px;
+        font-size: 12px;
+        overflow: hidden;
         border-style: solid none none;
         border-width: thin;
-        border-color: $favorite-menu-footer-border;
+        border-color: $favorite-pain-border;
     }
     .activated {
-        background-color: $listview-active;
+        background-color: $favorite-pain-active;
     }
 }

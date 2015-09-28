@@ -8,11 +8,14 @@ $menu-sub-setting-text: #fff;
 $menu-collapse-caret: $menu-sub-setting-bg;
 
 .bar-header {
+    height: 44px !important;
     background: $bar-header-bg !important;
     .title {
+        margin-top: 0 !important;
         color: $bar-header-text !important;
     }
     .buttons {
+        margin-top: 0 !important;
         color: $bar-button-text;
     }
 }

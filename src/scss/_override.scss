@@ -4,7 +4,7 @@ $player-position-md-active-text: #fff;
 .pane {
     // TODO: handle other platforms.
     &.has-header {
-        top: 44px !important;
+        top: 24px !important;
     }
 }
 
@@ -13,4 +13,15 @@ $player-position-md-active-text: #fff;
         background: $player-position-md-active-bg;
         color: $player-position-md-active-text !important;
     }
+}
+
+.tabs {
+    .tabs-top {
+        top: 84px !important;
+    }
+}
+
+.md-sidenav-right {
+    left: 100%;
+    top: 64px !important;
 }

@@ -18,11 +18,6 @@ $expand-collapse-caret: #fff;
         .caret {
             position: absolute;
             z-index: 100;
-            right: 8%;
-            top: 40%;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-top: 10px solid $expand-collapse-caret;
         }
     }
     .expanded {
@@ -38,11 +33,6 @@ $expand-collapse-caret: #fff;
         .caret {
             position: absolute;
             z-index: 100;
-            right: 8%;
-            top: 40%;
-            border-left: 10px solid transparent;
-            border-right: 10px solid transparent;
-            border-bottom: 10px solid $expand-collapse-caret;
         }
     }
     .content {

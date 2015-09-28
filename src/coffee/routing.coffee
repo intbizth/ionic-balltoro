@@ -147,6 +147,7 @@ class Routing extends Config then constructor: (
         url: '/game-score'
         views:
             'game-score':
+                controller: 'gamePredictionController'
                 templateUrl: 'templates/ranking/game-score.html'
 
     state 'app.ranking.game-player',

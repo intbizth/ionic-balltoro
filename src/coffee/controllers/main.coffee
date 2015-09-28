@@ -62,6 +62,12 @@ class Main extends Controller
 
     setupMenus: ->
         @scope.menus =
+            news: [
+                {text: 'All', link: 'app.news', logo: ''}
+                {text: 'Thai Premier League', link: 'app.leagues', logo: ''}
+                {text: 'English Premier League', link: 'app.leagues', logo: ''}
+            ]
+
             leagues: [
                 {text: 'Thai Premier League', link: 'app.leagues', logo: ''}
                 {text: 'English Premier League', link: 'app.leagues', logo: ''}
@@ -77,5 +83,4 @@ class Main extends Controller
         @scope.active1 = true
         @scope.active2 = true
         @scope.active3 = true
-        @scope.leaguesactive = true
         @scope.settingactive = true

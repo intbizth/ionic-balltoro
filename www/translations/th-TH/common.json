@@ -1,4 +1,15 @@
 {
   "ui.t.hello": "สวัสดี, {{displayName}}!!",
-  "ui.t.save": "Save"
+  "ui.t.save": "Save",
+  "ui.t.main.menus.feed": "Home Feed",
+  "ui.t.main.menus.news": "News",
+  "ui.t.main.menus.matches": "Matches",
+  "ui.t.main.menus.leagues": "Leagues",
+  "ui.t.main.menus.ranking": "Ranking",
+  "ui.t.main.menus.login": "Log in",
+  "ui.t.main.menus.signin": "Sign in",
+  "ui.t.main.menus.logout": "Log out",
+  "ui.t.main.menus.setting": "Setting",
+  "ui.t.main.menus.more": "More",
+  "ui.t.share.title": "Share"
 }
