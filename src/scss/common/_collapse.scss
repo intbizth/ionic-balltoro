@@ -1,3 +1,5 @@
+$expand-collapse-caret: #fff;
+
 .expand-collapse {
     overflow: hidden;
     .item {
@@ -6,7 +8,6 @@
     .collapsed {
         cursor: pointer;
         position: relative;
-        z-index: 100000000;
         > span {
             position: absolute;
             top: 25px;
@@ -14,11 +15,18 @@
             font-size: 20px;
             line-height: 0;
         }
-
+        .caret {
+            position: absolute;
+            z-index: 100;
+            right: 8%;
+            top: 40%;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid $expand-collapse-caret;
+        }
     }
     .expanded {
         cursor: pointer;
-        z-index: 100000000;
         position: relative;
         > span {
             position: absolute;
@@ -26,6 +34,15 @@
             right: 15px;
             font-size: 20px;
             line-height: 0;
+        }
+        .caret {
+            position: absolute;
+            z-index: 100;
+            right: 8%;
+            top: 40%;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid $expand-collapse-caret;
         }
     }
     .content {
@@ -33,10 +50,9 @@
         margin: 0;
     }
     .slides {
-        height: 141px;
-        transition: height 0.35s ease;
         overflow: hidden;
         position: relative;
+        font-size: 12px;
         &.ng-hide {
             height: 0;
             transition: height 0.35s ease;

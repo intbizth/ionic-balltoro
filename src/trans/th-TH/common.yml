@@ -1,3 +1,19 @@
 ui.t:
     hello: "สวัสดี, {{displayName}}!!"
     save: Save
+
+    main:
+        menus:
+            feed: Home Feed
+            news: News
+            matches: Matches
+            leagues: Leagues
+            ranking: Ranking
+            login: Log in
+            signin: Sign in
+            logout: Log out
+            setting: Setting
+            more: More
+
+    share:
+        title: Share

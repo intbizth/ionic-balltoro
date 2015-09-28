@@ -63,14 +63,19 @@ class Main extends Controller
     setupMenus: ->
         @scope.menus =
             leagues: [
-                {text: 'Thai Premier League', link: ''}
-                {text: 'English Premier League', link: ''}
+                {text: 'Thai Premier League', link: 'app.leagues', logo: ''}
+                {text: 'English Premier League', link: 'app.leagues', logo: ''}
             ]
 
             setting: [
-                {text: 'USER SETTING', link: '/#/app/profile'}
-                {text: 'GAME SETTING', link: '/#/app/account-profile-game'}
+                {text: 'USER SETTING', link: 'app.profile', logo: './img/sidebar/profile_setting_2x.png'}
+                {text: 'GAME SETTING', link: 'app.account-profile-game', logo: './img/sidebar/game_setting_2x.png'}
             ]
 
     setupCollapse: ->
-        @scope.active = true;
+        @scope.active = true
+        @scope.active1 = true
+        @scope.active2 = true
+        @scope.active3 = true
+        @scope.leaguesactive = true
+        @scope.settingactive = true

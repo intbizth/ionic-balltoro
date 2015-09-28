@@ -1,0 +1,21 @@
+//TODO:h2h might be from another controller
+.expand-collapse.h2h-collapse
+    .header(ng-click!="active = !active",
+            ng-class!="{'collapsed': active, 'expanded': !active}",
+            ng-animate="{'caret': active}"
+            )
+        .caret
+        | {{"ui.t.match.statistic.h2h.header"|trans}}
+    .slides(ng-hide="active")
+        .content
+            .row.titles
+                .col {{"ui.t.match.statistic.h2h.pos"|trans}}
+                .col(flex=25) {{"ui.t.match.statistic.date"|trans}}
+                .col(flex=45)
+                .col {{"ui.t.match.statistic.ft"|trans}}
+        .div(ng-repeat="w in r")
+            .row(ng-class-odd!="'odd'", ng-class-even!="'even'")
+                .col ww
+                .col(flex=25) ww
+                .col(flex=45) ww
+                .col ww

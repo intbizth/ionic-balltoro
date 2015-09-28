@@ -1,0 +1,20 @@
+//TODO:h2h might be from another controller
+.expand-collapse.home-collapse
+    .header(ng-click!="active1 = !active1",
+            ng-class!="{'collapsed': active1, 'expanded': !active1}"
+            )
+        .caret
+        | Home Team
+    .slides(ng-hide="active1")
+        .content
+            .row.titles
+                .col Pos
+                .col(flex=25) Date
+                .col(flex=45)
+                .col FT
+        .div(ng-repeat="w in r")
+            .row(ng-class-odd!="'odd'", ng-class-even!="'even'")
+                .col ww
+                .col(flex=25) ww
+                .col(flex=45) ww
+                .col ww

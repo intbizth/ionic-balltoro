@@ -15,7 +15,6 @@ $news-info-author: $news-info-headline;
     }
     .info {
         padding: 15px;
-        overflow: hidden;
         .headline {
             color: $news-info-headline;
             margin-bottom: 10px;
@@ -28,7 +27,7 @@ $news-info-author: $news-info-headline;
         }
         .author {
             margin-top: 22px;
-            font-size: 18px;
+            font-size: 16px;
             color: $news-info-author;
         }
     }

@@ -1,0 +1,25 @@
+ion-item.match-item
+    .club
+        img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
+        span.name {{r.home_club.name}}
+    .vs.-live VS
+        .time {{r.start_time|date:('HH:MM')}}
+    .club
+        img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
+        span.name {{r.away_club.name}}
+
+.handicap-bar {{'ui.t.match.handicap'|trans}}
+    span.title {{r.handicap}}
+
+include ./status
+include ./collapse/h2h
+include ./collapse/home
+include ./collapse/away
+include ./collapse/league
+
+.social-share.statistic-share
+    .title {{"ui.t.share.title"|trans}}
+    a.button.button-icon.icon.ion-android-share-alt
+    a.button.button-icon.icon.ion-social-facebook
+    a.button.button-icon.icon.ion-social-twitter
+    a.button.button-icon.icon.ion-social-pinterest

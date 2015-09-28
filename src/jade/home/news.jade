@@ -1,5 +1,6 @@
 .news-header {{'ui.t.news.header.lasted'|trans}}
     a.views(ui-sref='app.news') {{'ui.t.news.header.view'|trans}}
+
 .news-thumbnail(ng-repeat="r in store.$collection | limitTo:quantity")
     a(ui-sref="app.news-show({ newsId:r.id })")
         img.cover(ng-src="{{r.cover}}")

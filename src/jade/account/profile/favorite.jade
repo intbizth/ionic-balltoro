@@ -6,6 +6,7 @@ ion-view(view-title='Team Favorite', class='favorite-form')
         div(class='list')
             a.item.favorite-form.listview(ng-href='#', ng-repeat="team in myTeam")
                 span {{team.name}}
+ion-view(view-title='{{"ui.t.account.favorite.title"|trans}}')
 
     //-----Side menu-----//
     md-sidenav.md-sidenav-right.favorite-menu(md-component-id='Toggle_right')

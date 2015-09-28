@@ -1,0 +1,11 @@
+//Overwrite from common/share.scss
+$match-share-border: #000;
+
+.match-share {
+    background: #213647;
+    width: 100%;
+    margin: 0;
+    padding-left: 15%;
+    border-bottom: 0;
+    border-top: 1px solid $match-share-border;
+}

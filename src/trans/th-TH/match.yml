@@ -2,6 +2,7 @@ ui.t:
     match:
         day: วันที่แข่งขัน
         time: เวลาแข่งขัน
+        handicap: Handicap
         header:
             title: โปรแกรมการแข่งขัน
             lasted: Lasted Match
@@ -10,3 +11,13 @@ ui.t:
         sidemenu:
             info_1: ท่านสามารถเลือกทีมโปรดของท่านได้ทั้ง 6 ลีกชั้นนำ ลักละ 1 ทีม ร่วมเล่นเกมทายผล และเกมทาย 11 ตัวจริงที่คาดว่าลงสนาม ก่อนเริ่มการแข่งขัน
             info_2: ผู้ทายถูกจะได้รับแต้ม เพื่อใช้แต้มร่วมสนุกกับกิจกรรมต่างๆ ของ balltoro
+        tab:
+            prediction: เกมทายผล
+            soccer: เกมทาย 11 ตัวจริง
+            statistic: สถิติ
+        statistic:
+            h2h:
+                header: Head 2 Head สถิติการพบกันล่าสุด
+                pos: Pos
+                date: Date
+                ft: FT

@@ -1,0 +1,39 @@
+div.match-events(id="event")
+    .empty(ng-if="events.items.length == 0")
+    .line(id="event-line")
+    div(ng-repeat="event in events.items")
+        div.row.row-center.wrap
+
+            div.col.col-center
+                div.text-right(ng-show="event.align == 'left'")
+                    span.name(ng-show="event.name") {{event.name}}
+                    img.image(ng-show="event.icon", ng-src="./img/match-events/{{event.icon}}.png",
+                    srcset="./img/match-events/{{event.icon}}@2x.png 2x")
+                    span.description(ng-show="event.description") {{event.description}}
+                    span.time(ng-show="event.time") {{event.time}}
+
+            div.col.col-10.col-center.text-center
+                div.dot.-normal(ng-show="event.dot == 'normal'")
+                    i.icon.ion-record
+                div.dot.-halftime(ng-show="event.dot == 'halftime'")
+                    i.icon.ion-record
+                div.dot.-large(ng-show="event.dot == 'large'")
+                    i.icon.ion-ios-circle-filled
+
+            div.col.col-center
+                div.text-left(ng-show="event.align == 'right'")
+                    span.time(ng-show="event.time") {{event.time}}
+                    span.description(ng-show="event.description") {{event.description}}
+                    img.image(ng-show="event.icon", ng-src="./img/match-events/{{event.icon}}.png",
+                    srcset="./img/match-events/{{event.icon}}@2x.png 2x")
+                    span.name(ng-show="event.name") {{event.name}}
+
+.event-description
+    .event(layout="row") สิ้นสุดการแข่งขัน
+        span.point 1 - 1
+    .event(layout="row") ทายผลการแข่งขัน
+        span.point 0
+        | คะแนน
+    .event(layout="row") ทายผลสกอร์
+        span.point 0
+        | คะแนน

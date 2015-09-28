@@ -31,5 +31,10 @@ class TranslationRun extends Run
             .addPart 'common'
             .addPart 'match'
             .addPart 'news'
+            .addPart 'account'
+            .addPart 'home'
+            .addPart 'league'
+            .addPart 'ranking'
+            .addPart 'user'
 
         $translate.refresh()

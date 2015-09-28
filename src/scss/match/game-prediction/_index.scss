@@ -1,0 +1,14 @@
+$handicap-bar-bg: #383A3B;
+$handicap-bar-text: #fff;
+
+.handicap-bar {
+    padding: 15px;
+    background: $handicap-bar-bg;
+    color: orange;
+    text-align: center;
+    font-size: 16px;
+    .title {
+        color: $handicap-bar-text;
+        margin-left: 10px;
+    }
+}

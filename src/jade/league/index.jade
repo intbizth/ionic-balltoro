@@ -1,0 +1,15 @@
+ion-view(view-title='{{"ui.t.league.title"|trans}}')
+    ion-content
+        ion-item.match-item(collection-repeat="item in matches")
+            .league-header
+                .logo
+                .league {{item.season.name}}
+            ion-item.match-item(ng-repeat="r in item.items")
+                include ../common/matches
+
+        ion-infinite-scroll(
+            ng-if="store.hasMorePage()"
+            on-infinite="store.getNextPage()"
+            distance="5%"
+            spinner="{{$spinnerIcon}}"
+        )
