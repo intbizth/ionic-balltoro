@@ -1,20 +1,21 @@
 .lastmatch-header {{"ui.t.match.header.lasted"|trans}}
     a.views(ui-sref='app.matches') {{'ui.t.match.header.view'|trans}}
 
-ion-item.match-item(ng-repeat="r in store.$collection | limitTo:quantity")
+ion-item.match-items(ng-repeat="r in store.$collection | limitTo:quantity")
     a(ui-sref="app.matches-show.game-prediction({ id:r.id })")
-        .club
-            img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
-            span.name {{r.home_club.name}}
-                .vs.-live(ng-if="r.is_live")
-            | {{r.result}}
-            //TODO: time must be live timestamp
-            .time {{r.start_time|date:('HH:MM')}}
-                .vs.-fulltime(ng-if="r.is_full_time")
-            | {{r.result}}
-            .ft FT
-                .vs.-nextmatch(ng-if="!r.is_full_time && !r.is_live")
-            | {{r.start_time|date:('HH:MM')}} {{r.id}}
+        .match
             .club
-            span.name {{r.away_club.name}}
-            img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
+                img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
+                span.name {{r.home_club.name}}
+            .vs.-live(ng-if="r.is_live")
+                | {{r.result}}
+                //TODO: time must be live timestamp
+                .time {{r.start_time|date:('HH:MM')}}
+            .vs.-fulltime(ng-if="r.is_full_time")
+                | {{r.result}}
+                .ft FT
+            .vs.-nextmatch(ng-if="!r.is_full_time && !r.is_live")
+                | {{r.start_time|date:('HH:MM')}} {{r.id}}
+            .club
+                span.name {{r.away_club.name}}
+                img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")

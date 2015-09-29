@@ -16,7 +16,10 @@ ion-side-menus(enable-menu-with-back-views='false')
         ion-content
             ion-list.list-menu
                 ion-item(menu-close='', ui-sref='app.home.index')
-                    img.icons(src="img/sidebar/home-feed_2x.png")
+                    img.icons(
+                        src="./img/sidebar/home-feed.png",
+                        srcset="./img/sidebar/home-feed_2x.png 2x"
+                        )
                     .menus {{'ui.t.main.menus.feed'|trans}}
 
                 ion-item.expand-collapse.menu-collapse
@@ -24,7 +27,10 @@ ion-side-menus(enable-menu-with-back-views='false')
                     ng-click!="active = !active",
                     ng-class!="{'collapsed': active, 'expanded': !active}"
                     )
-                        img.icons(src="img/sidebar/news_2x.png")
+                        img.icons(
+                            src="./img/sidebar/news.png",
+                            srcset="./img/sidebar/news_2x.png 2x"
+                            )
                         .menus {{'ui.t.main.menus.news'|trans}}
                         .caret
                     .slides
@@ -38,7 +44,10 @@ ion-side-menus(enable-menu-with-back-views='false')
                             | {{menu.text}}
 
                 ion-item(menu-close='', ui-sref='app.matches')
-                    img.icons(src="img/sidebar/match_2x.png")
+                    img.icons(
+                        src="./img/sidebar/match.png",
+                        srcset="./img/sidebar/match_2x.png 2x"
+                        )
                     .menus {{'ui.t.main.menus.matches'|trans}}
 
                 ion-item.expand-collapse.menu-collapse
@@ -46,7 +55,10 @@ ion-side-menus(enable-menu-with-back-views='false')
                         ng-click!="active = !active",
                         ng-class!="{'collapsed': active, 'expanded': !active}"
                     )
-                        img.icons(src="img/sidebar/league_game_2x.png")
+                        img.icons(
+                            src="./img/sidebar/league_game.png",
+                            srcset="./img/sidebar/league_game_2x.png 2x"
+                            )
                         .menus {{'ui.t.main.menus.leagues'|trans}}
                         .caret
                     .slides

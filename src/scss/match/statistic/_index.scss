@@ -39,27 +39,26 @@ $statistic-share-bg: #213647;
 }
 
 .match-statistic {
-    .vs {
-        background: $match-statistic-vs-bg;
-        &.-nextmatch {
-            color: $match-statistic-text;
-            padding-top: 15px;
-            font-size: 30px;
+    .match {
+        padding: 0 5px;
+        .club {
+            padding-top: 5px;
         }
-        &.-fulltime {
-            color: $match-statistic-text;
-        }
-        .ft {
-            color: $match-statistic-ft;
-            border: none;
-            background: none;
+        .vs {
+            background: $match-statistic-vs-bg;
+            &.-nextmatch {
+                color: $match-statistic-text;
+                padding-top: 15px;
+                font-size: 30px;
+            }
+            &.-fulltime {
+                color: $match-statistic-text;
+            }
+            .ft {
+                color: $match-statistic-ft;
+                border: none;
+                background: none;
+            }
         }
     }
 }
-
-.md-tabs-content {
-    display: flex;
-    flex: 1;
-    overflow: hidden;
-}
-
