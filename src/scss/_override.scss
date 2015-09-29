@@ -3,6 +3,7 @@ $player-position-md-active-text: #fff;
 
 .pane {
     // TODO: handle other platforms.
+    height: initial !important;
     &.has-header {
         top: 44px !important;
     }
@@ -13,4 +14,12 @@ $player-position-md-active-text: #fff;
         background: $player-position-md-active-bg;
         color: $player-position-md-active-text !important;
     }
+}
+
+md-tabs:not(.md-no-tab-content):not(.md-dynamic-height) {
+    height: 100% !important;
+}
+
+.item-content {
+    height: 100%;
 }

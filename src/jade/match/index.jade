@@ -6,26 +6,23 @@ ion-view(view-title="{{'ui.t.match.header.title'|trans}}")
         )
 
         ion-list
-            ion-item.match-item(collection-repeat="item in items")
-                // FIXME: change css name to: date
-                .match-header(ng-if="item.type == 'date'")
+            ion-item.match-items(
+                ng-repeat="item in items")
+                .date(ng-if="item.type == 'date'")
                     | {{item.value}}
 
-                // FIXME: change css name to: league
-                .league-header(ng-if="item.type == 'league'")
+                .league(ng-if="item.type == 'league'")
                     .logo
-                    .league {{item.value.name}}
+                    .name {{item.value.name}}
 
-                // FIXME: change css name to: match
-                .match-item(ng-if="item.type == 'match'")
-                    a(ui-sref="app.matches-show.game-prediction({ id: item.value.id })")
+                .match(ng-if="item.type == 'match'")
+                    a.info(ui-sref="app.matches-show.game-prediction({ id: item.value.id })")
                         .club
                             img.logo(ng-src!="{{item.value.home_club.getLogo('70x70')}}")
                             span.name {{item.value.home_club.name}}
 
                         .vs.-live(ng-if="item.value.is_live")
                             | {{item.value.result}}
-                            //TODO: time must be live timestamp
                             .time {{item.value.start_time|date:('HH:MM')}}
 
                         .vs.-fulltime(ng-if="item.value.is_full_time")
