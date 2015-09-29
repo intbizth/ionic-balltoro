@@ -14,120 +14,96 @@ $match-item-nextmatch-text: $match-item-name-item;
 $match-vs-ft: $match-item-live-vs;
 $match-vs-ft-color: #fff;
 
-.match-header {
-    background: $match-header-bg;
-    overflow: hidden;
-    color: $match-header-text;
-    padding: 15px;
-    .date {
-        font-size: 14px;
-        color: inherit;
-        text-align: center;
-    }
-    .prev {
-        background: transparent;
-        border: 2px solid $match-header-button-border;
-        color: $match-header-button-text;
-        &::before {
-            content: " \003c \003c ";
-        }
-    }
-    .next {
-        background: transparent;
-        border: 2px solid $match-header-button-border;
-        color: $match-header-button-text;
-        position: relative;
-        padding: 3px 20px 3px 5px;
-        text-align: left;
-        float: right;
-        &::after {
-            position: absolute;
-            content: " \003e \003e";
-        }
-    }
-}
-
-.league-header {
-    background: $league-header-bg;
-    padding: 5px 15px;
-    color: $league-header-text;
-    overflow: hidden;
-    .logo {
-        width: 30px;
-        height: 30px;
-        float: left;
-        margin-right: 10px;
-    }
-    .league {
-        padding: 5px;
-    }
-}
-
-.match-item {
-    margin: 0 !important;
+.match-items {
     padding: 0;
     overflow: hidden;
-    .club {
-        width: 40%;
-        float: left;
-        .logo {
-            width: 45px;
-            height: 45px;
-            margin-top: 20px;
-            margin-left: 5px;
-        }
-        .name {
-            margin-left: 1px;
-            text-align: center;
-            position: absolute;
-            padding-top: 26px;
-            font-size: 13px;
-            width: 24%;
-            white-space: normal;
-            color: $match-item-name-item;
-        }
-        .-right {
-            float: right !important;
-            margin-right: 4px;
-        }
+    .date {
+        background: $match-header-bg;
+        overflow: hidden;
+        color: $match-header-text;
+        padding: 15px;
     }
 
-    .vs {
-        width: 20%;
-        text-align: center;
-        min-height: 85px;
-        padding-top: 20px;
-        float: left;
-        margin: 0 auto;
-        &.-live {
-            background: $match-item-live-vs;
-            color: $match-item-live-vs-text;
-            font-size: 1.8em;
-            font-weight: bold;
+    .league {
+        background: $league-header-bg;
+        padding: 5px 15px;
+        color: $league-header-text;
+        overflow: hidden;
+        .logo {
+            width: 30px;
+            height: 30px;
+            float: left;
+            margin-right: 10px;
         }
-        &.-fulltime, &.-nextmatch {
-            font-size: 1.5em;
-            color: $match-item-fulltime-text;
-            font-weight: bold;
+        .name {
+            padding: 5px;
         }
-        &.-nextmatch {
-            color: $match-item-nextmatch-text;
-            padding-top: 30px;
-            font-size: 1em;
+    }
+    .match {
+        overflow: hidden;
+        border-width: 0;
+        padding: 15px;
+        .club {
+            width: 40%;
+            float: left;
+            .logo {
+                width: 45px;
+                height: 45px;
+                margin-top: 3px;
+                margin-left: 5px;
+            }
+            .name {
+                margin-left: 1px;
+                text-align: center;
+                position: absolute;
+                padding-top: 10px;
+                font-size: 13px;
+                width: 24%;
+                white-space: normal;
+                color: $match-item-name-item;
+            }
+            .-right {
+                float: right !important;
+                margin-right: 4px;
+            }
         }
-        .time {
-            margin-top: 10px;
-            font-size: 14px;
-        }
-        .ft {
-            background: $match-vs-ft;
-            color: $match-vs-ft-color;
-            width: 50%;
-            margin-top: 10px;
-            font-size: 14px;
-            font-weight: normal;
-            margin-left: 25%;
-            border-radius: 4px;
+
+        .vs {
+            width: 20%;
+            text-align: center;
+            padding-top: 10px;
+            float: left;
+            margin: 0 auto;
+            &.-live {
+                background: $match-item-live-vs;
+                color: $match-item-live-vs-text;
+                font-size: 1.8em;
+                font-weight: bold;
+            }
+            &.-fulltime, &.-nextmatch {
+                font-size: 1.5em;
+                color: $match-item-fulltime-text;
+                font-weight: bold;
+            }
+            &.-nextmatch {
+                color: $match-item-nextmatch-text;
+                padding-top: 10px;
+                font-size: 1em;
+            }
+            .time {
+                margin-top: 10px;
+                font-size: 14px;
+            }
+            .ft {
+                background: $match-vs-ft;
+                color: $match-vs-ft-color;
+                width: 50%;
+                margin-top: 10px;
+                font-size: 14px;
+                font-weight: normal;
+                margin-left: 25%;
+                border-radius: 4px;
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-class MatchPrediction extends Controller then constructor: (
+class MatchGamePrediction extends Controller then constructor: (
     $scope, $timeout, Und, Chance
 ) ->
 

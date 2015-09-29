@@ -56,3 +56,10 @@ $statistic-share-bg: #213647;
         }
     }
 }
+
+.md-tabs-content {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+

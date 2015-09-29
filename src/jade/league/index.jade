@@ -5,7 +5,26 @@ ion-view(view-title='{{"ui.t.league.title"|trans}}')
                 .logo
                 .league {{item.season.name}}
             ion-item.match-item(ng-repeat="r in item.items")
-                include ../common/matches
+                a(ui-sref="app.matches-show.game-prediction({ id:r.id })")
+                    .club
+                        img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
+                        span.name {{r.home_club.name}}
+
+                    .vs.-live(ng-if="r.is_live")
+                        | {{r.result}}
+                        //TODO: time must be live timestamp
+                        .time {{r.start_time|date:('HH:MM')}}
+
+                    .vs.-fulltime(ng-if="r.is_full_time")
+                        | {{r.result}}
+                        .ft FT
+
+                    .vs.-nextmatch(ng-if="!r.is_full_time && !r.is_live")
+                        | {{r.start_time|date:('HH:MM')}} {{r.id}}
+
+                    .club
+                        span.name {{r.away_club.name}}
+                        img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
 
         ion-infinite-scroll(
             ng-if="store.hasMorePage()"
