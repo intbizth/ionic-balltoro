@@ -74,8 +74,6 @@ gulp.task 'coffee', (done) ->
         #.pipe($.plumber(errorHandler: $.notify.onError("Error: <%= error.message %>")))
         .pipe($.ngClassify(appName: appName))
         .pipe($.coffee(bare: no).on('error', $logger))
-        .pipe($.jshint(".jshintrc"))
-        .pipe($.jshint.reporter('jshint-stylish'))
         .pipe($.concat('app.js'))
         .pipe($.insert.prepend("'use strict';\n"))
         .pipe(replace({patterns: replacements}))
