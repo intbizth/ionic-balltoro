@@ -24,7 +24,7 @@ $match-statistic-ft: orange;
         }
         .vs {
             background: $match-statistic-vs-bg;
-            min-height: 60px;
+            min-height: 80px;
             overflow: hidden;
             &.-nextmatch {
                 color: $match-statistic-text;

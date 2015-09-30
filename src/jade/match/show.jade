@@ -12,12 +12,12 @@ ion-view(view-title='{{r.home_club.name}} - {{r.away_club.name}} ')
                     md-content(flex)
                         div(ui-view="match-game-prediction")
 
-            md-tab(
-                label!="{{'ui.t.match.tab.soccer'|trans}}"
-                ui-sref="app.matches-show.game-soccer({id: matchId})"
-                )
-                md-content(flex)
-                    div(ui-view="match-game-soccer")
+            //md-tab(
+            //    label!="{{'ui.t.match.tab.soccer'|trans}}"
+            //    ui-sref="app.matches-show.game-soccer({id: matchId})"
+            //    )
+            //    md-content(flex)
+            //        div(ui-view="match-game-soccer")
 
             md-tab(
                 label!="{{'ui.t.match.tab.statistic'|trans}}"

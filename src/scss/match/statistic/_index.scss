@@ -46,6 +46,7 @@ $statistic-share-bg: #213647;
         }
         .vs {
             background: $match-statistic-vs-bg;
+            min-height: 80px;
             &.-nextmatch {
                 color: $match-statistic-text;
                 padding-top: 15px;

@@ -11,12 +11,12 @@ ion-view(view-title='{{"ui.t.ranking.title"|trans}}')
                 div(flex layout="row")
                     md-content(flex)
                         div(ui-view="game-prediction")
-            md-tab(
-            label!="{{'ui.t.ranking.tab.soccer'|trans}}"
-            ui-sref="app.ranking.game-score"
-            )
-                md-content(flex)
-                    div(ui-view="game-score")
+            //md-tab(
+            //label!="{{'ui.t.ranking.tab.soccer'|trans}}"
+            //ui-sref="app.ranking.game-score"
+            //)
+            //    md-content(flex)
+            //        div(ui-view="game-score")
             md-tab(
             label!="{{'ui.t.ranking.tab.score'|trans}}"
             ui-sref="app.ranking.game-player"
