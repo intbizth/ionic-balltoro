@@ -1,7 +1,7 @@
 ui.t:
     ranking:
-        game-setting:
-            title: Game Setting
-            header: Team Favorite
-            choose: Choose Team
-            submit: Submit
+        title: Ranking
+        tab:
+            prediction: เกมทายผล
+            soccer: เกมทาย 11 ตัวจริง
+            score: เกมทายสกอร์

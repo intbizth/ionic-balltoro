@@ -5,8 +5,12 @@ $player-position-md-active-text: #fff;
     // TODO: handle other platforms.
     height: initial !important;
     &.has-header {
-        top: 44px !important;
+        top: 64px !important;
     }
+}
+
+md-tabs:not(.md-no-tab-content):not(.md-dynamic-height) {
+    height: 100% !important;
 }
 
 .player-position {
@@ -16,8 +20,15 @@ $player-position-md-active-text: #fff;
     }
 }
 
-md-tabs:not(.md-no-tab-content):not(.md-dynamic-height) {
-    height: 100% !important;
+.tabs {
+    .tabs-top {
+        top: 84px !important;
+    }
+}
+
+.md-sidenav-right {
+    left: 100%;
+    top: 64px !important;
 }
 
 .item-content {

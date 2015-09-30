@@ -123,7 +123,7 @@ class Routing extends Config then constructor: (
 
     state 'app.ranking',
         url: '/ranking'
-        abstract: yes
+#        abstract: yes
         views:
             content:
                 controller: 'rankingIndexController'
@@ -147,6 +147,7 @@ class Routing extends Config then constructor: (
         url: '/game-score'
         views:
             'game-score':
+                controller: 'gamePredictionController'
                 templateUrl: 'templates/ranking/game-score.html'
 
     state 'app.ranking.game-player',

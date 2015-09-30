@@ -1,5 +1,8 @@
 $handicap-bar-bg: #383A3B;
 $handicap-bar-text: #fff;
+$match-statistic-vs-bg: #549AF7;
+$match-statistic-text: #fff;
+$match-statistic-ft: orange;
 
 .handicap-bar {
     padding: 15px;
@@ -10,5 +13,32 @@ $handicap-bar-text: #fff;
     .title {
         color: $handicap-bar-text;
         margin-left: 10px;
+    }
+}
+
+.match-prediction {
+    .match {
+        padding: 0 5px;
+        .club {
+            padding-top: 5px;
+        }
+        .vs {
+            background: $match-statistic-vs-bg;
+            min-height: 60px;
+            overflow: hidden;
+            &.-nextmatch {
+                color: $match-statistic-text;
+                padding-top: 10px;
+                font-size: 20px;
+            }
+            &.-fulltime {
+                color: $match-statistic-text;
+            }
+            .ft {
+                color: $match-statistic-ft;
+                border: none;
+                background: none;
+            }
+        }
     }
 }

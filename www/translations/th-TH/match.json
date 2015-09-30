@@ -1,9 +1,23 @@
 {
   "ui.t.match.day": "วันที่แข่งขัน",
   "ui.t.match.time": "เวลาแข่งขัน",
+  "ui.t.match.handicap": "Handicap",
   "ui.t.match.header.title": "โปรแกรมการแข่งขัน",
   "ui.t.match.header.lasted": "Lasted Match",
   "ui.t.match.header.view": "Veiw all",
+  "ui.t.match.tab.prediction": "เกมทายผล",
+  "ui.t.match.tab.soccer": "เกมทาย 11 ตัวจริง",
+  "ui.t.match.tab.statistic": "สถิติ",
+  "ui.t.match.statistic.league": "League Table",
+  "ui.t.match.statistic.header": "Head 2 Head สถิติการพบกันล่าสุด",
+  "ui.t.match.statistic.pos": "Pos",
+  "ui.t.match.statistic.date": "Date",
+  "ui.t.match.statistic.ft": "FT",
+  "ui.t.match.statistic.team": "Team",
+  "ui.t.match.statistic.p": "P",
+  "ui.t.match.statistic.gd": "GD",
+  "ui.t.match.statistic.pts": "Pts",
+  "ui.t.match.soccer.timeleft": "เวลาที่เหลือ",
   "ui.t.favorite.sidemenu.info_1": "ท่านสามารถเลือกทีมโปรดของท่านได้ทั้ง 6 ลีกชั้นนำ ลักละ 1 ทีม ร่วมเล่นเกมทายผล และเกมทาย 11 ตัวจริงที่คาดว่าลงสนาม ก่อนเริ่มการแข่งขัน",
   "ui.t.favorite.sidemenu.info_2": "ผู้ทายถูกจะได้รับแต้ม เพื่อใช้แต้มร่วมสนุกกับกิจกรรมต่างๆ ของ balltoro"
 }
