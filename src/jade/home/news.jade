@@ -1,10 +1,30 @@
 .news-header {{'ui.t.news.header.lasted'|trans}}
     a.views(ui-sref='app.news') {{'ui.t.news.header.view'|trans}}
 
-.news-thumbnail(ng-repeat="r in store.$collection | limitTo:quantity")
-    a(ui-sref="app.news-show({ newsId:r.id })")
-        img.cover(ng-src="{{r.cover}}")
-        .info
-            h3.headline {{r.headline}}
-            img.columnist(ng-src="{{r.user.profile_picture}}")
-            p.author {{r.user.displayname}}
+//.news-thumbnail(ng-repeat="r in store.$collection | limitTo:quantity")
+//    a(ui-sref="app.news-show({ newsId:r.id })")
+//        img.cover(ng-src="{{r.cover}}")
+//        .info
+//            h3.headline {{r.headline}}
+//            img.columnist(ng-src="{{r.user.profile_picture}}")
+//            p.author {{r.user.displayname}}
+
+.gridListdemoDynamicTiles(flex='')
+    md-grid-list(
+    md-cols-sm='1',
+    md-cols-md='2',
+    md-cols-gt-md='2',
+    md-row-height-gt-md='2:1',
+    md-row-height='2:1',
+    md-gutter='8px',
+    md-gutter-gt-sm='4px'
+    )
+        md-grid-tile(
+        ng-repeat='tile in tiles',
+        md-rowspan='{{tile.span.row}}',
+        md-colspan='{{tile.span.col}}',
+        md-colspan-sm='1',
+        ng-class='tile.background'
+        )
+            md-grid-tile-footer
+                h3 {{tile.title}}

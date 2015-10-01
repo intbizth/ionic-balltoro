@@ -1,30 +1,31 @@
 ion-view(view-title='{{"ui.t.league.title"|trans}}')
     ion-content
-        ion-item.match-item(collection-repeat="item in matches")
-            .league-header
+        ion-item.match-items(collection-repeat="item in matches")
+            .league
                 .logo
                 .league {{item.season.name}}
             ion-item.match-item(ng-repeat="r in item.items")
-                a(ui-sref="app.matches-show.game-prediction({ id:r.id })")
-                    .club
-                        img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
-                        span.name {{r.home_club.name}}
+                .match
+                    a(ui-sref="app.matches-show.game-prediction({ id:r.id })")
+                        .club
+                            img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
+                            span.name {{r.home_club.name}}
 
-                    .vs.-live(ng-if="r.is_live")
-                        | {{r.result}}
-                        //TODO: time must be live timestamp
-                        .time {{r.start_time|date:('HH:MM')}}
+                        .vs.-live(ng-if="r.is_live")
+                            | {{r.result}}
+                            //TODO: time must be live timestamp
+                            .time {{r.start_time|date:('HH:MM')}}
 
-                    .vs.-fulltime(ng-if="r.is_full_time")
-                        | {{r.result}}
-                        .ft FT
+                        .vs.-fulltime(ng-if="r.is_full_time")
+                            | {{r.result}}
+                            .ft FT
 
-                    .vs.-nextmatch(ng-if="!r.is_full_time && !r.is_live")
-                        | {{r.start_time|date:('HH:MM')}} {{r.id}}
+                        .vs.-nextmatch(ng-if="!r.is_full_time && !r.is_live")
+                            | {{r.start_time|date:('HH:MM')}} {{r.id}}
 
-                    .club
-                        span.name {{r.away_club.name}}
-                        img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
+                        .club
+                            span.name {{r.away_club.name}}
+                            img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
 
         ion-infinite-scroll(
             ng-if="store.hasMorePage()"

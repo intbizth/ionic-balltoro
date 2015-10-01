@@ -4,12 +4,11 @@ ion-view(view-title="{{'ui.t.match.header.title'|trans}}")
             on-refresh="loadNextDayMatches()"
             spinner="{{$spinnerIcon}}"
         )
-
         ion-list
             ion-item.match-items(
                 ng-repeat="item in items")
                 .date(ng-if="item.type == 'date'")
-                    | {{item.value}}
+                    | {{item.value | moment: 's'}}
 
                 .league(ng-if="item.type == 'league'")
                     .logo
