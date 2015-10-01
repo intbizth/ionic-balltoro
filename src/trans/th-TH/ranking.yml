@@ -5,3 +5,29 @@ ui.t:
             prediction: เกมทายผล
             soccer: เกมทาย 11 ตัวจริง
             score: เกมทายสกอร์
+        prediction:
+            predict: ทาย
+            used: ครั้ง
+            pts: Pts
+            lastmatch-en: Lasted Match
+            lastmatch-th: คะแนน 5 นัดล่าสุด
+            game-prediction: เกมทายผล
+            resultname: คะแนนรวม
+            point: คะแนน
+            score: สกอร์จริง
+            game-score: เกมทายสกอร์
+            month-point-en: Month Points
+            month-point-th: คะแนนรวมประจำเดือน เมษายน
+            season-point-en: Season Points
+            season-point-th: คะแนนรวมทั้งฤดูกาล
+            home: เจ้าบ้าน
+            away: ทีมเยือน
+            draw: เสมอ
+            time: นัด
+            total: จำนวน
+            right: ถูก
+            miss: ผิด
+            guess: เฉียด
+            result: ความแม่นยำ
+            percentage: "%"
+        history: History ประวัติการทายผลทั้งหมด

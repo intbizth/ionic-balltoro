@@ -1,15 +1,15 @@
-.game-prediction-content(ng-repeat="gamePrediction in gamePredictions")
-    a.row(ui-sref="app.ranking.game-prediction-show({id: gamePrediction.id})")
+.game-prediction-content(ng-repeat="gameScore in gameScores")
+    a.row(ui-sref="app.ranking.game-score-show({id: gameScore.id})")
         .info
-            img.user.img-circle(ng-src="{{gamePrediction.image}}")
+            img.user.img-circle(ng-src="{{gameScore.image}}")
             .rating
-                h3 {{gamePrediction.rating}}
-            .username {{gamePrediction.username}}
+                h3 {{gameScore.rating}}
+            .username {{gameScore.username}}
             .count
-                span เกมทาย
-                span.color  {{gamePrediction.count}}
-                span  ครั้ง
+                span {{'ui.t.ranking.prediction.predict'|trans}}
+                span.color  {{gameScore.count}}
+                span  {{'ui.t.ranking.prediction.used'|trans}}
         .point
-            .pts Pts
+            .pts {{'ui.t.ranking.prediction.pts'|trans}}
             .score
-                h3 {{gamePrediction.score}}
+                h3 {{gameScore.score}}

@@ -64,11 +64,12 @@ class Main extends Controller
         @scope.menus =
             news: [
                 {text: 'All', link: 'app.news', logo: ''}
-                {text: 'Thai Premier League', link: 'app.leagues', logo: ''}
-                {text: 'English Premier League', link: 'app.leagues', logo: ''}
+                {text: 'Thai Premier League', link: 'app.news', logo: ''}
+                {text: 'English Premier League', link: 'app.news', logo: ''}
             ]
 
             leagues: [
+                {text: 'All', link: 'app.leagues', logo: ''}
                 {text: 'Thai Premier League', link: 'app.leagues', logo: ''}
                 {text: 'English Premier League', link: 'app.leagues', logo: ''}
             ]

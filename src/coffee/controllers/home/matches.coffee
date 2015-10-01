@@ -1,5 +1,5 @@
-class HomeMatches extends Controller
-    constructor: ($scope, Matches) ->
-        new Matches().load $scope
-
-        $scope.quantity = 3;
+class HomeMatches extends Controller then constructor: (
+    $scope, Matches
+) ->
+    new Matches().load $scope
+    $scope.quantity = 5;

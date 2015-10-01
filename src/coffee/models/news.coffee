@@ -8,7 +8,8 @@ class NewsStore extends Factory then constructor: (
 ) ->
     return NgBackboneCollection.extend
         model: News
-        url: News::url + 'latest'
+        url: News::url
+#    + 'latest'
 
 ###*
 # News Model
