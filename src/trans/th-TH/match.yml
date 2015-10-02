@@ -1,5 +1,7 @@
 ui.t:
     match:
+        vs: VS
+        ft: FT
         day: วันที่แข่งขัน
         time: เวลาแข่งขัน
         handicap: Handicap

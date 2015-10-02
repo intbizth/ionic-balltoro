@@ -1,9 +1,10 @@
 //TODO:h2h might be from another controller
 .expand-collapse.h2h-collapse
-    .header(ng-click!="active = !active",
-            ng-class!="{'collapsed': active, 'expanded': !active}",
-            ng-animate="{'caret': active}"
-            )
+    .header(
+        ng-click!="active = !active",
+        ng-class!="{'collapsed': active, 'expanded': !active}",
+        ng-animate="{'caret': active}"
+    )
         .caret
         | {{"ui.t.match.statistic.header"|trans}}
     .slides(ng-hide="active")

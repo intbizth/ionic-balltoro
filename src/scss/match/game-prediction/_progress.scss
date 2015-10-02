@@ -1,0 +1,37 @@
+$progress-bars: #549AF7;
+$progressed-right: #FAAF40;
+$progressed-left: #FF3B30;
+
+.progress-bars {
+    height: 30px;
+    overflow: hidden;
+    background: $progress-bars;
+    padding-top: 10px;
+    .bars {
+        margin: 0 auto;
+        width: 70%;
+        .progressed {
+            height: 10px;
+            float: left;
+            position: relative;
+            .-right {
+                z-index: 1;
+                position: absolute;
+                width: 0;
+                height: 0;
+                left: -10px;
+                border-top: 10px solid $progressed-right;
+                border-left: 10px solid transparent;
+            }
+            .-left {
+                z-index: 1;
+                position: absolute;
+                width: 0;
+                height: 0;
+                right: -10px;
+                border-top: 10px solid $progressed-left;
+                border-right: 10px solid transparent;
+            }
+        }
+    }
+}

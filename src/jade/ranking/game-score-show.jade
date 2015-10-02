@@ -8,12 +8,12 @@
             .name Chonburi FC
     .bg
         .pointUser(
-            ng-repeat="pointUser in pointUsers"
-            ng-class="{bg2 : pointUser.game == 'เกมทายสกอร์'}"
-            )
+        ng-repeat="pointUser in pointUsers"
+        ng-class="{bg2 : pointUser.game == 'เกมทายสกอร์'}"
+        )
             .row
                 .point
-                    .pts {{'ui.t.ranking.prediction.pts'|trans}}
+                    .pts {{'ui.t.ranking.prediction.point'|trans}}
                     .scorebd
                         .score {{pointUser.score}}
                 .col-50
@@ -27,6 +27,6 @@
     include ./game-prediction/lasted-match
 
     .row
-        .history {{'ui.t.ranking.history'|trans}}
+        .history History ประวัติการทายผลทั้งหมด
     .line
     .footer

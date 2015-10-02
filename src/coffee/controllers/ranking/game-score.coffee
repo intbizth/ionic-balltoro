@@ -1,6 +1,6 @@
 class GameScore extends Controller
     constructor: ($scope) ->
-        $scope.gamePredictions = [
+        $scope.gameScores = [
             id: 1
             image: './img/ranking/display_null.png'
             username: 'Hipster - ตุงตาข่าย'

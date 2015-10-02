@@ -7,6 +7,7 @@
         .club
             img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
             span.name {{r.home_club.name}}
+
         .vs.-live(ng-if="r.is_live")
             | {{r.result}}
             //TODO: time must be live timestamp
@@ -14,15 +15,17 @@
 
         .vs.-fulltime(ng-if="r.is_full_time")
             | {{r.result}}
-            .ft FT
+            .ft {{'ui.t.match.ft'|trans}}
 
         .vs.-nextmatch(ng-if="!r.is_full_time && !r.is_live")
-            | VS
+            | {{'ui.t.match.vs'|trans}}
             div {{r.start_time|date:('HH:MM')}}
 
         .club
             img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
             span.name {{r.away_club.name}}
+
+include ./progress
 
 .handicap-bar Handicap
     span.title {{r.handicap}}

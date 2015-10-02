@@ -147,15 +147,15 @@ class Routing extends Config then constructor: (
         url: '/game-score'
         views:
             'game-score':
-                controller: 'gamePredictionController'
+                controller: 'gameScoreController'
                 templateUrl: 'templates/ranking/game-score.html'
 
-    state 'app.ranking.game-player',
-        url: '/game-player'
+    state 'app.ranking.game-score-show',
+        url: '/game-score/show/:id'
         views:
-            'game-player':
-                controller: 'gamePlayerController'
-                templateUrl: 'templates/ranking/game-player.html'
+            'game-score':
+                controller: 'gameScoreDetailController'
+                templateUrl: 'templates/ranking/game-score-show.html'
 
     # if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise '/app/home/index'

@@ -9,7 +9,7 @@ ion-item.match-items(ng-repeat="r in store.$collection | limitTo:quantity")
                 span.name {{r.home_club.name}}
             .vs.-live(ng-if="r.is_live")
                 | {{r.result}}
-                //TODO: time must be live timestamp
+                //TODO: time must be live times
                 .time {{r.start_time|date:('HH:MM')}}
             .vs.-fulltime(ng-if="r.is_full_time")
                 | {{r.result}}

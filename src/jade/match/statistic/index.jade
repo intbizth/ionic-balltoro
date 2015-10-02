@@ -3,7 +3,7 @@ ion-item.match-items.match-statistic
         .club
             img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
             span.name {{r.home_club.name}}
-        .vs.-live VS
+        .vs.-live {{'ui.t.match.vs'|trans}}
             .time {{r.start_time|date:('HH:MM')}}
         .club
             img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")

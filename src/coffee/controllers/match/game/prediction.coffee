@@ -89,3 +89,9 @@ class MatchGamePrediction extends Controller then constructor: (
     $scope.events.loadData()
 
     $scope.finishMatch = true
+
+    $scope.progressData =
+        [
+            { value:80 , color:'#FF3B30', won:yes, status:'-left' }
+            { value:20 , color:'#FAAF40', won:no, status:'-right' }
+        ]

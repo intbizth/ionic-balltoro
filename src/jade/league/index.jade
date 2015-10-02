@@ -1,35 +1,43 @@
 ion-view(view-title='{{"ui.t.league.title"|trans}}')
     ion-content
-        ion-item.match-items(collection-repeat="item in matches")
-            .league
-                .logo
-                .league {{item.season.name}}
-            ion-item.match-item(ng-repeat="r in item.items")
-                .match
-                    a(ui-sref="app.matches-show.game-prediction({ id:r.id })")
+        ion-refresher(
+        on-refresh="loadNextDayMatches()"
+        spinner="{{$spinnerIcon}}"
+        )
+        ion-list
+            ion-item.match-items(
+            ng-repeat="item in items")
+                .date(ng-if="item.type == 'date'")
+                    | {{item.value | moment: 's'}}
+
+                .league(ng-if="item.type == 'league'")
+                    .logo
+                    .name {{item.value.name}}
+
+                .match(ng-if="item.type == 'match'")
+                    a.info(ui-sref="app.matches-show.game-prediction({ id: item.value.id })")
                         .club
-                            img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
-                            span.name {{r.home_club.name}}
+                            img.logo(ng-src!="{{item.value.home_club.getLogo('70x70')}}")
+                            span.name {{item.value.home_club.name}}
 
-                        .vs.-live(ng-if="r.is_live")
-                            | {{r.result}}
-                            //TODO: time must be live timestamp
-                            .time {{r.start_time|date:('HH:MM')}}
+                        .vs.-live(ng-if="item.value.is_live")
+                            | {{item.value.result}}
+                            .time {{item.value.start_time|date:('HH:MM')}}
 
-                        .vs.-fulltime(ng-if="r.is_full_time")
-                            | {{r.result}}
+                        .vs.-fulltime(ng-if="item.value.is_full_time")
+                            | {{item.value.result}}
                             .ft FT
 
-                        .vs.-nextmatch(ng-if="!r.is_full_time && !r.is_live")
-                            | {{r.start_time|date:('HH:MM')}} {{r.id}}
+                        .vs.-nextmatch(ng-if="!item.value.is_full_time && !item.value.is_live")
+                            | {{item.value.start_time|date:('HH:MM')}}
 
                         .club
-                            span.name {{r.away_club.name}}
-                            img.logo.-right(ng-src!="{{r.away_club.getLogo('70x70')}}")
+                            span.name {{item.value.away_club.name}}
+                            img.logo.-right(ng-src!="{{item.value.away_club.getLogo('70x70')}}")
 
         ion-infinite-scroll(
-            ng-if="store.hasMorePage()"
-            on-infinite="store.getNextPage()"
-            distance="5%"
-            spinner="{{$spinnerIcon}}"
+        ng-if="hasMorePage"
+        on-infinite="loadPrevDayMatches()"
+        distance="5%"
+        spinner="{{$spinnerIcon}}"
         )

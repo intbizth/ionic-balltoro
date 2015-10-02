@@ -1,8 +1,9 @@
 //Overwrite from common/share.scss
 $match-share-border: #000;
+$match-share-bg: #213647;
 
 .match-share {
-    background: #213647;
+    background: $match-share-bg;
     width: 100%;
     margin: 0;
     padding-left: 15%;

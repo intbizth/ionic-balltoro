@@ -8,7 +8,7 @@ $score-color: $img-user-border;
 $game-color: $score-color;
 $tally-color: $game-color;
 $line-color-bg: #418AC9;
-$gradientbg-color: $game-predict-detail;
+$gradientbg-color: #fff 0%, #213647 45%, #213647 50%;
 $gradientbg2-color: $score-color;
 $history-color: $gradientbg2-color;
 $history-border: $history-color;
@@ -53,7 +53,7 @@ $footer-color-bg: #294051;
         position: relative;
         height: inherit;
         width: 100%;
-        background: linear-gradient(300deg, $gradientbg2-color 0%, $gradientbg-color 45%, $gradientbg-color 50%);
+        background: linear-gradient(300deg, $gradientbg-color);
     }
     .bg2{
         background: $gradientbg-color;
