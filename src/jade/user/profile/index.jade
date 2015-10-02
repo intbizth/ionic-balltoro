@@ -7,6 +7,7 @@ ion-view(view-title='Profile')
             .time 0
             .point pts
                 span.result 0
+
         .ranking-item.item-blue
             .desc
                 .title เกมทายผลทายสกอร์
@@ -14,6 +15,7 @@ ion-view(view-title='Profile')
             .time 0
             .point pts
                 span.result 0
+
         .ranking-item
             .desc
                 .title เกมทายผลทายสกอร์
@@ -43,10 +45,9 @@ ion-view(view-title='Profile')
         .profile-edit
             a.button.button-block(ng-href="/#/app/profile-edit") Edit Profile
 
-
     ion-infinite-scroll(
-        ng-if="store.hasMorePage()"
-        on-infinite="store.getNextPage()"
-        distance="5%"
-        spinner="{{$spinnerIcon}}"
+            ng-if="store.hasMorePage()"
+            on-infinite="store.getNextPage()"
+            distance="5%"
+            spinner="{{$spinnerIcon}}"
         )

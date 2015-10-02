@@ -1,27 +1,21 @@
 ion-view(view-title='{{r.home_club.name}} - {{r.away_club.name}} ')
     ion-pane.has-header.match-show
         md-tabs(
-            md-selected="tabSelectedIndex"
+            md-selected="tabSelectedIndex",
             md-border-bottom
-            )
+        )
             md-tab(
-                label!="{{'ui.t.match.tab.prediction'|trans}}"
+                label!="{{'ui.t.match.tab.prediction'|trans}}",
                 ui-sref="app.matches-show.game-prediction({id: matchId})"
-                )
+            )
                 div(flex layout="row")
                     md-content(flex)
                         div(ui-view="match-game-prediction")
 
-            //md-tab(
-            //    label!="{{'ui.t.match.tab.soccer'|trans}}"
-            //    ui-sref="app.matches-show.game-soccer({id: matchId})"
-            //    )
-            //    md-content(flex)
-            //        div(ui-view="match-game-soccer")
-
             md-tab(
-                label!="{{'ui.t.match.tab.statistic'|trans}}"
+                label!="{{'ui.t.match.tab.statistic'|trans}}",
                 ui-sref="app.matches-show.statistic({id: matchId})"
-                )
-                md-content(flex)
-                    div(ui-view="match-statistic")
+            )
+                div(flex layout="row")
+                    md-content(flex)
+                        div(ui-view="match-statistic")

@@ -18,10 +18,8 @@
                 )
                     | {{lastedPrediction.homeClub}}
                     span {{lastedPrediction.scoreHome}}
-
             .col-15
                 .handicap {{lastedPrediction.handicap}}
-
             .col-33
                 .club(
                     ng-class="{focus : lastedPrediction.scoreAway " +
@@ -29,17 +27,15 @@
                 )
                     | {{lastedPrediction.scoreAway}}
                     span  {{lastedPrediction.awayClub}}
-
             .col
                 .scorecolor {{lastedPrediction.scoreWinner}}
                     | {{'ui.t.ranking.prediction.point'|trans}}
 
     .line
-    .row.total
 
+    .row.total
         .col-50
             .resultname {{'ui.t.ranking.prediction.resultname'|trans}}
-
         .col-50
             .sum 14
                 span.resultunit  {{'ui.t.ranking.prediction.point'|trans}}
@@ -49,18 +45,14 @@
     .lastedMatch(ng-repeat="lastedPrediction in lastedPredictions")
         .date {{lastedPrediction.date}}
         .row.match
-
             .col-33
                 .club {{lastedPrediction.homeClub}}
                     span {{lastedPrediction.scoreHome}}
-
             .col-15
                 .handicap {{lastedPrediction.handicap}}
-
             .col-33
                 .club {{lastedPrediction.scoreAway}}
                     span  {{lastedPrediction.awayClub}}
-
             .col
                 .scorecolor {{lastedPrediction.scoreLine}}
                     |{{'ui.t.ranking.prediction.point'|trans}}
@@ -72,10 +64,8 @@
     .line
 
     .row.total
-
         .col-50
             .resultname {{'ui.t.ranking.prediction.resultname'|trans}}
-
         .col-50
             .sum 7
                 span.resultunit {{'ui.t.ranking.prediction.point'|trans}}

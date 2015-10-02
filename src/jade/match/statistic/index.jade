@@ -1,4 +1,4 @@
-ion-item.match-items.match-statistic
+.match-items.match-statistic
     .match
         .club
             img.logo(ng-src!="{{r.home_club.getLogo('70x70')}}")
@@ -24,3 +24,10 @@ include ./collapse/league
     a.button.button-icon.icon.ion-social-facebook
     a.button.button-icon.icon.ion-social-twitter
     a.button.button-icon.icon.ion-social-pinterest
+
+ion-infinite-scroll(
+    ng-if="store.hasMorePage()"
+    on-infinite="store.getNextPage()"
+    distance="5%"
+    spinner="{{$spinnerIcon}}"
+)
