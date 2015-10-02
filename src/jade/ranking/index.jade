@@ -1,23 +1,24 @@
 ion-view(view-title='{{"ui.t.ranking.title"|trans}}')
     ion-pane.has-header.match-show
         md-tabs(
-        md-selected="tabSelectedIndex"
-        md-border-bottom
+            md-selected="tabSelectedIndex",
+            md-border-bottom
         )
             md-tab(
-            label!="{{'ui.t.ranking.tab.prediction'|trans}}"
-            ui-sref="app.ranking.game-prediction"
+                label!="{{'ui.t.ranking.tab.prediction'|trans}}"
+                ui-sref="app.ranking.game-prediction"
             )
                 div(flex layout="row")
                     md-content(flex)
                         div(ui-view="game-prediction")
 
             md-tab(
-            label!="{{'ui.t.ranking.tab.score'|trans}}"
-            ui-sref="app.ranking.game-score"
+                label!="{{'ui.t.ranking.tab.score'|trans}}"
+                ui-sref="app.ranking.game-score"
             )
-                md-content(flex)
-                    div(ui-view="game-score")
+                div(flex layout="row")
+                    md-content(flex)
+                        div(ui-view="game-score")
 
             // Tab เกม 11 ตัวจริง
             //md-tab(

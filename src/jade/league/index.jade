@@ -1,9 +1,10 @@
 ion-view(view-title='{{"ui.t.league.title"|trans}}')
     ion-content
         ion-refresher(
-        on-refresh="loadNextDayMatches()"
-        spinner="{{$spinnerIcon}}"
+            on-refresh="loadNextDayMatches()"
+            spinner="{{$spinnerIcon}}"
         )
+
         ion-list
             ion-item.match-items(
             ng-repeat="item in items")
@@ -36,8 +37,8 @@ ion-view(view-title='{{"ui.t.league.title"|trans}}')
                             img.logo.-right(ng-src!="{{item.value.away_club.getLogo('70x70')}}")
 
         ion-infinite-scroll(
-        ng-if="hasMorePage"
-        on-infinite="loadPrevDayMatches()"
-        distance="5%"
-        spinner="{{$spinnerIcon}}"
+            ng-if="hasMorePage"
+            on-infinite="loadPrevDayMatches()"
+            distance="5%"
+            spinner="{{$spinnerIcon}}"
         )

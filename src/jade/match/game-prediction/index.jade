@@ -41,3 +41,10 @@ div(ng-if="finishMatch")
 
 include ./statistic
 include ../share
+
+ion-infinite-scroll(
+    ng-if="store.hasMorePage()"
+    on-infinite="store.getNextPage()"
+    distance="5%"
+    spinner="{{$spinnerIcon}}"
+)

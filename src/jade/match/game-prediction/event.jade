@@ -7,8 +7,11 @@
             div.col.col-center
                 div.text-right(ng-show="event.align == 'left'")
                     span.name(ng-show="event.name") {{event.name}}
-                    img.image(ng-show="event.icon", ng-src="./img/match-events/{{event.icon}}.png",
-                    srcset="./img/match-events/{{event.icon}}@2x.png 2x")
+                    img.image(
+                        ng-show="event.icon",
+                        ng-src="./img/match-events/{{event.icon}}.png",
+                        srcset="./img/match-events/{{event.icon}}@2x.png 2x"
+                    )
                     span.description(ng-show="event.description") {{event.description}}
                     span.time(ng-show="event.time") {{event.time}}
 
@@ -24,16 +27,21 @@
                 div.text-left(ng-show="event.align == 'right'")
                     span.time(ng-show="event.time") {{event.time}}
                     span.description(ng-show="event.description") {{event.description}}
-                    img.image(ng-show="event.icon", ng-src="./img/match-events/{{event.icon}}.png",
-                    srcset="./img/match-events/{{event.icon}}@2x.png 2x")
+                    img.image(
+                        ng-show="event.icon",
+                        ng-src="./img/match-events/{{event.icon}}.png",
+                        srcset="./img/match-events/{{event.icon}}@2x.png 2x"
+                    )
                     span.name(ng-show="event.name") {{event.name}}
 
 .event-description
     .event(layout="row") สิ้นสุดการแข่งขัน
         span.point 1 - 1
+
     .event(layout="row") ทายผลการแข่งขัน
         span.point 0
         | คะแนน
+
     .event(layout="row") ทายผลสกอร์
         span.point 0
         | คะแนน

@@ -25,6 +25,12 @@ ui.t:
             pts: Pts
         soccer:
             timeleft: เวลาที่เหลือ
+        prediction:
+            select: select
+            draw: Draw
+            score-th: สกอร์
+            score-en: Score
+            submit: ส่งเกมทายผลและทายสกอร์
 
     favorite:
         sidemenu:

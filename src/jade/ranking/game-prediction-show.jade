@@ -6,10 +6,11 @@
         .infoborder.col-50
             img.image(ng-src="./img/ranking/icon-chonburi.png")
             .name Chonburi FC
+
     .bg
         .pointUser(
-            ng-repeat="pointUser in pointUsers"
-            ng-class="{bg2 : pointUser.game == 'เกมทายสกอร์'}"
+                ng-repeat="pointUser in pointUsers"
+                ng-class="{bg2 : pointUser.game == 'เกมทายสกอร์'}"
             )
             .row
                 .point

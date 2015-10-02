@@ -2,19 +2,23 @@ ion-view(view-title='{{"ui.t.account.favorite.title"|trans}}')
 
     ion-content
     md-content.favorite-form
-        .listview(layout='column', layout-fill, layout-align='top center')
+        .listview(
+            layout='column',
+            layout-fill,
+            layout-align='top center'
+        )
             a.item(
                 ng-click='open()',
                 ng-repeat="team in myTeam",
                 ng-href='#',
                 hide-gt-md
-                ) {{team.name}}
+            ) {{team.name}}
 
     md-sidenav.md-sidenav-right.favorite-menu(md-component-id='Toggle_right')
         a.item(
             ng-click='close()',
             ng-repeat="team in teamList"
-            )
+        )
             img.icon(ng-src='{{team.imgURL}}')
             span.content {{team.name}}
 
