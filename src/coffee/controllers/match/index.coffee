@@ -27,10 +27,6 @@ class Match extends Controller then constructor: (
     $scope.$watchCollection 'matchCollection', (collection) ->
         $scope.items = items = store.buildItemStack collection
 
-#        for item in items
-#            if item.type == 'date'
-#                console.log(item.value)
-
         if items and items.length
             lastNextDay = items[0].value.format 'YYYY-MM-D'
             lastPrevDay = Moment(items[items.length - 1].value.match_day).format 'YYYY-MM-D'
@@ -64,4 +60,3 @@ class Match extends Controller then constructor: (
             $scope.matchCollection = store.getCollection()
 
     $scope.hasMorePage = yes
-

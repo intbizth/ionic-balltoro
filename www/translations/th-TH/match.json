@@ -1,4 +1,6 @@
 {
+  "ui.t.match.vs": "VS",
+  "ui.t.match.ft": "FT",
   "ui.t.match.day": "วันที่แข่งขัน",
   "ui.t.match.time": "เวลาแข่งขัน",
   "ui.t.match.handicap": "Handicap",

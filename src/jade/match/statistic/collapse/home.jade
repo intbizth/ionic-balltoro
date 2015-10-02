@@ -1,8 +1,8 @@
-//TODO:h2h might be from another controller
 .expand-collapse.home-collapse
-    .header(ng-click!="active1 = !active1",
-            ng-class!="{'collapsed': active1, 'expanded': !active1}"
-            )
+    .header(
+        ng-click!="active1 = !active1",
+        ng-class!="{'collapsed': active1, 'expanded': !active1}"
+    )
         .caret
         | {{r.home_club.name}}
     .slides(ng-hide="active1")

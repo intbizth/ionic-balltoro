@@ -30,4 +30,5 @@ ui.t:
             guess: เฉียด
             result: ความแม่นยำ
             percentage: "%"
+
         history: History ประวัติการทายผลทั้งหมด

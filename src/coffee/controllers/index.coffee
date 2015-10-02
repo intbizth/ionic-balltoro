@@ -4,5 +4,3 @@ class Index extends Controller then constructor: (
     new Matches().load $scope
 
     $scope.matches = $scope.store.$collection
-
-

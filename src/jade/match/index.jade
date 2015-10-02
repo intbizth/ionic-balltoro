@@ -26,7 +26,7 @@ ion-view(view-title="{{'ui.t.match.header.title'|trans}}")
 
                         .vs.-fulltime(ng-if="item.value.is_full_time")
                             | {{item.value.result}}
-                            .ft FT
+                            .ft {{'ui.t.match.ft'|trans}}
 
                         .vs.-nextmatch(ng-if="!item.value.is_full_time && !item.value.is_live")
                             | {{item.value.start_time|date:('HH:MM')}}

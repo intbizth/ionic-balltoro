@@ -1,18 +1,30 @@
 .game-collapse
     .container
-        .section
-            .select(ng-click!="active = !active", ng-class!="{'collapsed': active, 'expanded': !active}")
-                | select
-        .section
-            .select(ng-click!="active = !active", ng-class!="{'collapsed': active, 'expanded': !active}")
-                | select
 
         .section
-            .select(ng-click!="active = !active", ng-class!="{'collapsed': active, 'expanded': !active}")
-                | select
+            .select(
+                ng-click!="active = !active",
+                ng-class!="{'collapsed': active, 'expanded': !active}"
+            )
+                | {{'ui.t.match.prediction.select'|trans}}
+
+        .section
+            .select(
+                ng-click!="active = !active",
+                ng-class!="{'collapsed': active, 'expanded': !active}"
+            )
+                | {{'ui.t.match.prediction.select'|trans}}
+
+        .section
+            .select(
+                ng-click!="active = !active",
+                ng-class!="{'collapsed': active, 'expanded': !active}"
+            )
+                | {{'ui.t.match.prediction.select'|trans}}
+
         .row.desc
             .col.col-33.text-center {{r.home_club.name}}
-            .col.col-33.text-center Draw
+            .col.col-33.text-center {{'ui.t.match.prediction.draw'|trans}}
             .col.col-33.text-center {{r.away_club.name}}
 
 .prediction-content
