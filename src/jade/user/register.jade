@@ -1,4 +1,4 @@
-ion-view(view-title='Register')
+ion-view(view-title='{{"ui.t.user.register.title"| trans}}')
     ion-content
         form(
             ng-submit='doRegister()',
@@ -30,7 +30,8 @@ ion-view(view-title='Register')
                         required
                     )
 
-                p(ng-show="register.password.$dirty && register.password.$invalid")
+                p(ng-show="register.password.$dirty && " +
+                "register.password.$invalid")
                     span(ng-show="register.password.$error.required")
                         | Password required!
 
@@ -43,9 +44,12 @@ ion-view(view-title='Register')
                         required
                     )
 
-                p(ng-show="register.confirm_password.$dirty && register.confirm_password.$invalid")
+                p(ng-show="register.confirm_password.$dirty && " +
+                "register.confirm_password.$invalid"
+                )
                     span(ng-show="register.password.$error.required")
                         | Password required!
 
                 label
-                    button.button.button-block(type='submit') Register
+                    button.button.button-block(type='submit')
+                        | {{"ui.t.user.register.button"| trans}}

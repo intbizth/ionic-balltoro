@@ -46,24 +46,22 @@ $match-vs-ft-color: #fff;
         .club {
             width: 40%;
             float: left;
+            position: relative;
             .logo {
                 width: 45px;
-                margin-top: 3px;
-                margin-left: 5px;
+                margin-top: -2px;
             }
             .name {
-                margin-left: 1px;
                 text-align: center;
                 position: absolute;
-                padding-top: 8px;
                 font-size: 13px;
-                width: 24%;
+                width: 62%;
                 white-space: normal;
+                top: 5px;
                 color: $match-item-name-item;
             }
             .-right {
                 float: right !important;
-                margin-right: 2px;
             }
         }
 

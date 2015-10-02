@@ -1,7 +1,33 @@
 ui.t:
     user:
+        ranking: Ranking
+        game-prediction: เกมทายผลทายสกอร์
+        team-fav: Team Favorite
+        submit: Submit
+        pts: Pts
+        edit-profile:
+            title: Edit Profile
         game-setting:
             title: Game Setting
             header: Team Favorite
             choose: Choose Team
             submit: Submit
+        profile:
+            title: Profile
+            edit: Edit Profile
+        login:
+            title: Login
+            button: Log in
+            close: Close
+            username: Username
+            password: Password
+            forgot: Forgot Your Password?
+        register:
+            title: Register
+            button: Register
+        reset-password:
+            title: Reset Password
+        request-password:
+            title: Request Password
+        verify:
+            title: Verify Email

@@ -25,6 +25,10 @@
   "ui.t.match.prediction.score-th": "สกอร์",
   "ui.t.match.prediction.score-en": "Score",
   "ui.t.match.prediction.submit": "ส่งเกมทายผลและทายสกอร์",
+  "ui.t.match.prediction.summary": "สิ้นสุดการแข่งขัน",
+  "ui.t.match.prediction.competition-guess": "ทายผลการแข่งขัน",
+  "ui.t.match.prediction.score-guess": "ทายผลสกอร์",
+  "ui.t.match.prediction.point": "คะแนน",
   "ui.t.favorite.sidemenu.info_1": "ท่านสามารถเลือกทีมโปรดของท่านได้ทั้ง 6 ลีกชั้นนำ ลักละ 1 ทีม ร่วมเล่นเกมทายผล และเกมทาย 11 ตัวจริงที่คาดว่าลงสนาม ก่อนเริ่มการแข่งขัน",
   "ui.t.favorite.sidemenu.info_2": "ผู้ทายถูกจะได้รับแต้ม เพื่อใช้แต้มร่วมสนุกกับกิจกรรมต่างๆ ของ balltoro"
 }

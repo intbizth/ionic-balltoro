@@ -35,13 +35,13 @@
                     span.name(ng-show="event.name") {{event.name}}
 
 .event-description
-    .event(layout="row") สิ้นสุดการแข่งขัน
+    .event(layout="row") {{'ui.t.match.prediction.summary'|trans}}
         span.point 1 - 1
 
-    .event(layout="row") ทายผลการแข่งขัน
+    .event(layout="row") {{'ui.t.match.prediction.competition-guess'|trans}}
         span.point 0
-        | คะแนน
+        | {{'ui.t.match.prediction.point'|trans}}
 
-    .event(layout="row") ทายผลสกอร์
+    .event(layout="row") {{'ui.t.match.prediction.score-guess'|trans}}
         span.point 0
-        | คะแนน
+        | {{'ui.t.match.prediction.point'|trans}}
