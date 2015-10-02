@@ -31,6 +31,10 @@ ui.t:
             score-th: สกอร์
             score-en: Score
             submit: ส่งเกมทายผลและทายสกอร์
+            summary: สิ้นสุดการแข่งขัน
+            competition-guess: ทายผลการแข่งขัน
+            score-guess: ทายผลสกอร์
+            point: คะแนน
 
     favorite:
         sidemenu:

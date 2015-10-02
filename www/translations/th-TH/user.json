@@ -1,6 +1,25 @@
 {
+  "ui.t.user.ranking": "Ranking",
+  "ui.t.user.game-prediction": "เกมทายผลทายสกอร์",
+  "ui.t.user.team-fav": "Team Favorite",
+  "ui.t.user.submit": "Submit",
+  "ui.t.user.pts": "Pts",
+  "ui.t.user.edit-profile.title": "Edit Profile",
   "ui.t.user.game-setting.title": "Game Setting",
   "ui.t.user.game-setting.header": "Team Favorite",
   "ui.t.user.game-setting.choose": "Choose Team",
-  "ui.t.user.game-setting.submit": "Submit"
+  "ui.t.user.game-setting.submit": "Submit",
+  "ui.t.user.profile.title": "Profile",
+  "ui.t.user.profile.edit": "Edit Profile",
+  "ui.t.user.login.title": "Login",
+  "ui.t.user.login.button": "Log in",
+  "ui.t.user.login.close": "Close",
+  "ui.t.user.login.username": "Username",
+  "ui.t.user.login.password": "Password",
+  "ui.t.user.login.forgot": "Forgot Your Password?",
+  "ui.t.user.register.title": "Register",
+  "ui.t.user.register.button": "Register",
+  "ui.t.user.reset-password.title": "Reset Password",
+  "ui.t.user.request-password.title": "Request Password",
+  "ui.t.user.verify.title": "Verify Email"
 }

@@ -1,7 +1,8 @@
 ion-view(view-title='News')
     ion-content
         .news-thumbnail(collection-repeat="r in store.$collection")
-            a(ui-sref='#/app/news/show/{{r.id}}')
+            //TODO: cannot uesed 'ui-sref' for show news by id
+            a(href='#/app/news/show/{{r.id}}')
                 img.cover(ng-src="{{r.cover}}")
                 .info
                     h3.headline {{r.headline}}

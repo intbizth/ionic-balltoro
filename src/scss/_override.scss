@@ -1,11 +1,17 @@
 $player-position-md-active-bg: #549AF7;
 $player-position-md-active-text: #fff;
 
+.tabs {
+    .tabs-top {
+        top: 64px !important;
+    }
+}
+
 .pane {
     // TODO: handle other platforms.
     height: initial !important;
     &.has-header {
-        top: 64px !important;
+        top: 44px !important;
     }
 }
 
@@ -13,17 +19,92 @@ md-tabs:not(.md-no-tab-content):not(.md-dynamic-height) {
     height: 100% !important;
 }
 
-.player-position {
-    .md-active {
-        background: $player-position-md-active-bg;
-        color: $player-position-md-active-text !important;
-    }
-}
 .md-sidenav-right {
     left: 100%;
-    top: 64px !important;
+    top: 44px !important;
 }
 
 .item-content {
     height: 100%;
+}
+
+.favorite-form {
+    .listview {
+        background-color: #0F171E;
+        margin-top: 44px !important;
+    }
+}
+
+.platform-browser {
+    .tabs {
+        .tabs-top {
+            top: 84px !important;
+        }
+    }
+
+    .pane {
+        // TODO: handle other platforms.
+        height: initial !important;
+        &.has-header {
+            top: 44px !important;
+        }
+    }
+
+    md-tabs:not(.md-no-tab-content):not(.md-dynamic-height) {
+        height: 100% !important;
+    }
+
+    .md-sidenav-right {
+        left: 100%;
+        top: 44px !important;
+    }
+
+    .item-content {
+        height: 100%;
+    }
+
+    .favorite-form {
+        .listview {
+            background-color: #0F171E;
+            margin-top: 24px !important;
+        }
+    }
+}
+
+.platform-ios {
+    .favorite-form {
+        .listview {
+            background-color: #0F171E;
+            margin-top: 64px !important;
+        }
+    }
+
+    .tabs {
+        .tabs-top {
+            top: 84px !important;
+        }
+    }
+
+    .pane {
+        // TODO: handle other platforms.
+        height: initial !important;
+        overflow: auto;
+        &.has-header {
+            top: 64px !important;
+        }
+    }
+
+    md-tabs:not(.md-no-tab-content):not(.md-dynamic-height) {
+        height: 100% !important;
+        overflow: auto;
+    }
+
+    md-tab-content {
+        overflow: auto;
+    }
+
+    .md-sidenav-right {
+        left: 100%;
+        top: 64px !important;
+    }
 }

@@ -95,6 +95,11 @@ class Routing extends Config then constructor: (
                 controller: 'registerController'
                 templateUrl: 'templates/user/register.html'
 
+    state 'app.request-password',
+        url: '/request-password'
+        views:
+            content:
+                templateUrl: 'templates/user/password/request-password.html'
 
     state 'app.profile',
         url: '/profile'

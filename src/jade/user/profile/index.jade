@@ -1,27 +1,27 @@
-ion-view(view-title='Profile')
+ion-view(view-title='{{"ui.t.user.profile.title"|trans}}')
     ion-content
         .ranking-item
             .desc
-                .title เกมทายผลทายสกอร์
-                .ranking ranking
+                .title {{'ui.t.user.game-prediction'|trans}}
+                .ranking {{'ui.t.user.ranking'|trans}}
             .time 0
-            .point pts
+            .point {{'ui.t.user.pts'|trans}}
                 span.result 0
 
         .ranking-item.item-blue
             .desc
-                .title เกมทายผลทายสกอร์
-                .ranking ranking
+                .title {{'ui.t.user.game-prediction'|trans}}
+                .ranking {{'ui.t.user.ranking'|trans}}
             .time 0
-            .point pts
+            .point {{'ui.t.user.pts'|trans}}
                 span.result 0
 
         .ranking-item
             .desc
-                .title เกมทายผลทายสกอร์
-                .ranking ranking
+                .title {{'ui.t.user.game-prediction'|trans}}
+                .ranking {{'ui.t.user.ranking'|trans}}
             .time 0
-            .point pts
+            .point {{'ui.t.user.pts'|trans}}
                 span.result 0
 
         .summary-point
@@ -39,11 +39,12 @@ ion-view(view-title='Profile')
                 .username AAAISMAUSER
                 .fullname AAA ISMYUSER
             .team-choosen
-                .header Team Favorite
+                .header {{'ui.t.user.team-fav'|trans}}
                 .logo
 
         .profile-edit
-            a.button.button-block(ng-href="/#/app/profile-edit") Edit Profile
+            a.button.button-block(ui-sref='app.profile-edit')
+                | {{'ui.t.user.profile.edit'|trans}}
 
     ion-infinite-scroll(
             ng-if="store.hasMorePage()"
